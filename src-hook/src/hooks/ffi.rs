@@ -15,7 +15,7 @@ pub struct DamageInstance {
 
 #[cfg(test)]
 mod tests {
-    use super::DamageInstance;
+    use super::{DamageInstance, WeaponInfo};
 
     #[test]
     fn damage_instance_matches_game_2_layout() {
@@ -23,6 +23,20 @@ mod tests {
         assert_eq!(std::mem::offset_of!(DamageInstance, flags), 0xE8);
         assert_eq!(std::mem::offset_of!(DamageInstance, action_id), 0x16C);
         assert_eq!(std::mem::offset_of!(DamageInstance, damage_cap), 0x2BC);
+    }
+
+    #[test]
+    fn weapon_info_matches_game_2_layout() {
+        assert_eq!(std::mem::offset_of!(WeaponInfo, weapon_id), 0x04);
+        assert_eq!(std::mem::offset_of!(WeaponInfo, star_level), 0x14);
+        assert_eq!(std::mem::offset_of!(WeaponInfo, plus_marks), 0x18);
+        assert_eq!(std::mem::offset_of!(WeaponInfo, awakening_level), 0x1C);
+        assert_eq!(std::mem::offset_of!(WeaponInfo, trait_1_id), 0x20);
+        assert_eq!(std::mem::offset_of!(WeaponInfo, trait_3_level), 0x34);
+        assert_eq!(std::mem::offset_of!(WeaponInfo, wrightstone_id), 0x38);
+        assert_eq!(std::mem::offset_of!(WeaponInfo, weapon_level), 0x58);
+        assert_eq!(std::mem::offset_of!(WeaponInfo, weapon_hp), 0x5C);
+        assert_eq!(std::mem::offset_of!(WeaponInfo, weapon_attack), 0x60);
     }
 }
 
@@ -116,7 +130,15 @@ pub struct WeaponInfo {
     /// Wrightstone used on the weapon
     pub wrightstone_id: u32,
     unk_3c: u32,
-    /// Current weapon level
+    /// Game 2.0 inserted 6 new u32 fields here (purpose unverified) between
+    /// wrightstone_id and weapon_level, pushing the latter from 0x40 to 0x58.
+    /// Confirmed live: 0x38-0x34 all still match the pre-2.0 layout exactly
+    /// (weapon_id, star_level, awakening_level, all 3 traits, wrightstone_id all
+    /// checked byte-for-byte against known values), and 0x58/0x5c/0x60 match a
+    /// known weapon's level/base-HP/base-ATK from an external stats reference. See
+    /// feedback_re_methodology memory.
+    unk_40_54: [u32; 6],
+    /// Weapon level
     pub weapon_level: u32,
     /// Weapon's HP Stats (before plus marks)
     pub weapon_hp: u32,

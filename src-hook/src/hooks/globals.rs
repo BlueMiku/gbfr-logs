@@ -1,7 +1,7 @@
 use std::ptr;
 use std::sync::atomic::{AtomicPtr, AtomicU32};
 
-use anyhow::{Context, Result};
+use anyhow::Result;
 
 use crate::hooks::ffi::QuestState;
 use crate::process::Process;
@@ -28,6 +28,16 @@ const PLAYER_DATA_OFFSET_GAME_2: u32 = 0x15030;
 /// needed an extra level of indirection beyond what worked for player_data_offset.
 const SIGIL_OFFSET_GAME_2: u32 = 0x1AE90;
 
+/// Like player_data_offset, WeaponInfo is still inline on the entity in game 2.0 - it
+/// just moved (and turned out to sit 0x54 bytes past the end of PlayerStats, in the
+/// same broader per-player data block). Found live by scanning the entity's own
+/// mapped region for a known weapon_id hash (`weapons.json`-resolved) via a bounded
+/// direct-value scan from the damage hook - see feedback_re_methodology memory. The
+/// old byte-pattern search for this is dead in 2.0 for the same reason action_id's
+/// was: it hunts a specific compiled instruction sequence, and the game's 2.0
+/// recompile changed the surrounding bytes even though the underlying field survived.
+const WEAPON_OFFSET_GAME_2: u32 = 0x15080;
+
 pub fn setup_globals(process: &Process) -> Result<()> {
     let player_data_offset = PLAYER_DATA_OFFSET_GAME_2;
 
@@ -41,38 +51,42 @@ pub fn setup_globals(process: &Process) -> Result<()> {
 
     SIGIL_OFFSET.store(SIGIL_OFFSET_GAME_2, std::sync::atomic::Ordering::Relaxed);
 
-    let weapon_offset = process
-        .search_slice::<u8>("48 ? ? ' ? 48 ? ? ? 48 ? ? e8 ? ? ? ? 31 ?")
-        .context("Could not find weapon offset")?;
-
     #[cfg(feature = "console")]
-    println!("weapon_offset: {:x}", weapon_offset);
+    println!("weapon_offset: {:x}", WEAPON_OFFSET_GAME_2);
 
-    WEAPON_OFFSET.store(
-        player_data_offset + weapon_offset as u32,
-        std::sync::atomic::Ordering::Relaxed,
-    );
+    WEAPON_OFFSET.store(WEAPON_OFFSET_GAME_2, std::sync::atomic::Ordering::Relaxed);
 
-    let overmastery_offset = process
-        .search_slice::<u32>("49 8D 8C 24 ' ? ? ? ? 48 8D 93 ? ? ? ? E8 ? ? ? ?")
-        .context("Could not find overmastery offset")?;
+    // overmastery_offset and sba_offset are still unresolved for game 2.0 (same dead
+    // byte-pattern issue as weapon_offset was) - kept non-fatal so a failure here
+    // doesn't prevent the offsets already stored above from taking effect.
+    match process.search_slice::<u32>("49 8D 8C 24 ' ? ? ? ? 48 8D 93 ? ? ? ? E8 ? ? ? ?") {
+        Ok(overmastery_offset) => {
+            #[cfg(feature = "console")]
+            println!("overmastery_offset: {:x}", overmastery_offset);
 
-    #[cfg(feature = "console")]
-    println!("overmastery_offset: {:x}", overmastery_offset);
+            OVERMASTERY_OFFSET.store(
+                player_data_offset + overmastery_offset,
+                std::sync::atomic::Ordering::Relaxed,
+            );
+        }
+        Err(_) => {
+            #[cfg(feature = "console")]
+            println!("overmastery_offset: not found (expected until re-verified for game 2.0)");
+        }
+    }
 
-    OVERMASTERY_OFFSET.store(
-        player_data_offset + overmastery_offset,
-        std::sync::atomic::Ordering::Relaxed,
-    );
+    match process.search_slice::<u32>("7E ? C5 FA 59 81 ? ? ? ? 48 81 C1 ' ? ? ? ? C5 F8 54 0D ? ? ? ?") {
+        Ok(sba_offset) => {
+            #[cfg(feature = "console")]
+            println!("sba_offset: {:x}", sba_offset);
 
-    let sba_offset = process
-        .search_slice::<u32>("7E ? C5 FA 59 81 ? ? ? ? 48 81 C1 ' ? ? ? ? C5 F8 54 0D ? ? ? ?")
-        .context("Could not find sba offset")?;
-
-    #[cfg(feature = "console")]
-    println!("sba_offset: {:x}", sba_offset);
-
-    SBA_OFFSET.store(sba_offset, std::sync::atomic::Ordering::Relaxed);
+            SBA_OFFSET.store(sba_offset, std::sync::atomic::Ordering::Relaxed);
+        }
+        Err(_) => {
+            #[cfg(feature = "console")]
+            println!("sba_offset: not found (expected until re-verified for game 2.0)");
+        }
+    }
 
     Ok(())
 }

@@ -12,8 +12,8 @@ use retour::static_detour;
 use crate::{
     event,
     hooks::{
-        ffi::{DamageInstance, PlayerStats, SigilList, VBuffer},
-        globals::{PLAYER_DATA_OFFSET, SIGIL_OFFSET},
+        ffi::{DamageInstance, PlayerStats, SigilList, VBuffer, WeaponInfo},
+        globals::{PLAYER_DATA_OFFSET, SIGIL_OFFSET, WEAPON_OFFSET},
     },
     process::Process,
 };
@@ -107,6 +107,36 @@ fn maybe_send_player_stats(tx: &event::Tx, actor_index: u32, character_type: u32
         None => (Vec::new(), CString::new("").unwrap(), CString::new("").unwrap(), false),
     };
 
+    // weapon_offset is inline on the entity (confirmed live via a bounded scan for a
+    // known weapon_id hash - see feedback_re_methodology memory), same as
+    // player_data_offset, unlike sigil_offset's extra indirection.
+    let weapon_offset = WEAPON_OFFSET.load(Ordering::Relaxed);
+    let weapon_info = if weapon_offset != 0 {
+        std::ptr::NonNull::new(unsafe { entity_ptr.byte_add(weapon_offset as usize) } as *mut WeaponInfo).map(
+            |info| {
+                let info = unsafe { info.as_ref() };
+                protocol::WeaponInfo {
+                    weapon_id: info.weapon_id,
+                    star_level: info.star_level,
+                    plus_marks: info.plus_marks,
+                    awakening_level: info.awakening_level,
+                    trait_1_id: info.trait_1_id,
+                    trait_1_level: info.trait_1_level,
+                    trait_2_id: info.trait_2_id,
+                    trait_2_level: info.trait_2_level,
+                    trait_3_id: info.trait_3_id,
+                    trait_3_level: info.trait_3_level,
+                    wrightstone_id: info.wrightstone_id,
+                    weapon_level: info.weapon_level,
+                    weapon_hp: info.weapon_hp,
+                    weapon_attack: info.weapon_attack,
+                }
+            },
+        )
+    } else {
+        None
+    };
+
     let payload = Message::PlayerLoadEvent(protocol::PlayerLoadEvent {
         sigils,
         character_name,
@@ -124,7 +154,7 @@ fn maybe_send_player_stats(tx: &event::Tx, actor_index: u32, character_type: u32
             total_power: stats.total_power,
         },
         character_type,
-        weapon_info: None,
+        weapon_info,
         overmastery_info: None,
     });
 

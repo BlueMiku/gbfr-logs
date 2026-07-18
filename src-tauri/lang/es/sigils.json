@@ -1,4 +1,12 @@
 {
+  "001804f1": {
+    "key": "GEEN_106_14",
+    "text": "Acometida sagaz V+"
+  },
+  "00277247": {
+    "key": "GEEN_327_01",
+    "text": "Divergencia II"
+  },
   "004557b8": {
     "key": "GEEN_158_13",
     "text": "Cañón de vidrio IV+"
@@ -11,6 +19,10 @@
     "key": "GEEN_146_24",
     "text": "Baza elemental+"
   },
+  "006e474e": {
+    "key": "GEEN_322_14",
+    "text": "Empíreo confinante V+"
+  },
   "0114dd91": {
     "key": "GEEN_151_02",
     "text": "Daño adicional III"
@@ -19,9 +31,29 @@
     "key": "GEEN_119_04",
     "text": "Floración de la rosa"
   },
+  "0188e9e3": {
+    "key": "GEEN_001_11",
+    "text": "Salud II+"
+  },
+  "01b49f0d": {
+    "key": "GEEN_111_21",
+    "text": "Carga rápida II+"
+  },
+  "01bb436b": {
+    "key": "GEEN_176_04",
+    "text": "Recarga de lobo tronador"
+  },
   "01d1a6ce": {
     "key": "GEEN_119_91",
     "text": "Floración de la rosa+"
+  },
+  "01f8a166": {
+    "key": "GEEN_321_10",
+    "text": "Empíreo refulgente I+"
+  },
+  "02262975": {
+    "key": "GEEN_031_10",
+    "text": "Asesino del Break I+"
   },
   "02472c43": {
     "key": "GEEN_123_90",
@@ -47,17 +79,37 @@
     "key": "GEEN_106_04",
     "text": "Acometida sagaz V"
   },
+  "04bd9f6b": {
+    "key": "GEEN_325_14",
+    "text": "Sin límites V+"
+  },
   "04d028e3": {
     "key": "GEEN_013_03",
     "text": "Daño crítico IV"
+  },
+  "0523a202": {
+    "key": "GEEN_178_91",
+    "text": "Mantra azabache+"
   },
   "0537ef0b": {
     "key": "GEEN_004_00",
     "text": "Aturdimiento I"
   },
+  "054f4ace": {
+    "key": "GEEN_113_00",
+    "text": "Mejora de insignias I"
+  },
   "05aca892": {
     "key": "GEEN_118_92",
     "text": "Visión veterana+"
+  },
+  "05e72720": {
+    "key": "GEEN_321_21",
+    "text": "Empíreo refulgente II+"
+  },
+  "05fe0351": {
+    "key": "GEEN_234_14",
+    "text": "Espartano+"
   },
   "06260d96": {
     "key": "GEEN_005_13",
@@ -79,9 +131,33 @@
     "key": "GEEN_114_93",
     "text": "Corazón audaz+"
   },
+  "0723f7ec": {
+    "key": "GEEN_178_92",
+    "text": "Progreso azabache+"
+  },
   "07703a8a": {
     "key": "GEEN_072_02",
     "text": "Ánimo III"
+  },
+  "07a3abd9": {
+    "key": "GEEN_322_22",
+    "text": "Empíreo confinante III+"
+  },
+  "088829b8": {
+    "key": "GEEN_327_21",
+    "text": "Divergencia II+"
+  },
+  "0889f577": {
+    "key": "GEEN_088_14",
+    "text": "Resistencia a infortunios V+"
+  },
+  "0890882f": {
+    "key": "GEEN_013_10",
+    "text": "Daño crítico I+"
+  },
+  "0898bb55": {
+    "key": "GEEN_327_12",
+    "text": "Divergencia III+"
   },
   "08da7279": {
     "key": "GEEN_000_14",
@@ -90,6 +166,14 @@
   "0952f945": {
     "key": "GEEN_111_04",
     "text": "Carga rápida V"
+  },
+  "0980b80f": {
+    "key": "GEEN_008_21",
+    "text": "Ataque cargado II+"
+  },
+  "09848fdf": {
+    "key": "GEEN_167_14",
+    "text": "Autopoción+"
   },
   "0a410bd8": {
     "key": "GEEN_114_04",
@@ -110,6 +194,14 @@
   "0b456def": {
     "key": "GEEN_094_24",
     "text": "Máxima concentración V+"
+  },
+  "0b55dd64": {
+    "key": "GEEN_006_10",
+    "text": "Aguante I+"
+  },
+  "0b6f219e": {
+    "key": "GEEN_052_14",
+    "text": "Resistencia a congelación V+"
   },
   "0bb4ccda": {
     "key": "GEEN_153_14",
@@ -151,6 +243,10 @@
     "key": "GEEN_083_04",
     "text": "Asalto habilidoso V"
   },
+  "0e87c8d2": {
+    "key": "GEEN_008_10",
+    "text": "Ataque cargado I+"
+  },
   "0ea21045": {
     "key": "GEEN_154_13",
     "text": "Furia descontrolada IV+"
@@ -158,6 +254,10 @@
   "0ee1e9d7": {
     "key": "GEEN_157_04",
     "text": "Tirada de dados"
+  },
+  "0ef869da": {
+    "key": "GEEN_077_14",
+    "text": "Discreción V+"
   },
   "0f06d22c": {
     "key": "GEEN_145_23",
@@ -179,6 +279,10 @@
     "key": "GEEN_152_00",
     "text": "Menos es más I"
   },
+  "0fc3e656": {
+    "key": "GEEN_004_10",
+    "text": "Aturdimiento I+"
+  },
   "100e4b1d": {
     "key": "GEEN_079_03",
     "text": "Aprendizaje rápido IV"
@@ -199,6 +303,10 @@
     "key": "GEEN_111_02",
     "text": "Carga rápida III"
   },
+  "1147543e": {
+    "key": "GEEN_324_12",
+    "text": "Empíreo níveo III+"
+  },
   "1150513c": {
     "key": "GEEN_110_03",
     "text": "Desesperación IV"
@@ -214,6 +322,10 @@
   "120c5d98": {
     "key": "GEEN_147_03",
     "text": "Senda del maestro IV"
+  },
+  "12789216": {
+    "key": "GEEN_321_02",
+    "text": "Empíreo refulgente III"
   },
   "1291f7ca": {
     "key": "GEEN_031_22",
@@ -255,9 +367,25 @@
     "key": "GEEN_129_92",
     "text": "Realidad de la creadora+"
   },
+  "14ba8934": {
+    "key": "GEEN_166_13",
+    "text": "Gran égida IV+"
+  },
   "14c58bf1": {
     "key": "GEEN_129_91",
     "text": "Estrategia de la creadora+"
+  },
+  "158d506f": {
+    "key": "GEEN_111_20",
+    "text": "Carga rápida I+"
+  },
+  "15f618b1": {
+    "key": "GEEN_323_22",
+    "text": "Empíreo flámeo III+"
+  },
+  "16199eae": {
+    "key": "GEEN_009_20",
+    "text": "Poder de conexión I+"
   },
   "16216fdd": {
     "key": "GEEN_072_03",
@@ -299,6 +427,14 @@
     "key": "GEEN_221_94",
     "text": "Límite de daño V+"
   },
+  "186407ed": {
+    "key": "GEEN_320_12",
+    "text": "Empíreo abrasador III+"
+  },
+  "18b64c80": {
+    "key": "GEEN_144_10",
+    "text": "Fortaleza I+"
+  },
   "190c656d": {
     "key": "GEEN_151_13",
     "text": "Daño adicional IV+"
@@ -306,6 +442,14 @@
   "197818b7": {
     "key": "GEEN_055_03",
     "text": "Resistencia a parálisis IV"
+  },
+  "19a4598e": {
+    "key": "GEEN_110_21",
+    "text": "Desesperación II+"
+  },
+  "19c4348e": {
+    "key": "GEEN_324_01",
+    "text": "Empíreo níveo II"
   },
   "19cb4eb9": {
     "key": "GEEN_057_24",
@@ -319,9 +463,17 @@
     "key": "GEEN_104_04",
     "text": "Defensa sagaz V"
   },
+  "1a359b67": {
+    "key": "GEEN_176_92",
+    "text": "Perspicacia de lobo tronador+"
+  },
   "1a57aef1": {
     "key": "GEEN_127_90",
     "text": "Despertar de la mariposa+"
+  },
+  "1a743e14": {
+    "key": "GEEN_322_03",
+    "text": "Empíreo confinante IV"
   },
   "1a94123d": {
     "key": "GEEN_006_13",
@@ -335,9 +487,17 @@
     "key": "GEEN_094_00",
     "text": "Máxima concentración I"
   },
+  "1b813e10": {
+    "key": "GEEN_005_20",
+    "text": "Hostilidad I+"
+  },
   "1bbe919c": {
     "key": "GEEN_118_90",
     "text": "Despertar del veterano+"
+  },
+  "1be87ead": {
+    "key": "GEEN_013_21",
+    "text": "Daño crítico II+"
   },
   "1bf76d02": {
     "key": "GEEN_106_00",
@@ -351,9 +511,17 @@
     "key": "GEEN_140_00",
     "text": "Resonancia cangrejil"
   },
+  "1c500ab2": {
+    "key": "GEEN_323_12",
+    "text": "Empíreo flámeo III+"
+  },
   "1ca872e7": {
     "key": "GEEN_008_14",
     "text": "Ataque cargado V+"
+  },
+  "1caa06bd": {
+    "key": "GEEN_100_00",
+    "text": "Suplementos I"
   },
   "1cd1d367": {
     "key": "GEEN_151_14",
@@ -371,6 +539,10 @@
     "key": "GEEN_158_24",
     "text": "Cañón de vidrio V+"
   },
+  "1de014e6": {
+    "key": "GEEN_096_14",
+    "text": "Nervios de acero V+"
+  },
   "1df4d351": {
     "key": "GEEN_064_03",
     "text": "Venganza de finta IV"
@@ -383,9 +555,17 @@
     "key": "GEEN_066_24",
     "text": "Regeneración V+"
   },
+  "1f372593": {
+    "key": "GEEN_223_94",
+    "text": "Tiranía V+"
+  },
   "1fc0c1a5": {
     "key": "GEEN_085_94",
     "text": "Égida V+"
+  },
+  "1ffb1aed": {
+    "key": "GEEN_030_21",
+    "text": "Asesino del Overdrive II+"
   },
   "2014714c": {
     "key": "GEEN_009_00",
@@ -395,9 +575,17 @@
     "key": "GEEN_014_23",
     "text": "Ventajista IV+"
   },
+  "20492635": {
+    "key": "GEEN_321_24",
+    "text": "Empíreo refulgente V+"
+  },
   "207559b9": {
     "key": "GEEN_028_14",
     "text": "Carga afortunada V+"
+  },
+  "207b67d1": {
+    "key": "GEEN_027_11",
+    "text": "Tiranía II+"
   },
   "208af595": {
     "key": "GEEN_063_04",
@@ -407,9 +595,17 @@
     "key": "GEEN_054_24",
     "text": "Resistencia a aturdimiento V+"
   },
+  "21139747": {
+    "key": "GEEN_058_14",
+    "text": "Resist. anulación arcanos V+"
+  },
   "212b81f5": {
     "key": "GEEN_120_54",
     "text": "Armonía fantasmal"
+  },
+  "21df7cfb": {
+    "key": "GEEN_055_14",
+    "text": "Resistencia a parálisis V+"
   },
   "21e10eb7": {
     "key": "GEEN_119_92",
@@ -423,6 +619,18 @@
     "key": "GEEN_087_01",
     "text": "Firmeza II"
   },
+  "22bdaeb0": {
+    "key": "GEEN_320_10",
+    "text": "Empíreo abrasador I+"
+  },
+  "22dc8701": {
+    "key": "GEEN_323_03",
+    "text": "Empíreo flámeo IV"
+  },
+  "231ebaa2": {
+    "key": "GEEN_321_23",
+    "text": "Empíreo refulgente IV+"
+  },
   "232147ad": {
     "key": "GEEN_152_23",
     "text": "Menos es más IV+"
@@ -431,6 +639,10 @@
     "key": "GEEN_136_00",
     "text": "Resist. tortura acuática I"
   },
+  "23953fd4": {
+    "key": "GEEN_176_90",
+    "text": "Despertar del lobo tronador+"
+  },
   "23c84e82": {
     "key": "GEEN_073_24",
     "text": "Botica V+"
@@ -438,6 +650,10 @@
   "23e7990d": {
     "key": "GEEN_168_04",
     "text": "Más daño V"
+  },
+  "247a41f3": {
+    "key": "GEEN_174_54",
+    "text": "Danza de emperatriz"
   },
   "248c0116": {
     "key": "GEEN_054_00",
@@ -451,6 +667,10 @@
     "key": "GEEN_166_02",
     "text": "Gran égida III"
   },
+  "268304cf": {
+    "key": "GEEN_327_11",
+    "text": "Divergencia II+"
+  },
   "268cedc5": {
     "key": "GEEN_070_03",
     "text": "Cascada IV"
@@ -459,9 +679,33 @@
     "key": "GEEN_044_24",
     "text": "Resolución+"
   },
+  "274973d7": {
+    "key": "GEEN_028_21",
+    "text": "Carga afortunada II+"
+  },
+  "2749abe5": {
+    "key": "GEEN_078_14",
+    "text": "Provocación V+"
+  },
+  "2767b7e2": {
+    "key": "GEEN_325_22",
+    "text": "Sin límites III+"
+  },
+  "279c7d2a": {
+    "key": "GEEN_324_11",
+    "text": "Empíreo níveo II+"
+  },
+  "27c06ba9": {
+    "key": "GEEN_104_14",
+    "text": "Defensa sagaz V+"
+  },
   "27c62352": {
     "key": "GEEN_051_02",
     "text": "Resistencia tumba de arena III"
+  },
+  "27db7788": {
+    "key": "GEEN_322_11",
+    "text": "Empíreo confinante II+"
   },
   "27f0408a": {
     "key": "GEEN_047_24",
@@ -471,9 +715,29 @@
     "key": "GEEN_130_04",
     "text": "Creación de Alteris"
   },
+  "280e1329": {
+    "key": "GEEN_145_20",
+    "text": "Asura I+"
+  },
+  "282dbff0": {
+    "key": "GEEN_173_91",
+    "text": "Desenfreno de lobo alfa+"
+  },
+  "2835e81b": {
+    "key": "GEEN_029_21",
+    "text": "Para más inri II+"
+  },
+  "289e9ab9": {
+    "key": "GEEN_323_11",
+    "text": "Empíreo flámeo II+"
+  },
   "28a30205": {
     "key": "GEEN_017_12",
     "text": "Remate de combo III+"
+  },
+  "28b71e53": {
+    "key": "GEEN_051_14",
+    "text": "Resistencia tumba de arena V+"
   },
   "295219f9": {
     "key": "GEEN_106_24",
@@ -487,9 +751,21 @@
     "key": "GEEN_083_24",
     "text": "Asalto habilidoso V+"
   },
+  "2ac47940": {
+    "key": "GEEN_233_14",
+    "text": "Berserker+"
+  },
+  "2b2401ef": {
+    "key": "GEEN_321_13",
+    "text": "Empíreo refulgente IV+"
+  },
   "2b247ee4": {
     "key": "GEEN_067_00",
     "text": "Absorber I"
+  },
+  "2b400faa": {
+    "key": "GEEN_005_21",
+    "text": "Hostilidad II+"
   },
   "2b94d8d6": {
     "key": "GEEN_147_02",
@@ -498,6 +774,14 @@
   "2bdfba94": {
     "key": "GEEN_054_04",
     "text": "Resistencia a aturdimiento V"
+  },
+  "2c150c6a": {
+    "key": "GEEN_154_21",
+    "text": "Furia descontrolada II+"
+  },
+  "2c6f3453": {
+    "key": "GEEN_024_10",
+    "text": "Potenciador de combo I+"
   },
   "2c958609": {
     "key": "GEEN_057_00",
@@ -531,9 +815,21 @@
     "key": "GEEN_154_04",
     "text": "Furia descontrolada V"
   },
+  "2d70c37d": {
+    "key": "GEEN_177_93",
+    "text": "Hostilidad del resurgir+"
+  },
   "2d7f2e70": {
     "key": "GEEN_000_24",
     "text": "Poder de ataque V+"
+  },
+  "2d8e0e4d": {
+    "key": "GEEN_003_11",
+    "text": "Probabilidad de crítico II+"
+  },
+  "2e1bdb4a": {
+    "key": "GEEN_151_21",
+    "text": "Daño adicional II+"
   },
   "2e3351e3": {
     "key": "GEEN_147_24",
@@ -550,6 +846,10 @@
   "2fd5965c": {
     "key": "GEEN_151_22",
     "text": "Daño adicional III+"
+  },
+  "2ff84069": {
+    "key": "GEEN_100_01",
+    "text": "Suplementos II"
   },
   "3069c2fe": {
     "key": "GEEN_128_93",
@@ -574,6 +874,18 @@
   "31f91fcf": {
     "key": "GEEN_124_54",
     "text": "Ingenuidad del matadragones"
+  },
+  "32032689": {
+    "key": "GEEN_326_10",
+    "text": "Empíreo sosegado I+"
+  },
+  "33006fc3": {
+    "key": "GEEN_326_04",
+    "text": "Empíreo sosegado V"
+  },
+  "3306c34a": {
+    "key": "GEEN_166_12",
+    "text": "Gran égida III+"
   },
   "332e9b30": {
     "key": "GEEN_233_24",
@@ -619,9 +931,17 @@
     "key": "GEEN_110_12",
     "text": "Desesperación III+"
   },
+  "356d0e53": {
+    "key": "GEEN_153_10",
+    "text": "Delantera I+"
+  },
   "3572645c": {
     "key": "GEEN_145_12",
     "text": "Asura III+"
+  },
+  "357d5268": {
+    "key": "GEEN_138_14",
+    "text": "Resistencia a ATQ ↓ V+"
   },
   "35a14fc3": {
     "key": "GEEN_004_03",
@@ -635,6 +955,10 @@
     "key": "GEEN_031_13",
     "text": "Asesino del Break IV+"
   },
+  "35ae024e": {
+    "key": "GEEN_324_22",
+    "text": "Empíreo níveo III+"
+  },
   "35bd0f81": {
     "key": "GEEN_005_22",
     "text": "Hostilidad III+"
@@ -642,6 +966,10 @@
   "361d44c4": {
     "key": "GEEN_012_12",
     "text": "Lanzar III+"
+  },
+  "36360691": {
+    "key": "GEEN_322_13",
+    "text": "Empíreo confinante IV+"
   },
   "3644ef2c": {
     "key": "GEEN_106_02",
@@ -654,6 +982,10 @@
   "36f4b48a": {
     "key": "GEEN_013_22",
     "text": "Daño crítico III+"
+  },
+  "3739db5e": {
+    "key": "GEEN_012_20",
+    "text": "Lanzar I+"
   },
   "37b0783c": {
     "key": "GEEN_170_54",
@@ -695,6 +1027,10 @@
     "key": "GEEN_138_02",
     "text": "Resistencia a ATQ ↓ III"
   },
+  "39810c9e": {
+    "key": "GEEN_064_11",
+    "text": "Venganza de finta II+"
+  },
   "39a38b2c": {
     "key": "GEEN_086_02",
     "text": "Resist. ralentización III"
@@ -723,9 +1059,29 @@
     "key": "GEEN_117_04",
     "text": "Aspiración mágica"
   },
+  "3beed064": {
+    "key": "GEEN_001_20",
+    "text": "Salud I+"
+  },
+  "3c0d684d": {
+    "key": "GEEN_083_11",
+    "text": "Asalto habilidoso II+"
+  },
   "3c4e2fcf": {
     "key": "GEEN_003_12",
     "text": "Probabilidad de crítico III+"
+  },
+  "3cb7e988": {
+    "key": "GEEN_061_10",
+    "text": "Venganza de protección I+"
+  },
+  "3cc5e451": {
+    "key": "GEEN_000_20",
+    "text": "Poder de ataque I+"
+  },
+  "3d0bf8cb": {
+    "key": "GEEN_146_14",
+    "text": "Baza elemental+"
   },
   "3d5e4678": {
     "key": "GEEN_171_04",
@@ -743,6 +1099,10 @@
     "key": "GEEN_047_03",
     "text": "Resistencia a quemaduras IV"
   },
+  "3dd38511": {
+    "key": "GEEN_324_00",
+    "text": "Empíreo níveo I"
+  },
   "3ea4134b": {
     "key": "GEEN_172_91",
     "text": "Admiración del arcángel+"
@@ -750,6 +1110,10 @@
   "3edd4c1f": {
     "key": "GEEN_066_02",
     "text": "Regeneración III"
+  },
+  "3ede3cc3": {
+    "key": "GEEN_144_21",
+    "text": "Fortaleza II+"
   },
   "3f45dbdc": {
     "key": "GEEN_054_02",
@@ -763,6 +1127,18 @@
     "key": "GEEN_139_00",
     "text": "Resistencia a DEF ↓ I"
   },
+  "40049a6c": {
+    "key": "GEEN_324_21",
+    "text": "Empíreo níveo II+"
+  },
+  "40214c38": {
+    "key": "GEEN_320_14",
+    "text": "Empíreo abrasador V+"
+  },
+  "4035d98a": {
+    "key": "GEEN_113_02",
+    "text": "Mejora de insignias III"
+  },
   "40738cdd": {
     "key": "GEEN_120_64",
     "text": "Hostilidad del fantasma"
@@ -770,6 +1146,26 @@
   "408cc3b5": {
     "key": "GEEN_110_14",
     "text": "Desesperación V+"
+  },
+  "4119f09b": {
+    "key": "GEEN_178_64",
+    "text": "Hostilidad azabache"
+  },
+  "41ac1082": {
+    "key": "GEEN_173_93",
+    "text": "Hostilidad de lobo alfa+"
+  },
+  "41cd7fa1": {
+    "key": "GEEN_061_20",
+    "text": "Venganza de protección I+"
+  },
+  "425056c4": {
+    "key": "GEEN_047_14",
+    "text": "Resistencia a quemaduras V+"
+  },
+  "426ad20e": {
+    "key": "GEEN_300_11",
+    "text": "Cangrejera eterna+"
   },
   "42bb0c1c": {
     "key": "GEEN_151_04",
@@ -819,6 +1215,10 @@
     "key": "GEEN_158_22",
     "text": "Cañón de vidrio III+"
   },
+  "4597a8a8": {
+    "key": "GEEN_173_64",
+    "text": "Hostilidad de lobo alfa"
+  },
   "459dd2c2": {
     "key": "GEEN_003_14",
     "text": "Probabilidad de crítico V+"
@@ -826,6 +1226,10 @@
   "45b43024": {
     "key": "GEEN_005_01",
     "text": "Hostilidad II"
+  },
+  "45d92c1a": {
+    "key": "GEEN_008_11",
+    "text": "Ataque cargado II+"
   },
   "462782d5": {
     "key": "GEEN_123_04",
@@ -855,6 +1259,10 @@
     "key": "GEEN_066_01",
     "text": "Regeneración II"
   },
+  "482fd699": {
+    "key": "GEEN_014_11",
+    "text": "Ventajista II+"
+  },
   "4840c322": {
     "key": "GEEN_008_03",
     "text": "Ataque cargado IV"
@@ -862,6 +1270,14 @@
   "4872d685": {
     "key": "2DB5D969",
     "text": "Más daño V"
+  },
+  "490f7304": {
+    "key": "GEEN_073_14",
+    "text": "Botica V+"
+  },
+  "49434696": {
+    "key": "GEEN_301_00",
+    "text": "Temible cangrejera azabache"
   },
   "49651c89": {
     "key": "GEEN_126_92",
@@ -874,6 +1290,14 @@
   "49745934": {
     "key": "GEEN_150_24",
     "text": "Intocable+"
+  },
+  "49d00caf": {
+    "key": "GEEN_003_21",
+    "text": "Probabilidad de crítico II+"
+  },
+  "4a25d812": {
+    "key": "GEEN_326_23",
+    "text": "Empíreo sosegado IV+"
   },
   "4a336d1e": {
     "key": "GEEN_104_02",
@@ -891,9 +1315,17 @@
     "key": "GEEN_156_24",
     "text": "Filtro verde+"
   },
+  "4b253ac6": {
+    "key": "GEEN_018_21",
+    "text": "Fuego concentrado II+"
+  },
   "4b754d3a": {
     "key": "GEEN_083_00",
     "text": "Asalto habilidoso I"
+  },
+  "4b86cc01": {
+    "key": "GEEN_321_00",
+    "text": "Empíreo refulgente I"
   },
   "4b98f53a": {
     "key": "GEEN_085_02",
@@ -902,6 +1334,10 @@
   "4ba4e4ac": {
     "key": "GEEN_006_14",
     "text": "Aguante V+"
+  },
+  "4bb09451": {
+    "key": "GEEN_080_14",
+    "text": "Magnate V+"
   },
   "4c28585a": {
     "key": "GEEN_125_93",
@@ -927,6 +1363,14 @@
     "key": "GEEN_123_93",
     "text": "Hostilidad señorial+"
   },
+  "4d50d1fb": {
+    "key": "GEEN_031_21",
+    "text": "Asesino del Break II+"
+  },
+  "4d52c35c": {
+    "key": "GEEN_327_23",
+    "text": "Divergencia IV+"
+  },
   "4d7c8632": {
     "key": "GEEN_123_64",
     "text": "Hostilidad señorial"
@@ -938,6 +1382,10 @@
   "4db1fdc1": {
     "key": "GEEN_061_14",
     "text": "Venganza de protección V+"
+  },
+  "4e22352d": {
+    "key": "GEEN_013_20",
+    "text": "Daño crítico I+"
   },
   "4e4911fa": {
     "key": "GEEN_078_04",
@@ -963,17 +1411,37 @@
     "key": "GEEN_069_02",
     "text": "Recuperación rápida III"
   },
+  "4fde80ae": {
+    "key": "GEEN_017_20",
+    "text": "Remate de combo I+"
+  },
   "4ffe62e5": {
     "key": "GEEN_027_12",
     "text": "Tiranía III+"
+  },
+  "501973ce": {
+    "key": "GEEN_325_04",
+    "text": "Sin límites V"
   },
   "5048c546": {
     "key": "GEEN_139_24",
     "text": "Resistencia a DEF ↓ V+"
   },
+  "50996321": {
+    "key": "GEEN_320_23",
+    "text": "Empíreo abrasador IV+"
+  },
   "50b05700": {
     "key": "GEEN_077_04",
     "text": "Discreción V"
+  },
+  "51163103": {
+    "key": "GEEN_012_10",
+    "text": "Lanzar I+"
+  },
+  "5119e3f4": {
+    "key": "GEEN_325_13",
+    "text": "Sin límites IV+"
   },
   "5144fe4d": {
     "key": "GEEN_031_14",
@@ -982,6 +1450,10 @@
   "515e693c": {
     "key": "GEEN_119_93",
     "text": "Hostilidad de la rosa+"
+  },
+  "51e98a7c": {
+    "key": "GEEN_175_93",
+    "text": "Hostilidad índigo+"
   },
   "522004ab": {
     "key": "GEEN_115_91",
@@ -994,6 +1466,10 @@
   "524de21c": {
     "key": "GEEN_170_04",
     "text": "Marcha del filo espiritual"
+  },
+  "5252689f": {
+    "key": "GEEN_024_11",
+    "text": "Potenciador de combo II+"
   },
   "52a6e299": {
     "key": "GEEN_114_90",
@@ -1011,6 +1487,22 @@
     "key": "GEEN_005_12",
     "text": "Hostilidad III+"
   },
+  "53b1458d": {
+    "key": "GEEN_323_23",
+    "text": "Empíreo flámeo IV+"
+  },
+  "53bc1f91": {
+    "key": "GEEN_321_20",
+    "text": "Empíreo refulgente I+"
+  },
+  "53bd323f": {
+    "key": "GEEN_325_00",
+    "text": "Sin límites I"
+  },
+  "54c28556": {
+    "key": "GEEN_151_10",
+    "text": "Daño adicional I+"
+  },
   "54cefd1c": {
     "key": "GEEN_005_00",
     "text": "Hostilidad I"
@@ -1022,6 +1514,10 @@
   "54d8ea04": {
     "key": "GEEN_020_24",
     "text": "Límite de daño V+"
+  },
+  "5536ee62": {
+    "key": "GEEN_323_04",
+    "text": "Empíreo flámeo V"
   },
   "5608ef7e": {
     "key": "GEEN_152_02",
@@ -1039,6 +1535,10 @@
     "key": "GEEN_134_02",
     "text": "Perla disciplinaria"
   },
+  "56d196c5": {
+    "key": "GEEN_320_04",
+    "text": "Empíreo abrasador V"
+  },
   "57b6d9a5": {
     "key": "GEEN_058_03",
     "text": "Resist. anulación arcanos IV"
@@ -1047,9 +1547,17 @@
     "key": "GEEN_154_22",
     "text": "Furia descontrolada III+"
   },
+  "58340d4a": {
+    "key": "GEEN_069_14",
+    "text": "Recuperación rápida V+"
+  },
   "583cf40f": {
     "key": "GEEN_126_04",
     "text": "Dominio del espadachín"
+  },
+  "588267e7": {
+    "key": "GEEN_144_11",
+    "text": "Fortaleza II+"
   },
   "58a21fb7": {
     "key": "GEEN_166_22",
@@ -1063,17 +1571,37 @@
     "key": "GEEN_001_02",
     "text": "Salud III"
   },
+  "590715d9": {
+    "key": "GEEN_324_02",
+    "text": "Empíreo níveo III"
+  },
   "590c19c8": {
     "key": "GEEN_132_64",
     "text": "Hostilidad de ébano"
+  },
+  "595ad681": {
+    "key": "GEEN_027_20",
+    "text": "Tiranía I+"
+  },
+  "59641078": {
+    "key": "GEEN_152_11",
+    "text": "Menos es más II+"
   },
   "59e5335b": {
     "key": "GEEN_009_24",
     "text": "Poder de conexión V+"
   },
+  "5a360ea8": {
+    "key": "GEEN_177_90",
+    "text": "Despertar del resurgir+"
+  },
   "5b939637": {
     "key": "GEEN_139_03",
     "text": "Resistencia a DEF ↓ IV"
+  },
+  "5bf84fd1": {
+    "key": "GEEN_325_24",
+    "text": "Sin límites V+"
   },
   "5c19bbb0": {
     "key": "GEEN_046_04",
@@ -1083,6 +1611,10 @@
     "key": "GEEN_145_13",
     "text": "Asura IV+"
   },
+  "5cb2445f": {
+    "key": "GEEN_177_54",
+    "text": "Dinamismo del resurgir"
+  },
   "5d592fdd": {
     "key": "GEEN_172_93",
     "text": "Hostilidad del arcángel+"
@@ -1091,6 +1623,14 @@
     "key": "GEEN_004_22",
     "text": "Aturdimiento III+"
   },
+  "5df353c3": {
+    "key": "GEEN_014_10",
+    "text": "Ventajista I+"
+  },
+  "5e19150e": {
+    "key": "GEEN_004_11",
+    "text": "Aturdimiento II+"
+  },
   "5e7eeec4": {
     "key": "GEEN_001_04",
     "text": "Salud V"
@@ -1098,6 +1638,10 @@
   "5eb282c6": {
     "key": "GEEN_068_04",
     "text": "Revivir automáticamente V"
+  },
+  "5f097193": {
+    "key": "GEEN_320_03",
+    "text": "Empíreo abrasador IV"
   },
   "5f117445": {
     "key": "GEEN_013_13",
@@ -1143,6 +1687,10 @@
     "key": "GEEN_158_23",
     "text": "Cañón de vidrio IV+"
   },
+  "61a1a299": {
+    "key": "GEEN_176_64",
+    "text": "Hostilidad de lobo tronador"
+  },
   "621a2a97": {
     "key": "GEEN_115_64",
     "text": "Hostilidad de centinela"
@@ -1151,6 +1699,10 @@
     "key": "GEEN_018_00",
     "text": "Fuego concentrado I"
   },
+  "62e18d53": {
+    "key": "GEEN_031_11",
+    "text": "Asesino del Break II+"
+  },
   "62fed4f1": {
     "key": "GEEN_086_03",
     "text": "Resist. ralentización IV"
@@ -1158,6 +1710,18 @@
   "630de5dd": {
     "key": "GEEN_013_14",
     "text": "Daño crítico V+"
+  },
+  "634f82cb": {
+    "key": "GEEN_324_20",
+    "text": "Empíreo níveo I+"
+  },
+  "64245ea7": {
+    "key": "GEEN_028_11",
+    "text": "Carga afortunada II+"
+  },
+  "64301e91": {
+    "key": "GEEN_177_91",
+    "text": "Gracia del resurgir+"
   },
   "645acee5": {
     "key": "GEEN_126_54",
@@ -1179,9 +1743,21 @@
     "key": "GEEN_222_94",
     "text": "Botica V+"
   },
+  "65f0420a": {
+    "key": "GEEN_302_00",
+    "text": "Concordia azabache"
+  },
+  "661b4d50": {
+    "key": "GEEN_006_11",
+    "text": "Aguante II+"
+  },
   "6674c639": {
     "key": "GEEN_131_64",
     "text": "Hostilidad carmesí"
+  },
+  "66cb28ba": {
+    "key": "GEEN_301_10",
+    "text": "Temible cangrejera azabache+"
   },
   "66f1b128": {
     "key": "GEEN_129_93",
@@ -1227,6 +1803,10 @@
     "key": "GEEN_012_01",
     "text": "Lanzar II"
   },
+  "69e76b3a": {
+    "key": "GEEN_327_10",
+    "text": "Divergencia I+"
+  },
   "6a3b2653": {
     "key": "GEEN_024_24",
     "text": "Potenciador de combo V+"
@@ -1243,9 +1823,21 @@
     "key": "GEEN_055_24",
     "text": "Resistencia a parálisis V+"
   },
+  "6b56053c": {
+    "key": "GEEN_066_14",
+    "text": "Regeneración V+"
+  },
   "6b59242a": {
     "key": "GEEN_156_04",
     "text": "Filtro verde"
+  },
+  "6b8224eb": {
+    "key": "GEEN_030_20",
+    "text": "Asesino del Overdrive I+"
+  },
+  "6b920da2": {
+    "key": "GEEN_174_64",
+    "text": "Hostilidad de emperatriz"
   },
   "6ba991cd": {
     "key": "GEEN_079_00",
@@ -1255,21 +1847,49 @@
     "key": "GEEN_088_03",
     "text": "Resistencia a infortunios IV"
   },
+  "6c788459": {
+    "key": "GEEN_000_11",
+    "text": "Poder de ataque II+"
+  },
+  "6c788db7": {
+    "key": "GEEN_110_10",
+    "text": "Desesperación I+"
+  },
   "6c85983c": {
     "key": "GEEN_144_14",
     "text": "Fortaleza V+"
+  },
+  "6c943387": {
+    "key": "GEEN_005_11",
+    "text": "Hostilidad II+"
   },
   "6cca1ff7": {
     "key": "GEEN_128_92",
     "text": "Filosofía de la Furia eterna+"
   },
+  "6ccf1e19": {
+    "key": "GEEN_145_11",
+    "text": "Asura II+"
+  },
   "6d18e7dc": {
     "key": "GEEN_116_54",
     "text": "Tenacidad de timonel"
   },
+  "6def71c8": {
+    "key": "GEEN_064_10",
+    "text": "Venganza de finta I+"
+  },
+  "6e9aeb3c": {
+    "key": "GEEN_323_10",
+    "text": "Empíreo flámeo I+"
+  },
   "6ec9d6bb": {
     "key": "GEEN_028_23",
     "text": "Carga afortunada IV+"
+  },
+  "6f0bc065": {
+    "key": "GEEN_147_14",
+    "text": "Senda del maestro V+"
   },
   "6f1d0870": {
     "key": "GEEN_166_24",
@@ -1286,6 +1906,14 @@
   "6fd12e61": {
     "key": "GEEN_070_24",
     "text": "Cascada V+"
+  },
+  "6ffc5452": {
+    "key": "GEEN_003_20",
+    "text": "Probabilidad de crítico I+"
+  },
+  "7009517b": {
+    "key": "GEEN_326_14",
+    "text": "Empíreo sosegado V+"
   },
   "70336d00": {
     "key": "GEEN_069_00",
@@ -1311,9 +1939,17 @@
     "key": "GEEN_061_23",
     "text": "Venganza de protección IV+"
   },
+  "71b2da28": {
+    "key": "GEEN_017_21",
+    "text": "Remate de combo II+"
+  },
   "71ff966a": {
     "key": "GEEN_024_12",
     "text": "Potenciador de combo III+"
+  },
+  "72118f86": {
+    "key": "GEEN_144_20",
+    "text": "Fortaleza I+"
   },
   "72304799": {
     "key": "GEEN_119_54",
@@ -1339,6 +1975,10 @@
     "key": "GEEN_057_03",
     "text": "Resist. anulación habil. IV"
   },
+  "72c5a23d": {
+    "key": "GEEN_320_02",
+    "text": "Empíreo abrasador III"
+  },
   "72cba710": {
     "key": "GEEN_051_04",
     "text": "Resistencia tumba de arena V"
@@ -1346,6 +1986,10 @@
   "72d83138": {
     "key": "GEEN_152_22",
     "text": "Menos es más III+"
+  },
+  "7300a967": {
+    "key": "GEEN_321_04",
+    "text": "Empíreo refulgente V"
   },
   "735769a7": {
     "key": "GEEN_069_01",
@@ -1355,9 +1999,25 @@
     "key": "GEEN_168_03",
     "text": "Más daño IV"
   },
+  "73db3bd3": {
+    "key": "GEEN_321_12",
+    "text": "Empíreo refulgente III+"
+  },
+  "73e4c05e": {
+    "key": "GEEN_166_14",
+    "text": "Gran égida V+"
+  },
   "73e5554f": {
     "key": "GEEN_036_00",
     "text": "Guarnición I"
+  },
+  "73f80160": {
+    "key": "GEEN_113_04",
+    "text": "Mejora de insignias V"
+  },
+  "74061b0c": {
+    "key": "GEEN_323_24",
+    "text": "Empíreo flámeo V+"
   },
   "7428df74": {
     "key": "GEEN_154_12",
@@ -1366,6 +2026,14 @@
   "7461bd6d": {
     "key": "GEEN_147_01",
     "text": "Senda del maestro II"
+  },
+  "74e65009": {
+    "key": "GEEN_153_11",
+    "text": "Delantera II+"
+  },
+  "74eedc99": {
+    "key": "GEEN_320_01",
+    "text": "Empíreo abrasador II"
   },
   "751228a2": {
     "key": "GEEN_006_02",
@@ -1387,6 +2055,10 @@
     "key": "GEEN_153_00",
     "text": "Delantera I"
   },
+  "759ccd21": {
+    "key": "GEEN_139_14",
+    "text": "Resistencia a DEF ↓ V+"
+  },
   "75b8dad7": {
     "key": "GEEN_094_01",
     "text": "Máxima concentración II"
@@ -1403,6 +2075,10 @@
     "key": "GEEN_078_01",
     "text": "Provocación II"
   },
+  "76786869": {
+    "key": "GEEN_302_10",
+    "text": "Concordia azabache+"
+  },
   "76c7eb69": {
     "key": "GEEN_060_01",
     "text": "Protección mejorada II"
@@ -1410,6 +2086,10 @@
   "76d4716b": {
     "key": "GEEN_126_93",
     "text": "Hostilidad del espadachín+"
+  },
+  "76f62a76": {
+    "key": "GEEN_168_13",
+    "text": "Más daño IV+"
   },
   "772601d4": {
     "key": "GEEN_151_01",
@@ -1427,6 +2107,14 @@
     "key": "GEEN_012_02",
     "text": "Lanzar III"
   },
+  "778d6f97": {
+    "key": "GEEN_107_14",
+    "text": "Resiliencia precisa V+"
+  },
+  "77fae8c2": {
+    "key": "GEEN_020_11",
+    "text": "Límite de daño II+"
+  },
   "7885354a": {
     "key": "GEEN_077_01",
     "text": "Discreción II"
@@ -1438,6 +2126,10 @@
   "78c6f203": {
     "key": "GEEN_088_00",
     "text": "Resistencia a infortunios I"
+  },
+  "790f87ee": {
+    "key": "GEEN_057_14",
+    "text": "Resist. anulación habil. V+"
   },
   "791da8ed": {
     "key": "GEEN_004_24",
@@ -1455,21 +2147,53 @@
     "key": "GEEN_027_00",
     "text": "Tiranía I"
   },
+  "7a06c7fb": {
+    "key": "GEEN_177_04",
+    "text": "Gracia del resurgir"
+  },
+  "7a65b8fb": {
+    "key": "GEEN_322_20",
+    "text": "Empíreo confinante I+"
+  },
   "7a74e84c": {
     "key": "GEEN_144_13",
     "text": "Fortaleza IV+"
+  },
+  "7a8f17c9": {
+    "key": "GEEN_154_11",
+    "text": "Furia descontrolada II+"
   },
   "7aa335b6": {
     "key": "GEEN_024_04",
     "text": "Potenciador de combo V"
   },
+  "7ac9dc94": {
+    "key": "GEEN_327_03",
+    "text": "Divergencia IV"
+  },
   "7aebef91": {
     "key": "GEEN_012_00",
     "text": "Lanzar I"
   },
+  "7b4aab30": {
+    "key": "GEEN_327_24",
+    "text": "Divergencia V+"
+  },
+  "7b7d719c": {
+    "key": "GEEN_235_14",
+    "text": "Evasión perfecta definitiva+"
+  },
   "7b8c3e06": {
     "key": "GEEN_158_03",
     "text": "Cañón de vidrio IV"
+  },
+  "7b9bb801": {
+    "key": "GEEN_113_03",
+    "text": "Mejora de insignias IV"
+  },
+  "7c5b7fae": {
+    "key": "GEEN_110_20",
+    "text": "Desesperación I+"
   },
   "7c7ec053": {
     "key": "GEEN_118_64",
@@ -1487,9 +2211,21 @@
     "key": "GEEN_138_00",
     "text": "Resistencia a ATQ ↓ I"
   },
+  "7d720227": {
+    "key": "GEEN_326_13",
+    "text": "Empíreo sosegado IV+"
+  },
   "7d8ff2ee": {
     "key": "GEEN_094_02",
     "text": "Máxima concentración III"
+  },
+  "7d9c105c": {
+    "key": "GEEN_006_20",
+    "text": "Aguante I+"
+  },
+  "7dc9da30": {
+    "key": "GEEN_323_21",
+    "text": "Empíreo flámeo II+"
   },
   "7dea157b": {
     "key": "GEEN_073_04",
@@ -1511,9 +2247,21 @@
     "key": "GEEN_078_02",
     "text": "Provocación III"
   },
+  "7ea307be": {
+    "key": "GEEN_060_14",
+    "text": "Protección mejorada V+"
+  },
   "7efa8c0d": {
     "key": "GEEN_013_12",
     "text": "Daño crítico III+"
+  },
+  "7f12eac7": {
+    "key": "GEEN_036_13",
+    "text": "Guarnición IV+"
+  },
+  "7f4f38ef": {
+    "key": "GEEN_326_03",
+    "text": "Empíreo sosegado IV"
   },
   "7f5dda19": {
     "key": "GEEN_004_23",
@@ -1527,6 +2275,10 @@
     "key": "GEEN_088_02",
     "text": "Resistencia a infortunios III"
   },
+  "7fccef02": {
+    "key": "GEEN_145_21",
+    "text": "Asura II+"
+  },
   "803f64bd": {
     "key": "GEEN_132_54",
     "text": "Porte de ébano"
@@ -1538,6 +2290,10 @@
   "80a6dd30": {
     "key": "GEEN_145_00",
     "text": "Asura I"
+  },
+  "80ca66ed": {
+    "key": "GEEN_100_04",
+    "text": "Suplementos V"
   },
   "80cccd83": {
     "key": "GEEN_129_54",
@@ -1554,6 +2310,10 @@
   "81742849": {
     "key": "GEEN_144_03",
     "text": "Fortaleza IV"
+  },
+  "81b3962d": {
+    "key": "GEEN_326_22",
+    "text": "Empíreo sosegado III+"
   },
   "81cb6c6b": {
     "key": "GEEN_106_03",
@@ -1595,9 +2355,29 @@
     "key": "GEEN_168_01",
     "text": "Más daño II"
   },
+  "8390f936": {
+    "key": "GEEN_136_14",
+    "text": "Resist. tortura acuática V+"
+  },
+  "83b5463b": {
+    "key": "GEEN_326_00",
+    "text": "Empíreo sosegado I"
+  },
   "83e5006e": {
     "key": "GEEN_154_24",
     "text": "Furia descontrolada V+"
+  },
+  "83e94b0c": {
+    "key": "GEEN_009_21",
+    "text": "Poder de conexión II+"
+  },
+  "840c419a": {
+    "key": "GEEN_322_00",
+    "text": "Empíreo confinante I"
+  },
+  "84105d91": {
+    "key": "GEEN_168_12",
+    "text": "Más daño III+"
   },
   "842abbeb": {
     "key": "GEEN_012_03",
@@ -1619,13 +2399,33 @@
     "key": "GEEN_121_91",
     "text": "Juramento del Dragón Blanco+"
   },
+  "85e85d91": {
+    "key": "GEEN_325_01",
+    "text": "Sin límites II"
+  },
   "867effed": {
     "key": "GEEN_000_22",
     "text": "Poder de ataque III+"
   },
+  "86c710c7": {
+    "key": "GEEN_320_11",
+    "text": "Empíreo abrasador II+"
+  },
+  "86e38bab": {
+    "key": "GEEN_028_10",
+    "text": "Carga afortunada I+"
+  },
   "872d3af9": {
     "key": "GEEN_171_54",
     "text": "Perdición de la caza. umbría"
+  },
+  "87658a6f": {
+    "key": "GEEN_322_04",
+    "text": "Empíreo confinante V"
+  },
+  "88131731": {
+    "key": "GEEN_303_10",
+    "text": "Fuerza de luchador de sumo+"
   },
   "883380d4": {
     "key": "GEEN_072_04",
@@ -1634,6 +2434,10 @@
   "8856f755": {
     "key": "GEEN_111_01",
     "text": "Carga rápida II"
+  },
+  "895abbf6": {
+    "key": "GEEN_173_90",
+    "text": "Despertar del lobo alfa+"
   },
   "89ca4db0": {
     "key": "GEEN_001_13",
@@ -1651,6 +2455,14 @@
     "key": "GEEN_006_12",
     "text": "Aguante III+"
   },
+  "8a50f2ec": {
+    "key": "GEEN_158_10",
+    "text": "Cañón de vidrio I+"
+  },
+  "8a672fd1": {
+    "key": "GEEN_085_14",
+    "text": "Égida V+"
+  },
   "8a967a6e": {
     "key": "GEEN_017_14",
     "text": "Remate de combo V+"
@@ -1658,6 +2470,10 @@
   "8a9f7374": {
     "key": "GEEN_154_02",
     "text": "Furia descontrolada III"
+  },
+  "8b105fc8": {
+    "key": "GEEN_152_21",
+    "text": "Menos es más II+"
   },
   "8b647510": {
     "key": "GEEN_003_13",
@@ -1667,13 +2483,33 @@
     "key": "GEEN_061_02",
     "text": "Venganza de protección III"
   },
+  "8b6c67f0": {
+    "key": "GEEN_020_20",
+    "text": "Límite de daño I+"
+  },
+  "8b8085c0": {
+    "key": "GEEN_320_24",
+    "text": "Empíreo abrasador V+"
+  },
+  "8b9c3d0f": {
+    "key": "GEEN_322_23",
+    "text": "Empíreo confinante IV+"
+  },
   "8bf28309": {
     "key": "GEEN_168_23",
     "text": "Más daño IV+"
   },
+  "8c4688e2": {
+    "key": "GEEN_009_10",
+    "text": "Poder de conexión I+"
+  },
   "8ca7d9c1": {
     "key": "GEEN_012_14",
     "text": "Lanzar V+"
+  },
+  "8ce18579": {
+    "key": "GEEN_324_04",
+    "text": "Empíreo níveo V"
   },
   "8d639e0c": {
     "key": "GEEN_080_01",
@@ -1699,17 +2535,45 @@
     "key": "GEEN_008_12",
     "text": "Ataque cargado III+"
   },
+  "8f1a5031": {
+    "key": "GEEN_044_14",
+    "text": "Resolución+"
+  },
   "8f1b4dc4": {
     "key": "GEEN_018_03",
     "text": "Fuego concentrado IV"
+  },
+  "8f2ffe00": {
+    "key": "GEEN_003_10",
+    "text": "Probabilidad de crítico I+"
+  },
+  "8f519293": {
+    "key": "GEEN_320_21",
+    "text": "Empíreo abrasador II+"
+  },
+  "8ff568f7": {
+    "key": "GEEN_322_02",
+    "text": "Empíreo confinante III"
+  },
+  "90176d85": {
+    "key": "GEEN_321_03",
+    "text": "Empíreo refulgente IV"
   },
   "905c6d7f": {
     "key": "GEEN_024_00",
     "text": "Potenciador de combo I"
   },
+  "908d5612": {
+    "key": "GEEN_327_22",
+    "text": "Divergencia III+"
+  },
   "909a3aeb": {
     "key": "GEEN_027_01",
     "text": "Tiranía II"
+  },
+  "90e42e35": {
+    "key": "GEEN_321_22",
+    "text": "Empíreo refulgente III+"
   },
   "90fbb4bf": {
     "key": "GEEN_068_01",
@@ -1722,6 +2586,10 @@
   "9172d000": {
     "key": "GEEN_001_22",
     "text": "Salud III+"
+  },
+  "9184f37b": {
+    "key": "GEEN_174_04",
+    "text": "Serenata de emperatriz"
   },
   "91956b39": {
     "key": "GEEN_111_24",
@@ -1751,9 +2619,17 @@
     "key": "GEEN_000_13",
     "text": "Poder de ataque IV+"
   },
+  "92373af9": {
+    "key": "GEEN_009_11",
+    "text": "Poder de conexión II+"
+  },
   "92b2d85f": {
     "key": "GEEN_078_00",
     "text": "Provocación I"
+  },
+  "9300fadb": {
+    "key": "GEEN_326_24",
+    "text": "Empíreo sosegado V+"
   },
   "936dfe00": {
     "key": "GEEN_114_54",
@@ -1783,9 +2659,25 @@
     "key": "GEEN_145_02",
     "text": "Asura III"
   },
+  "94dc820e": {
+    "key": "GEEN_178_54",
+    "text": "Progreso azabache"
+  },
+  "94dd2628": {
+    "key": "GEEN_083_20",
+    "text": "Asalto habilidoso I+"
+  },
   "94f7053c": {
     "key": "GEEN_014_12",
     "text": "Ventajista III+"
+  },
+  "9503691b": {
+    "key": "GEEN_018_20",
+    "text": "Fuego concentrado I+"
+  },
+  "9558f543": {
+    "key": "GEEN_325_21",
+    "text": "Sin límites II+"
   },
   "958588f6": {
     "key": "GEEN_087_03",
@@ -1807,21 +2699,45 @@
     "key": "GEEN_067_24",
     "text": "Absorber V+"
   },
+  "95cc3cb8": {
+    "key": "GEEN_175_90",
+    "text": "Despertar índigo+"
+  },
   "961b274c": {
     "key": "GEEN_003_23",
     "text": "Probabilidad de crítico IV+"
+  },
+  "96390ecf": {
+    "key": "GEEN_323_02",
+    "text": "Empíreo flámeo III"
   },
   "96434c8d": {
     "key": "GEEN_046_01",
     "text": "Resistencia a veneno II"
   },
+  "964750bb": {
+    "key": "GEEN_321_11",
+    "text": "Empíreo refulgente II+"
+  },
   "9673abb9": {
     "key": "GEEN_073_03",
     "text": "Botica IV"
   },
+  "96c069d8": {
+    "key": "GEEN_020_21",
+    "text": "Límite de daño II+"
+  },
+  "96d6fe5e": {
+    "key": "GEEN_174_92",
+    "text": "Danza de emperatriz+"
+  },
   "978255ef": {
     "key": "GEEN_060_00",
     "text": "Protección mejorada I"
+  },
+  "97927f50": {
+    "key": "GEEN_153_21",
+    "text": "Delantera II+"
   },
   "97cf485d": {
     "key": "GEEN_151_94",
@@ -1842,6 +2758,10 @@
   "989216cb": {
     "key": "GEEN_083_01",
     "text": "Asalto habilidoso II"
+  },
+  "98a07ee2": {
+    "key": "GEEN_045_14",
+    "text": "Último estertor V+"
   },
   "98a6d249": {
     "key": "GEEN_116_90",
@@ -1867,6 +2787,18 @@
     "key": "GEEN_130_93",
     "text": "Corazón de Alteris+"
   },
+  "99194505": {
+    "key": "GEEN_176_54",
+    "text": "Perspicacia de lobo tronador"
+  },
+  "9978c657": {
+    "key": "GEEN_178_04",
+    "text": "Mantra azabache"
+  },
+  "99926ea8": {
+    "key": "GEEN_321_14",
+    "text": "Empíreo refulgente V+"
+  },
   "99a4b2a7": {
     "key": "GEEN_080_00",
     "text": "Magnate I"
@@ -1887,6 +2819,10 @@
     "key": "GEEN_028_04",
     "text": "Carga afortunada V"
   },
+  "9abd2da5": {
+    "key": "GEEN_178_93",
+    "text": "Hostilidad azabache+"
+  },
   "9ada3e00": {
     "key": "GEEN_115_90",
     "text": "Despertar de la centinela+"
@@ -1903,6 +2839,10 @@
     "key": "GEEN_119_90",
     "text": "Despertar de la rosa+"
   },
+  "9bd2b40e": {
+    "key": "GEEN_326_12",
+    "text": "Empíreo sosegado III+"
+  },
   "9c2399da": {
     "key": "GEEN_085_24",
     "text": "Égida V+"
@@ -1910,6 +2850,14 @@
   "9cb98cc1": {
     "key": "GEEN_036_02",
     "text": "Guarnición III"
+  },
+  "9cbbcf0f": {
+    "key": "GEEN_326_20",
+    "text": "Empíreo sosegado I+"
+  },
+  "9cd340a8": {
+    "key": "GEEN_325_20",
+    "text": "Sin límites I+"
   },
   "9d3093ae": {
     "key": "GEEN_013_24",
@@ -1939,6 +2887,10 @@
     "key": "GEEN_024_22",
     "text": "Potenciador de combo III+"
   },
+  "9e521a6c": {
+    "key": "GEEN_145_10",
+    "text": "Asura I+"
+  },
   "9e62759d": {
     "key": "GEEN_080_24",
     "text": "Magnate V+"
@@ -1946,6 +2898,10 @@
   "9e79aa31": {
     "key": "GEEN_213_94",
     "text": "Protección mejorada V+"
+  },
+  "9ec6c56d": {
+    "key": "GEEN_175_91",
+    "text": "Filo índigo+"
   },
   "9f08f697": {
     "key": "GEEN_116_91",
@@ -1963,6 +2919,14 @@
     "key": "GEEN_029_04",
     "text": "Para más inri V"
   },
+  "9ff30620": {
+    "key": "GEEN_064_21",
+    "text": "Venganza de finta II+"
+  },
+  "a07bdc96": {
+    "key": "GEEN_018_10",
+    "text": "Fuego concentrado I+"
+  },
   "a0f94f69": {
     "key": "GEEN_125_91",
     "text": "Lustre de paladina+"
@@ -1979,6 +2943,10 @@
     "key": "GEEN_144_12",
     "text": "Fortaleza III+"
   },
+  "a14ba9ce": {
+    "key": "GEEN_326_01",
+    "text": "Empíreo sosegado II"
+  },
   "a1c947c2": {
     "key": "GEEN_020_23",
     "text": "Límite de daño IV+"
@@ -1994,6 +2962,14 @@
   "a248e5d1": {
     "key": "GEEN_096_03",
     "text": "Nervios de acero IV"
+  },
+  "a25c42e2": {
+    "key": "GEEN_324_10",
+    "text": "Empíreo níveo I+"
+  },
+  "a266e055": {
+    "key": "GEEN_327_13",
+    "text": "Divergencia IV+"
   },
   "a278238e": {
     "key": "GEEN_064_24",
@@ -2059,9 +3035,25 @@
     "key": "GEEN_000_02",
     "text": "Poder de ataque III"
   },
+  "a5e566d9": {
+    "key": "GEEN_152_10",
+    "text": "Menos es más I+"
+  },
+  "a6aac25f": {
+    "key": "GEEN_325_23",
+    "text": "Sin límites IV+"
+  },
   "a6ee588a": {
     "key": "GEEN_001_00",
     "text": "Salud I"
+  },
+  "a6f5982e": {
+    "key": "GEEN_000_21",
+    "text": "Poder de ataque II+"
+  },
+  "a70c5270": {
+    "key": "GEEN_324_13",
+    "text": "Empíreo níveo IV+"
   },
   "a70daf5a": {
     "key": "GEEN_110_00",
@@ -2075,6 +3067,10 @@
     "key": "GEEN_003_04",
     "text": "Probabilidad de crítico V"
   },
+  "a7c8130a": {
+    "key": "GEEN_326_11",
+    "text": "Empíreo sosegado II+"
+  },
   "a7f292bf": {
     "key": "GEEN_065_01",
     "text": "Curación mejorada II"
@@ -2083,6 +3079,14 @@
     "key": "GEEN_159_14",
     "text": "Retirada estratégica+"
   },
+  "a8533ce3": {
+    "key": "GEEN_327_04",
+    "text": "Divergencia V"
+  },
+  "a86b5418": {
+    "key": "GEEN_158_21",
+    "text": "Cañón de vidrio II+"
+  },
   "a879208f": {
     "key": "GEEN_127_92",
     "text": "Valor de la mariposa+"
@@ -2090,6 +3094,10 @@
   "a89c98c9": {
     "key": "GEEN_024_14",
     "text": "Potenciador de combo V+"
+  },
+  "a8a0cbff": {
+    "key": "GEEN_178_90",
+    "text": "Despertar azabache+"
   },
   "a8c67937": {
     "key": "GEEN_111_12",
@@ -2107,6 +3115,14 @@
     "key": "GEEN_006_22",
     "text": "Aguante III+"
   },
+  "a99085f7": {
+    "key": "GEEN_323_01",
+    "text": "Empíreo flámeo II"
+  },
+  "a99e6b1a": {
+    "key": "GEEN_100_02",
+    "text": "Suplementos III"
+  },
   "a9d804d4": {
     "key": "GEEN_130_64",
     "text": "Corazón de Alteris"
@@ -2115,6 +3131,10 @@
     "key": "GEEN_088_24",
     "text": "Resistencia a infortunios V+"
   },
+  "aa49220a": {
+    "key": "GEEN_072_14",
+    "text": "Ánimo V+"
+  },
   "aa793de2": {
     "key": "GEEN_054_03",
     "text": "Resistencia a aturdimiento IV"
@@ -2122,6 +3142,10 @@
   "aa941053": {
     "key": "GEEN_110_01",
     "text": "Desesperación II"
+  },
+  "aaab893b": {
+    "key": "GEEN_111_11",
+    "text": "Carga rápida II+"
   },
   "aac7a219": {
     "key": "GEEN_151_03",
@@ -2135,9 +3159,17 @@
     "key": "GEEN_124_90",
     "text": "Despertar del matadragones+"
   },
+  "abaefe36": {
+    "key": "GEEN_324_23",
+    "text": "Empíreo níveo IV+"
+  },
   "abc07972": {
     "key": "GEEN_027_22",
     "text": "Tiranía III+"
+  },
+  "abf24655": {
+    "key": "GEEN_322_01",
+    "text": "Empíreo confinante II"
   },
   "abfa79f2": {
     "key": "GEEN_133_02",
@@ -2162,6 +3194,14 @@
   "ad0a2ae1": {
     "key": "GEEN_070_01",
     "text": "Cascada II"
+  },
+  "ad2e0751": {
+    "key": "GEEN_017_10",
+    "text": "Remate de combo I+"
+  },
+  "ad341007": {
+    "key": "GEEN_020_10",
+    "text": "Límite de daño I+"
   },
   "ad8caefb": {
     "key": "GEEN_171_93",
@@ -2199,6 +3239,10 @@
     "key": "GEEN_130_90",
     "text": "Alma de Alteris+"
   },
+  "b0207b68": {
+    "key": "GEEN_153_20",
+    "text": "Delantera I+"
+  },
   "b0634504": {
     "key": "GEEN_171_64",
     "text": "Hostilidad de la caza. umbría"
@@ -2215,6 +3259,10 @@
     "key": "GEEN_020_14",
     "text": "Límite de daño V+"
   },
+  "b0ce994b": {
+    "key": "GEEN_320_13",
+    "text": "Empíreo abrasador IV+"
+  },
   "b109c429": {
     "key": "GEEN_046_00",
     "text": "Resistencia a veneno I"
@@ -2222,6 +3270,10 @@
   "b143dae6": {
     "key": "GEEN_127_91",
     "text": "Elegancia de la mariposa+"
+  },
+  "b1683add": {
+    "key": "GEEN_173_54",
+    "text": "Remolino de lobo alfa"
   },
   "b17c7207": {
     "key": "GEEN_083_13",
@@ -2247,6 +3299,18 @@
     "key": "GEEN_125_54",
     "text": "Grandeza de paladina"
   },
+  "b2420cbe": {
+    "key": "GEEN_326_02",
+    "text": "Empíreo sosegado III"
+  },
+  "b242510c": {
+    "key": "GEEN_325_12",
+    "text": "Sin límites III+"
+  },
+  "b289a9ad": {
+    "key": "GEEN_303_00",
+    "text": "Fuerza de luchador de sumo"
+  },
   "b2b08f0d": {
     "key": "GEEN_077_02",
     "text": "Discreción III"
@@ -2259,9 +3323,17 @@
     "key": "GEEN_069_03",
     "text": "Recuperación rápida IV"
   },
+  "b2dee2b6": {
+    "key": "GEEN_111_10",
+    "text": "Carga rápida I+"
+  },
   "b3ab43f3": {
     "key": "GEEN_132_93",
     "text": "Hostilidad de ébano+"
+  },
+  "b3c0c93d": {
+    "key": "GEEN_321_01",
+    "text": "Empíreo refulgente II"
   },
   "b441275d": {
     "key": "GEEN_120_90",
@@ -2270,6 +3342,10 @@
   "b4adddc5": {
     "key": "GEEN_012_24",
     "text": "Lanzar V+"
+  },
+  "b4ece7bc": {
+    "key": "GEEN_175_64",
+    "text": "Hostilidad índigo"
   },
   "b5170056": {
     "key": "GEEN_168_24",
@@ -2286,6 +3362,10 @@
   "b5b23f02": {
     "key": "GEEN_001_14",
     "text": "Salud V+"
+  },
+  "b5d4581f": {
+    "key": "GEEN_083_21",
+    "text": "Asalto habilidoso II+"
   },
   "b5da3e80": {
     "key": "GEEN_121_92",
@@ -2306,6 +3386,14 @@
   "b694cdd6": {
     "key": "GEEN_158_01",
     "text": "Cañón de vidrio II"
+  },
+  "b6ada175": {
+    "key": "GEEN_001_10",
+    "text": "Salud I+"
+  },
+  "b6e74772": {
+    "key": "GEEN_024_20",
+    "text": "Potenciador de combo I+"
   },
   "b71df666": {
     "key": "GEEN_086_00",
@@ -2335,6 +3423,14 @@
     "key": "GEEN_072_01",
     "text": "Ánimo II"
   },
+  "b87b2777": {
+    "key": "GEEN_013_11",
+    "text": "Daño crítico II+"
+  },
+  "b87c64c5": {
+    "key": "GEEN_005_10",
+    "text": "Hostilidad I+"
+  },
   "b8a811ed": {
     "key": "GEEN_080_04",
     "text": "Magnate V"
@@ -2343,9 +3439,29 @@
     "key": "GEEN_172_90",
     "text": "Despertar del arcángel+"
   },
+  "b90021a5": {
+    "key": "GEEN_046_14",
+    "text": "Resistencia a veneno V+"
+  },
+  "b9060498": {
+    "key": "GEEN_029_10",
+    "text": "Para más inri I+"
+  },
+  "b98343cd": {
+    "key": "GEEN_326_21",
+    "text": "Empíreo sosegado II+"
+  },
   "b98a0f22": {
     "key": "GEEN_130_91",
     "text": "Creación de Alteris+"
+  },
+  "ba060161": {
+    "key": "GEEN_322_10",
+    "text": "Empíreo confinante I+"
+  },
+  "ba28c81c": {
+    "key": "GEEN_177_92",
+    "text": "Dinamismo del resurgir+"
   },
   "ba77b7f2": {
     "key": "GEEN_045_04",
@@ -2354,6 +3470,10 @@
   "ba8a0229": {
     "key": "GEEN_152_13",
     "text": "Menos es más IV+"
+  },
+  "bb68a3e7": {
+    "key": "GEEN_104_13",
+    "text": "Defensa sagaz IV+"
   },
   "bb86ef75": {
     "key": "GEEN_018_23",
@@ -2370,6 +3490,10 @@
   "bc445153": {
     "key": "GEEN_009_14",
     "text": "Poder de conexión V+"
+  },
+  "bc4a3c09": {
+    "key": "GEEN_018_11",
+    "text": "Fuego concentrado II+"
   },
   "bc53ce24": {
     "key": "GEEN_116_93",
@@ -2391,6 +3515,18 @@
     "key": "GEEN_006_03",
     "text": "Aguante IV"
   },
+  "bd706dba": {
+    "key": "GEEN_079_14",
+    "text": "Aprendizaje rápido V+"
+  },
+  "bd8ba705": {
+    "key": "GEEN_327_02",
+    "text": "Divergencia III"
+  },
+  "bda8ed0d": {
+    "key": "GEEN_061_21",
+    "text": "Venganza de protección II+"
+  },
   "bdcc9a89": {
     "key": "GEEN_115_54",
     "text": "Honor de protección"
@@ -2402,6 +3538,10 @@
   "be3c851c": {
     "key": "GEEN_000_04",
     "text": "Poder de ataque V"
+  },
+  "be4c13a6": {
+    "key": "GEEN_173_04",
+    "text": "Desenfreno de lobo alfa"
   },
   "be6b6288": {
     "key": "GEEN_153_24",
@@ -2451,6 +3591,10 @@
     "key": "GEEN_083_23",
     "text": "Asalto habilidoso IV+"
   },
+  "c122758c": {
+    "key": "GEEN_322_21",
+    "text": "Empíreo confinante II+"
+  },
   "c1377955": {
     "key": "GEEN_077_00",
     "text": "Discreción I"
@@ -2483,6 +3627,10 @@
     "key": "GEEN_012_04",
     "text": "Lanzar V"
   },
+  "c4c213bd": {
+    "key": "GEEN_322_12",
+    "text": "Empíreo confinante III+"
+  },
   "c4dd863a": {
     "key": "GEEN_170_74",
     "text": "Frontera de Siete Estrellas+"
@@ -2507,6 +3655,10 @@
     "key": "GEEN_004_13",
     "text": "Aturdimiento IV+"
   },
+  "c66bee42": {
+    "key": "GEEN_168_14",
+    "text": "Más daño V+"
+  },
   "c66e8203": {
     "key": "GEEN_129_04",
     "text": "Estrategia de la creadora"
@@ -2514,6 +3666,10 @@
   "c6a019ae": {
     "key": "GEEN_009_02",
     "text": "Poder de conexión III"
+  },
+  "c6b0616d": {
+    "key": "GEEN_004_21",
+    "text": "Aturdimiento II+"
   },
   "c6b1bbe6": {
     "key": "GEEN_020_00",
@@ -2527,6 +3683,18 @@
     "key": "GEEN_111_13",
     "text": "Carga rápida IV+"
   },
+  "c701c548": {
+    "key": "GEEN_151_11",
+    "text": "Daño adicional II+"
+  },
+  "c77aa05d": {
+    "key": "GEEN_006_21",
+    "text": "Aguante II+"
+  },
+  "c79bd47f": {
+    "key": "GEEN_027_10",
+    "text": "Tiranía I+"
+  },
   "c7d124dd": {
     "key": "GEEN_073_02",
     "text": "Botica III"
@@ -2534,6 +3702,14 @@
   "c7d94dc9": {
     "key": "GEEN_017_04",
     "text": "Remate de combo V"
+  },
+  "c81aaf9f": {
+    "key": "GEEN_060_13",
+    "text": "Protección mejorada IV+"
+  },
+  "c868debb": {
+    "key": "GEEN_325_11",
+    "text": "Sin límites II+"
   },
   "c8935975": {
     "key": "GEEN_031_02",
@@ -2547,6 +3723,10 @@
     "key": "GEEN_172_04",
     "text": "Admiración del arcángel"
   },
+  "ca227740": {
+    "key": "GEEN_320_20",
+    "text": "Empíreo abrasador I+"
+  },
   "caae3f9c": {
     "key": "GEEN_118_93",
     "text": "Hostilidad de veterano+"
@@ -2559,6 +3739,10 @@
     "key": "GEEN_018_01",
     "text": "Fuego concentrado II"
   },
+  "cbe5dc36": {
+    "key": "GEEN_012_11",
+    "text": "Lanzar II+"
+  },
   "cc29955a": {
     "key": "GEEN_077_03",
     "text": "Discreción IV"
@@ -2566,6 +3750,10 @@
   "cc5db833": {
     "key": "GEEN_008_02",
     "text": "Ataque cargado III"
+  },
+  "cc7dde55": {
+    "key": "GEEN_323_00",
+    "text": "Empíreo flámeo I"
   },
   "ccd29b2b": {
     "key": "GEEN_086_04",
@@ -2575,9 +3763,21 @@
     "key": "GEEN_172_64",
     "text": "Hostilidad del arcángel"
   },
+  "cd357780": {
+    "key": "GEEN_113_01",
+    "text": "Mejora de insignias II"
+  },
   "cd4b83c7": {
     "key": "GEEN_136_04",
     "text": "Resist. tortura acuática V"
+  },
+  "cd6bb486": {
+    "key": "GEEN_320_00",
+    "text": "Empíreo abrasador I"
+  },
+  "cd77d1aa": {
+    "key": "GEEN_024_21",
+    "text": "Potenciador de combo II+"
   },
   "cdfeb37e": {
     "key": "GEEN_153_13",
@@ -2586,6 +3786,10 @@
   "ce16d68b": {
     "key": "GEEN_128_90",
     "text": "Despertar de la Furia eterna+"
+  },
+  "ce42766e": {
+    "key": "GEEN_137_14",
+    "text": "Resistencia a llama oscura V+"
   },
   "ce6c62cf": {
     "key": "GEEN_109_24",
@@ -2603,6 +3807,10 @@
     "key": "GEEN_127_93",
     "text": "Hostilidad de la mariposa+"
   },
+  "cffde366": {
+    "key": "GEEN_067_14",
+    "text": "Absorber V+"
+  },
   "d038f852": {
     "key": "GEEN_018_14",
     "text": "Fuego concentrado V+"
@@ -2614,6 +3822,10 @@
   "d0d61caa": {
     "key": "GEEN_070_00",
     "text": "Cascada I"
+  },
+  "d135e07d": {
+    "key": "GEEN_001_21",
+    "text": "Salud II+"
   },
   "d14aa754": {
     "key": "GEEN_029_12",
@@ -2631,9 +3843,21 @@
     "key": "GEEN_055_00",
     "text": "Resistencia a parálisis I"
   },
+  "d28011a6": {
+    "key": "GEEN_324_03",
+    "text": "Empíreo níveo IV"
+  },
+  "d29cd8e0": {
+    "key": "GEEN_322_24",
+    "text": "Empíreo confinante V+"
+  },
   "d3071d85": {
     "key": "GEEN_137_24",
     "text": "Resistencia a llama oscura V+"
+  },
+  "d317999b": {
+    "key": "GEEN_109_14",
+    "text": "Furia precisa V+"
   },
   "d32c0caf": {
     "key": "GEEN_003_02",
@@ -2667,6 +3891,10 @@
     "key": "GEEN_009_12",
     "text": "Poder de conexión III+"
   },
+  "d4117ff3": {
+    "key": "GEEN_175_92",
+    "text": "Adversidad índigo+"
+  },
   "d42a2d77": {
     "key": "GEEN_109_00",
     "text": "Furia precisa I"
@@ -2683,9 +3911,21 @@
     "key": "GEEN_116_92",
     "text": "Tenacidad de timonel+"
   },
+  "d4a70408": {
+    "key": "GEEN_158_11",
+    "text": "Cañón de vidrio II+"
+  },
   "d4b2adba": {
     "key": "GEEN_087_02",
     "text": "Firmeza III"
+  },
+  "d4cb7d87": {
+    "key": "GEEN_061_11",
+    "text": "Venganza de protección II+"
+  },
+  "d4cdd269": {
+    "key": "GEEN_156_14",
+    "text": "Filtro verde+"
   },
   "d4ebb836": {
     "key": "GEEN_144_24",
@@ -2695,9 +3935,21 @@
     "key": "GEEN_001_23",
     "text": "Salud IV+"
   },
+  "d594d945": {
+    "key": "GEEN_175_04",
+    "text": "Filo índigo"
+  },
+  "d59e112b": {
+    "key": "GEEN_028_20",
+    "text": "Carga afortunada I+"
+  },
   "d5a23569": {
     "key": "GEEN_086_01",
     "text": "Resist. ralentización II"
+  },
+  "d5b71062": {
+    "key": "GEEN_158_20",
+    "text": "Cañón de vidrio I+"
   },
   "d5ca277f": {
     "key": "GEEN_009_23",
@@ -2719,6 +3971,14 @@
     "key": "GEEN_060_04",
     "text": "Protección mejorada V"
   },
+  "d6cdd98e": {
+    "key": "GEEN_017_11",
+    "text": "Remate de combo II+"
+  },
+  "d77a4a3f": {
+    "key": "GEEN_110_11",
+    "text": "Desesperación II+"
+  },
   "d77efbc6": {
     "key": "GEEN_046_02",
     "text": "Resistencia a veneno III"
@@ -2731,9 +3991,25 @@
     "key": "GEEN_052_01",
     "text": "Resistencia a congelación II"
   },
+  "d7d2f16e": {
+    "key": "GEEN_323_14",
+    "text": "Empíreo flámeo V+"
+  },
+  "d8a464f1": {
+    "key": "GEEN_174_90",
+    "text": "Despertar de la emperatriz+"
+  },
+  "d8c61507": {
+    "key": "GEEN_176_93",
+    "text": "Hostilidad de lobo tronador+"
+  },
   "d8d6b380": {
     "key": "GEEN_045_01",
     "text": "Último estertor II"
+  },
+  "d9215e48": {
+    "key": "GEEN_014_21",
+    "text": "Ventajista II+"
   },
   "d959a6d2": {
     "key": "GEEN_017_02",
@@ -2747,6 +4023,18 @@
     "key": "GEEN_146_04",
     "text": "Baza elemental"
   },
+  "dac38251": {
+    "key": "GEEN_065_14",
+    "text": "Curación mejorada V+"
+  },
+  "db05a865": {
+    "key": "GEEN_177_64",
+    "text": "Hostilidad del resurgir"
+  },
+  "db7cdc66": {
+    "key": "GEEN_154_10",
+    "text": "Furia descontrolada I+"
+  },
   "dbe503c7": {
     "key": "GEEN_171_92",
     "text": "Perdición de la caza. umbría+"
@@ -2759,6 +4047,10 @@
     "key": "GEEN_030_14",
     "text": "Asesino del Overdrive V+"
   },
+  "dce00ddb": {
+    "key": "GEEN_325_02",
+    "text": "Sin límites III"
+  },
   "dd12001e": {
     "key": "GEEN_096_02",
     "text": "Nervios de acero III"
@@ -2770,6 +4062,14 @@
   "dd5eff28": {
     "key": "GEEN_094_03",
     "text": "Máxima concentración IV"
+  },
+  "ddbd7013": {
+    "key": "GEEN_014_20",
+    "text": "Ventajista I+"
+  },
+  "deb42656": {
+    "key": "GEEN_096_13",
+    "text": "Nervios de acero IV+"
   },
   "ded4e384": {
     "key": "GEEN_144_04",
@@ -2811,9 +4111,17 @@
     "key": "GEEN_083_03",
     "text": "Asalto habilidoso IV"
   },
+  "e14e1598": {
+    "key": "GEEN_324_24",
+    "text": "Empíreo níveo V+"
+  },
   "e16e4dd4": {
     "key": "GEEN_004_04",
     "text": "Aturdimiento V"
+  },
+  "e18cc78f": {
+    "key": "GEEN_327_00",
+    "text": "Divergencia I"
   },
   "e19b1965": {
     "key": "GEEN_121_90",
@@ -2847,13 +4155,29 @@
     "key": "GEEN_013_04",
     "text": "Daño crítico V"
   },
+  "e3cd2935": {
+    "key": "GEEN_175_54",
+    "text": "Adversidad índigo"
+  },
+  "e3ff2e6a": {
+    "key": "GEEN_152_20",
+    "text": "Menos es más I+"
+  },
   "e405aca0": {
     "key": "GEEN_107_02",
     "text": "Resiliencia precisa III"
   },
+  "e4815918": {
+    "key": "GEEN_325_03",
+    "text": "Sin límites IV"
+  },
   "e496d882": {
     "key": "GEEN_120_93",
     "text": "Hostilidad del fantasma+"
+  },
+  "e4f6759a": {
+    "key": "GEEN_085_13",
+    "text": "Égida IV+"
   },
   "e4f986d9": {
     "key": "GEEN_132_90",
@@ -2883,6 +4207,10 @@
     "key": "GEEN_121_64",
     "text": "Hostilidad del Dragón Blanco"
   },
+  "e58bc7db": {
+    "key": "GEEN_012_21",
+    "text": "Lanzar II+"
+  },
   "e5b58127": {
     "key": "GEEN_080_02",
     "text": "Magnate III"
@@ -2895,6 +4223,10 @@
     "key": "GEEN_018_13",
     "text": "Fuego concentrado IV+"
   },
+  "e5e2ad4b": {
+    "key": "GEEN_063_14",
+    "text": "Finta mejorada+"
+  },
   "e7062c19": {
     "key": "GEEN_116_04",
     "text": "Pericia de timonel"
@@ -2902,6 +4234,10 @@
   "e71b1fe4": {
     "key": "GEEN_085_04",
     "text": "Égida V"
+  },
+  "e7279480": {
+    "key": "GEEN_154_20",
+    "text": "Furia descontrolada I+"
   },
   "e7624711": {
     "key": "GEEN_126_91",
@@ -2911,9 +4247,21 @@
     "key": "GEEN_004_12",
     "text": "Aturdimiento III+"
   },
+  "e8257487": {
+    "key": "GEEN_008_20",
+    "text": "Ataque cargado I+"
+  },
   "e8454459": {
     "key": "GEEN_006_24",
     "text": "Aguante V+"
+  },
+  "e8600bde": {
+    "key": "GEEN_054_14",
+    "text": "Resistencia a aturdimiento V+"
+  },
+  "e87b1975": {
+    "key": "GEEN_070_14",
+    "text": "Cascada V+"
   },
   "e89224a1": {
     "key": "GEEN_063_24",
@@ -2931,6 +4279,10 @@
     "key": "GEEN_055_01",
     "text": "Resistencia a parálisis II"
   },
+  "e93f75f8": {
+    "key": "GEEN_086_14",
+    "text": "Resist. ralentización V+"
+  },
   "e9917ac1": {
     "key": "GEEN_013_01",
     "text": "Daño crítico II"
@@ -2939,9 +4291,17 @@
     "key": "GEEN_058_02",
     "text": "Resist. anulación arcanos III"
   },
+  "ea9199c5": {
+    "key": "GEEN_107_13",
+    "text": "Resiliencia precisa IV+"
+  },
   "eaa911b2": {
     "key": "GEEN_130_92",
     "text": "Ignición de Alteris+"
+  },
+  "eae396e1": {
+    "key": "GEEN_323_13",
+    "text": "Empíreo flámeo IV+"
   },
   "eb105b98": {
     "key": "GEEN_144_22",
@@ -2963,6 +4323,10 @@
     "key": "GEEN_070_02",
     "text": "Cascada III"
   },
+  "eb766d87": {
+    "key": "GEEN_174_93",
+    "text": "Hostilidad de emperatriz+"
+  },
   "ebc1fe90": {
     "key": "GEEN_144_00",
     "text": "Fortaleza I"
@@ -2970,6 +4334,10 @@
   "ebcc193c": {
     "key": "GEEN_096_00",
     "text": "Nervios de acero I"
+  },
+  "ec9ffe77": {
+    "key": "GEEN_174_91",
+    "text": "Serenata de emperatriz+"
   },
   "ecd324c7": {
     "key": "GEEN_094_04",
@@ -2995,13 +4363,29 @@
     "key": "GEEN_030_04",
     "text": "Asesino del Overdrive V"
   },
+  "ef08f02c": {
+    "key": "GEEN_000_10",
+    "text": "Poder de ataque I+"
+  },
   "ef5d0d16": {
     "key": "GEEN_136_24",
     "text": "Resist. tortura acuática V+"
   },
+  "ef60ed89": {
+    "key": "GEEN_083_10",
+    "text": "Asalto habilidoso I+"
+  },
   "ef70ca76": {
     "key": "GEEN_052_24",
     "text": "Resistencia a congelación V+"
+  },
+  "efeff6d1": {
+    "key": "GEEN_027_21",
+    "text": "Tiranía II+"
+  },
+  "effaf880": {
+    "key": "GEEN_087_14",
+    "text": "Firmeza V+"
   },
   "f04c2cdc": {
     "key": "GEEN_024_23",
@@ -3031,9 +4415,17 @@
     "key": "GEEN_000_12",
     "text": "Poder de ataque III+"
   },
+  "f1b56e13": {
+    "key": "GEEN_151_20",
+    "text": "Daño adicional I+"
+  },
   "f1caffa6": {
     "key": "GEEN_145_24",
     "text": "Asura V+"
+  },
+  "f1d8f754": {
+    "key": "GEEN_327_14",
+    "text": "Divergencia V+"
   },
   "f1d9e8dd": {
     "key": "GEEN_003_03",
@@ -3043,9 +4435,17 @@
     "key": "GEEN_029_23",
     "text": "Para más inri IV+"
   },
+  "f21404b1": {
+    "key": "GEEN_173_92",
+    "text": "Remolino de lobo alfa+"
+  },
   "f22290a6": {
     "key": "GEEN_005_14",
     "text": "Hostilidad V+"
+  },
+  "f27d1b15": {
+    "key": "GEEN_100_03",
+    "text": "Suplementos IV"
   },
   "f2c84d4f": {
     "key": "GEEN_103_04",
@@ -3054,6 +4454,10 @@
   "f2cbffd2": {
     "key": "GEEN_068_03",
     "text": "Revivir automáticamente IV"
+  },
+  "f2e371d3": {
+    "key": "GEEN_030_10",
+    "text": "Asesino del Overdrive I+"
   },
   "f30a86f6": {
     "key": "GEEN_109_03",
@@ -3067,9 +4471,17 @@
     "key": "GEEN_159_04",
     "text": "Retirada estratégica"
   },
+  "f39b8fe1": {
+    "key": "GEEN_068_14",
+    "text": "Revivir automáticamente V+"
+  },
   "f3c8c676": {
     "key": "GEEN_055_02",
     "text": "Resistencia a parálisis III"
+  },
+  "f3f24c7f": {
+    "key": "GEEN_030_11",
+    "text": "Asesino del Overdrive II+"
   },
   "f40082d6": {
     "key": "GEEN_030_12",
@@ -3091,13 +4503,29 @@
     "key": "GEEN_064_01",
     "text": "Venganza de finta II"
   },
+  "f4dd8a6b": {
+    "key": "GEEN_004_20",
+    "text": "Aturdimiento I+"
+  },
+  "f4df8fa1": {
+    "key": "GEEN_094_14",
+    "text": "Máxima concentración V+"
+  },
   "f50a5fe2": {
     "key": "GEEN_085_00",
     "text": "Égida I"
   },
+  "f5171ca2": {
+    "key": "GEEN_029_11",
+    "text": "Para más inri II+"
+  },
   "f610e3b9": {
     "key": "GEEN_110_24",
     "text": "Desesperación V+"
+  },
+  "f650d741": {
+    "key": "GEEN_327_20",
+    "text": "Divergencia I+"
   },
   "f687b1bb": {
     "key": "GEEN_005_04",
@@ -3139,9 +4567,21 @@
     "key": "GEEN_141_04",
     "text": "Cangréditos de inversión"
   },
+  "f91607b3": {
+    "key": "GEEN_036_14",
+    "text": "Guarnición V+"
+  },
   "f94b6319": {
     "key": "GEEN_029_14",
     "text": "Para más inri V+"
+  },
+  "f94e0066": {
+    "key": "GEEN_320_22",
+    "text": "Empíreo abrasador III+"
+  },
+  "f964a4ca": {
+    "key": "GEEN_176_91",
+    "text": "Recarga de lobo tronador+"
   },
   "f9870ad0": {
     "key": "GEEN_020_12",
@@ -3175,6 +4615,10 @@
     "key": "GEEN_055_04",
     "text": "Resistencia a parálisis V"
   },
+  "fbb1778f": {
+    "key": "GEEN_324_14",
+    "text": "Empíreo níveo V+"
+  },
   "fbb938e9": {
     "key": "GEEN_061_13",
     "text": "Venganza de protección IV+"
@@ -3199,13 +4643,33 @@
     "key": "GEEN_120_04",
     "text": "Concordia fantasmal"
   },
+  "fde6479f": {
+    "key": "GEEN_323_20",
+    "text": "Empíreo flámeo I+"
+  },
+  "fe7f1552": {
+    "key": "GEEN_031_20",
+    "text": "Asesino del Break I+"
+  },
   "feee9198": {
     "key": "GEEN_153_23",
     "text": "Delantera IV+"
   },
+  "ff2253bc": {
+    "key": "GEEN_325_10",
+    "text": "Sin límites I+"
+  },
+  "ff28d126": {
+    "key": "GEEN_029_20",
+    "text": "Para más inri I+"
+  },
   "ff2cbcd0": {
     "key": "GEEN_077_24",
     "text": "Discreción V+"
+  },
+  "ff4fd22d": {
+    "key": "GEEN_064_20",
+    "text": "Venganza de finta I+"
   },
   "ff580af6": {
     "key": "GEEN_118_04",

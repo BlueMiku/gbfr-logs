@@ -6,8 +6,8 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "GBFR Logs",
-    "version": "1.9.0"
+    "productName": "GBFR Logs Satuuya Version",
+    "version": "1.9.1"
   },
   "tauri": {
     "allowlist": {
@@ -84,8 +84,8 @@
         "updater"
       ],
       "identifier": "com.false",
-      "longDescription": "GBFR Logs - DPS Meter for Granblue Fantasy: Relink",
-      "shortDescription": "GBFR Logs",
+      "longDescription": "GBFR Logs Satuuya Version - DPS Meter for Granblue Fantasy: Relink",
+      "shortDescription": "GBFR Logs Satuuya Version",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",

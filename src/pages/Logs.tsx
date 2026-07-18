@@ -48,7 +48,7 @@ const Layout = () => {
           <Group h="100%" px="sm">
             <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom="sm" size="sm" />
             <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="sm" size="sm" />
-            <Text>GBFR Logs</Text>
+            <Text>GBFR Logs Satuuya Version</Text>
           </Group>
         </AppShell.Header>
         <AppShell.Navbar p="sm">

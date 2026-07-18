@@ -1,11 +1,11 @@
 {
-  "version": "1.9.0",
-  "notes": "Adds a new HorizontalOverlay theme: a compact horizontal card-strip layout (selectable in Settings) with per-player color-tinted cards, click-to-expand skill breakdown, a draggable-but-borderless window, and auto-fit/auto-center resizing based on party size. Also updates project links/credits for the fork. Check release notes on github for more details!",
-  "pub_date": "2026-07-11T20:32:04+00:00",
+  "version": "1.9.1",
+  "notes": "Restores weapon tracking (the Weapon panel now shows real name/stars/plus-marks/awakening/level/base HP+ATK/wrightstone/traits instead of \"unknown\"), fixes several missing Endless Ragnarok sigil and trait names (across all locales), and rebrands the app as \"GBFR Logs Satuuya Version\" to avoid confusion with the original upstream project. Check release notes on github for more details!",
+  "pub_date": "2026-07-18T10:58:42+00:00",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTM0g5VVVnbTg5RFJ5QndkTUpBS256NWh2UTFLa2RuOENNZFNUM3p0TElnMkNwZlJUK1FtWkVzZEdFZWpMLzBPMlF3bEYzQ3FlcDVFUzl0YjcwVi9uWUlMV1V0enJqSFFJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgzODAxOTE0CWZpbGU6R0JGUiBMb2dzXzEuOS4wX3g2NF9lbi1VUy5tc2kuemlwClBpY3pkbHdJQTVTRlhwd250RkRZQ21Rd2hxb2lRQUhBSEdYQllSaEVkb0xuWHk3TzZaRjZucmVQeWd6NG5jbmw0ZnBXMHpiSnJhMzM5VlRrcjlWVkJnPT0K",
-      "url": "https://github.com/BlueMiku/gbfr-logs/releases/download/1.9.0/GBFR.Logs_1.9.0_x64_en-US.msi.zip"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTM0g5VVVnbTg5RFRvcHJIZWdPQzcxQ0RYTFV0bXlVUTlaYk92dXRHSERJd2V1ZzFQV1h0QXp6TStjT1QxdGw2dFZpLzhvbUN1UXdwekJuM21CQ1grb3Rzd0lTa2dpeFFvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg0MzcyMzA2CWZpbGU6R0JGUiBMb2dzIFNhdHV1eWEgVmVyc2lvbl8xLjkuMV94NjRfZW4tVVMubXNpLnppcApyTUV1Q0o3amdCVWZIQ0FUVGVlTlZWR25YL0I4cFBrL0wwcXIvM2FjZ25pMXpKdWgzVGpMMThtMmg0dTJwWjArZVRjWDRaRVlNanJwL2JVb0JJWGlDdz09Cg==",
+      "url": "https://github.com/BlueMiku/gbfr-logs/releases/download/1.9.1/GBFR.Logs.Satuuya.Version_1.9.1_x64_en-US.msi.zip"
     }
   }
 }

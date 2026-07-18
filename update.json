@@ -1,6 +1,6 @@
 {
   "version": "1.9.1",
-  "notes": "Restores weapon tracking (the Weapon panel now shows real name/stars/plus-marks/awakening/level/base HP+ATK/wrightstone/traits instead of \"unknown\"), fixes several missing Endless Ragnarok sigil and trait names (across all locales), and rebrands the app as \"GBFR Logs Satuuya Version\" to avoid confusion with the original upstream project. Check release notes on github for more details!",
+  "notes": "IMPORTANT: This release renames the app to \"GBFR Logs Satuuya Version\". Because of the rename, this update will install ALONGSIDE your old copy instead of replacing it -- please UNINSTALL THE OLD \"GBFR Logs\" 1.9.0 VERSION YOURSELF afterward (Control Panel > Programs, or Windows Settings > Apps) to avoid running both. Future updates from this version onward will upgrade in place normally.\n\nAlso in this release: restores weapon tracking (the Weapon panel now shows real name/stars/plus-marks/awakening/level/base HP+ATK/wrightstone/traits instead of \"unknown\"), and fixes several missing Endless Ragnarok sigil and trait names (across all locales). Check release notes on github for more details!",
   "pub_date": "2026-07-18T10:58:42+00:00",
   "platforms": {
     "windows-x86_64": {

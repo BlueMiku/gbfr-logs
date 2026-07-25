@@ -1,11 +1,11 @@
 {
-  "version": "1.9.1",
-  "notes": "IMPORTANT: This release renames the app to \"GBFR Logs Satuuya Version\". Because of the rename, this update will install ALONGSIDE your old copy instead of replacing it -- please UNINSTALL THE OLD \"GBFR Logs\" 1.9.0 VERSION YOURSELF afterward (Control Panel > Programs, or Windows Settings > Apps) to avoid running both. Future updates from this version onward will upgrade in place normally.\n\nAlso in this release: restores weapon tracking (the Weapon panel now shows real name/stars/plus-marks/awakening/level/base HP+ATK/wrightstone/traits instead of \"unknown\"), and fixes several missing Endless Ragnarok sigil and trait names (across all locales). Check release notes on github for more details!",
-  "pub_date": "2026-07-18T10:58:42+00:00",
+  "version": "1.9.2",
+  "notes": "This release restores tracking that's been broken since the ER update: overmastery info, Skybound Art (SBA) gauge/attempts/executes, and pet/summon damage attribution (Ferry's ghost, Cagliostro's sled, etc).\n\nNew this release:  cast summons (Lucilius, Rolan, etc.) now attribute their damage to the summoning player\"; equipped summons (with main trait and equip bonus) now track in log details; and weapon data is more reliable  in some online states.\n\nAlso fixes a memory growth issue during long/high-hit-count battles(Thanks to onelittlechildawa). Check release notes on github for more details!",
+  "pub_date": "2026-07-25T20:21:19+00:00",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTM0g5VVVnbTg5RFRvcHJIZWdPQzcxQ0RYTFV0bXlVUTlaYk92dXRHSERJd2V1ZzFQV1h0QXp6TStjT1QxdGw2dFZpLzhvbUN1UXdwekJuM21CQ1grb3Rzd0lTa2dpeFFvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg0MzcyMzA2CWZpbGU6R0JGUiBMb2dzIFNhdHV1eWEgVmVyc2lvbl8xLjkuMV94NjRfZW4tVVMubXNpLnppcApyTUV1Q0o3amdCVWZIQ0FUVGVlTlZWR25YL0I4cFBrL0wwcXIvM2FjZ25pMXpKdWgzVGpMMThtMmg0dTJwWjArZVRjWDRaRVlNanJwL2JVb0JJWGlDdz09Cg==",
-      "url": "https://github.com/BlueMiku/gbfr-logs/releases/download/1.9.1/GBFR.Logs.Satuuya.Version_1.9.1_x64_en-US.msi.zip"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTM0g5VVVnbTg5RGI4VFZrQjFtTEFqZkZSNGFpdjJnUDNmaVY5LzlGb0Q0anBrZFVvTncrdFlyeGNTMk1LZWVNVEdvTlhhbVJRUk9zK2UzTE91S3JPY0hNNW9id05jNWdZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg1MDEwNzM2CWZpbGU6R0JGUiBMb2dzIFNhdHV1eWEgVmVyc2lvbl8xLjkuMl94NjRfZW4tVVMubXNpLnppcApyaktJNU9xa1dMQ1plMmMzbUJIUk9ydG42amxZMlRtbnRMei9KRk0zOFFhZGhzVEd2b0pDS3FZUHI0N1EyWTBxdXFva1ZwWmxzaG9NbDltaDl0ZklEUT09Cg==",
+      "url": "https://github.com/BlueMiku/gbfr-logs/releases/download/1.9.2/GBFR.Logs.Satuuya.Version_1.9.2_x64_en-US.msi.zip"
     }
   }
 }

@@ -31,12 +31,14 @@ mod tests {
         assert_eq!(std::mem::offset_of!(WeaponInfo, star_level), 0x14);
         assert_eq!(std::mem::offset_of!(WeaponInfo, plus_marks), 0x18);
         assert_eq!(std::mem::offset_of!(WeaponInfo, awakening_level), 0x1C);
-        assert_eq!(std::mem::offset_of!(WeaponInfo, trait_1_id), 0x20);
-        assert_eq!(std::mem::offset_of!(WeaponInfo, trait_3_level), 0x34);
+        assert_eq!(std::mem::offset_of!(WeaponInfo, wrightstone_trait_1_id), 0x20);
+        assert_eq!(std::mem::offset_of!(WeaponInfo, wrightstone_trait_3_level), 0x34);
         assert_eq!(std::mem::offset_of!(WeaponInfo, wrightstone_id), 0x38);
+        assert_eq!(std::mem::offset_of!(WeaponInfo, innate_skill_ids), 0x44);
         assert_eq!(std::mem::offset_of!(WeaponInfo, weapon_level), 0x58);
         assert_eq!(std::mem::offset_of!(WeaponInfo, weapon_hp), 0x5C);
         assert_eq!(std::mem::offset_of!(WeaponInfo, weapon_attack), 0x60);
+        assert_eq!(std::mem::offset_of!(WeaponInfo, innate_level_pairs), 0xA4);
     }
 }
 
@@ -115,35 +117,47 @@ pub struct WeaponInfo {
     pub plus_marks: u32,
     /// Weapon's awakening level
     pub awakening_level: u32,
-    /// First trait ID
-    pub trait_1_id: u32,
-    /// First trait level
-    pub trait_1_level: u32,
-    /// Second trait ID
-    pub trait_2_id: u32,
-    /// Second trait level
-    pub trait_2_level: u32,
-    /// Third trait ID
-    pub trait_3_id: u32,
-    /// Third trait level
-    pub trait_3_level: u32,
+    /// First wrightstone trait ID
+    pub wrightstone_trait_1_id: u32,
+    /// First wrightstone trait level
+    pub wrightstone_trait_1_level: u32,
+    /// Second wrightstone trait ID
+    pub wrightstone_trait_2_id: u32,
+    /// Second wrightstone trait level
+    pub wrightstone_trait_2_level: u32,
+    /// Third wrightstone trait ID
+    pub wrightstone_trait_3_id: u32,
+    /// Third wrightstone trait level
+    pub wrightstone_trait_3_level: u32,
     /// Wrightstone used on the weapon
     pub wrightstone_id: u32,
     unk_3c: u32,
-    /// Game 2.0 inserted 6 new u32 fields here (purpose unverified) between
-    /// wrightstone_id and weapon_level, pushing the latter from 0x40 to 0x58.
-    /// Confirmed live: 0x38-0x34 all still match the pre-2.0 layout exactly
-    /// (weapon_id, star_level, awakening_level, all 3 traits, wrightstone_id all
-    /// checked byte-for-byte against known values), and 0x58/0x5c/0x60 match a
-    /// known weapon's level/base-HP/base-ATK from an external stats reference. See
-    /// feedback_re_methodology memory.
-    unk_40_54: [u32; 6],
+    unk_40: u32,
+    /// 5 sentinel-terminated active innate weapon skill ids (e.g. "Catastrophe
+    /// Nova") - distinct from the wrightstone traits above, and shown in the
+    /// character's Skills list instead of the weapon's own trait section.
+    /// Cross-checked against villith/relink-logs (`record+0x94`, this struct's
+    /// base + 0x44). Each id's level lives in `innate_level_pairs`, matched by
+    /// id rather than by index - see `feedback_re_methodology` memory.
+    pub innate_skill_ids: [u32; 5],
     /// Weapon level
     pub weapon_level: u32,
     /// Weapon's HP Stats (before plus marks)
     pub weapon_hp: u32,
     /// Weapon's Attack Stats (before plus marks)
     pub weapon_attack: u32,
+    padding_64_a4: [u8; 0x40],
+    /// Parallel {id, level} pairs for `innate_skill_ids`, matched *by id* (not
+    /// by index) - an unmatched id degrades to level 0. See
+    /// villith/relink-logs' `read_innate_traits` (`record+0x94+0x60`).
+    pub innate_level_pairs: [InnateLevelPair; 5],
+}
+
+#[derive(Debug, Clone, Copy)]
+#[repr(C)]
+pub struct InnateLevelPair {
+    pub id: u32,
+    pub level: u32,
 }
 
 #[derive(Debug)]

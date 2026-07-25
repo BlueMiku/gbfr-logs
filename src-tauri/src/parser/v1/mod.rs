@@ -38,6 +38,24 @@ impl<'a> AdjustedDamageInstance<'a> {
     }
 }
 
+/// One trait id/level pair - either a wrightstone-granted trait or an active
+/// innate weapon skill.
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct WeaponTraitPair {
+    pub id: u32,
+    pub level: u32,
+}
+
+impl From<protocol::WeaponTraitPair> for WeaponTraitPair {
+    fn from(pair: protocol::WeaponTraitPair) -> Self {
+        Self {
+            id: pair.id,
+            level: pair.level,
+        }
+    }
+}
+
 /// Equippable sigil for a character
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
@@ -50,18 +68,10 @@ struct WeaponInfo {
     pub plus_marks: u32,
     /// Weapon's awakening level
     pub awakening_level: u32,
-    /// First trait ID
-    pub trait_1_id: u32,
-    /// First trait level
-    pub trait_1_level: u32,
-    /// Second trait ID
-    pub trait_2_id: u32,
-    /// Second trait level
-    pub trait_2_level: u32,
-    /// Third trait ID
-    pub trait_3_id: u32,
-    /// Third trait level
-    pub trait_3_level: u32,
+    /// The wrightstone's up-to-3 trait id/level pairs
+    pub wrightstone_traits: Vec<WeaponTraitPair>,
+    /// The weapon's active innate skills (distinct from wrightstone traits)
+    pub innate_traits: Vec<WeaponTraitPair>,
     /// Wrightstone used on the weapon
     pub wrightstone_id: u32,
     /// Current weapon level
@@ -79,12 +89,16 @@ impl From<protocol::WeaponInfo> for WeaponInfo {
             star_level: info.star_level,
             plus_marks: info.plus_marks,
             awakening_level: info.awakening_level,
-            trait_1_id: info.trait_1_id,
-            trait_1_level: info.trait_1_level,
-            trait_2_id: info.trait_2_id,
-            trait_2_level: info.trait_2_level,
-            trait_3_id: info.trait_3_id,
-            trait_3_level: info.trait_3_level,
+            wrightstone_traits: info
+                .wrightstone_traits
+                .into_iter()
+                .map(WeaponTraitPair::from)
+                .collect(),
+            innate_traits: info
+                .innate_traits
+                .into_iter()
+                .map(WeaponTraitPair::from)
+                .collect(),
             wrightstone_id: info.wrightstone_id,
             weapon_level: info.weapon_level,
             weapon_hp: info.weapon_hp,

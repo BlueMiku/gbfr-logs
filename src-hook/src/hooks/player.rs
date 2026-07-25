@@ -10,6 +10,7 @@ use crate::{
         actor_idx, actor_type_id,
         ffi::{Overmasteries, PlayerStats, SigilList, VBuffer, WeaponInfo},
         globals::{OVERMASTERY_OFFSET, PLAYER_DATA_OFFSET, SIGIL_OFFSET, WEAPON_OFFSET},
+        EMPTY_ID,
     },
     process::Process,
 };
@@ -88,17 +89,44 @@ impl OnLoadPlayerHook {
             std::ptr::NonNull::new(unsafe { a1.byte_add(weapon_offset as usize) } as *mut WeaponInfo)
                 .map(|info| {
                     let info = unsafe { info.as_ref() };
+
+                    let valid_id = |id: u32| id != 0 && id != EMPTY_ID;
+
+                    let wrightstone_traits = [
+                        (info.wrightstone_trait_1_id, info.wrightstone_trait_1_level),
+                        (info.wrightstone_trait_2_id, info.wrightstone_trait_2_level),
+                        (info.wrightstone_trait_3_id, info.wrightstone_trait_3_level),
+                    ]
+                    .into_iter()
+                    .filter(|(id, _)| valid_id(*id))
+                    .map(|(id, level)| protocol::WeaponTraitPair { id, level })
+                    .collect();
+
+                    let innate_traits = info
+                        .innate_skill_ids
+                        .iter()
+                        .copied()
+                        .take_while(|id| valid_id(*id))
+                        .map(|id| {
+                            let level = info
+                                .innate_level_pairs
+                                .iter()
+                                .find(|pair| pair.id == id)
+                                .map(|pair| pair.level)
+                                .filter(|level| *level <= 99)
+                                .unwrap_or(0);
+
+                            protocol::WeaponTraitPair { id, level }
+                        })
+                        .collect();
+
                     protocol::WeaponInfo {
                         weapon_id: info.weapon_id,
                         star_level: info.star_level,
                         plus_marks: info.plus_marks,
                         awakening_level: info.awakening_level,
-                        trait_1_id: info.trait_1_id,
-                        trait_1_level: info.trait_1_level,
-                        trait_2_id: info.trait_2_id,
-                        trait_2_level: info.trait_2_level,
-                        trait_3_id: info.trait_3_id,
-                        trait_3_level: info.trait_3_level,
+                        wrightstone_traits,
+                        innate_traits,
                         wrightstone_id: info.wrightstone_id,
                         weapon_level: info.weapon_level,
                         weapon_hp: info.weapon_hp,

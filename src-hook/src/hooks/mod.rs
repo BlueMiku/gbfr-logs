@@ -21,6 +21,10 @@ mod sba;
 
 type GetEntityHashID0x58 = unsafe extern "system" fn(*const usize, *const u32) -> *const usize;
 
+/// Sentinel hash the game uses for "no id"/empty slots (sigils, wrightstone traits,
+/// innate weapon skills). Matches the frontend's `EMPTY_ID` in utils.ts.
+pub(crate) const EMPTY_ID: u32 = 0x887A_E0B0;
+
 /// Game 2.0 removed the party index from the offset used by older releases. Keep a
 /// process-local ID for every concrete actor instance instead. Two players using the
 /// same character still have separate specified-instance pointers.

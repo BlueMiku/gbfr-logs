@@ -12,13 +12,13 @@ use retour::static_detour;
 use crate::{
     event,
     hooks::{
-        ffi::{DamageInstance, PlayerStats, SigilList, VBuffer, WeaponInfo},
-        globals::{PLAYER_DATA_OFFSET, SIGIL_OFFSET, WEAPON_OFFSET},
+        ffi::{DamageInstance, Overmasteries, PlayerStats, SigilList, VBuffer, WeaponInfo},
+        globals::{OVERMASTERY_OFFSET, PLAYER_DATA_OFFSET, SIGIL_OFFSET, WEAPON_OFFSET},
     },
     process::Process,
 };
 
-use super::{actor_idx, actor_type_id, get_source_parent};
+use super::{actor_idx, actor_type_id, get_source_parent, EMPTY_ID};
 
 /// Piggybacks on the damage hook to opportunistically send player stats, since the
 /// dedicated "on load player" hook's signature is stale for game 2.0 (see
@@ -115,17 +115,47 @@ fn maybe_send_player_stats(tx: &event::Tx, actor_index: u32, character_type: u32
         std::ptr::NonNull::new(unsafe { entity_ptr.byte_add(weapon_offset as usize) } as *mut WeaponInfo).map(
             |info| {
                 let info = unsafe { info.as_ref() };
+
+                let valid_id = |id: u32| id != 0 && id != EMPTY_ID;
+
+                let wrightstone_traits = [
+                    (info.wrightstone_trait_1_id, info.wrightstone_trait_1_level),
+                    (info.wrightstone_trait_2_id, info.wrightstone_trait_2_level),
+                    (info.wrightstone_trait_3_id, info.wrightstone_trait_3_level),
+                ]
+                .into_iter()
+                .filter(|(id, _)| valid_id(*id))
+                .map(|(id, level)| protocol::WeaponTraitPair { id, level })
+                .collect();
+
+                // Active innate skill ids are sentinel-terminated; each id's level is
+                // looked up from innate_level_pairs *by id*, not by index (an
+                // unmatched id degrades to level 0). See feedback_re_methodology memory.
+                let innate_traits = info
+                    .innate_skill_ids
+                    .iter()
+                    .copied()
+                    .take_while(|id| valid_id(*id))
+                    .map(|id| {
+                        let level = info
+                            .innate_level_pairs
+                            .iter()
+                            .find(|pair| pair.id == id)
+                            .map(|pair| pair.level)
+                            .filter(|level| *level <= 99)
+                            .unwrap_or(0);
+
+                        protocol::WeaponTraitPair { id, level }
+                    })
+                    .collect();
+
                 protocol::WeaponInfo {
                     weapon_id: info.weapon_id,
                     star_level: info.star_level,
                     plus_marks: info.plus_marks,
                     awakening_level: info.awakening_level,
-                    trait_1_id: info.trait_1_id,
-                    trait_1_level: info.trait_1_level,
-                    trait_2_id: info.trait_2_id,
-                    trait_2_level: info.trait_2_level,
-                    trait_3_id: info.trait_3_id,
-                    trait_3_level: info.trait_3_level,
+                    wrightstone_traits,
+                    innate_traits,
                     wrightstone_id: info.wrightstone_id,
                     weapon_level: info.weapon_level,
                     weapon_hp: info.weapon_hp,
@@ -133,6 +163,31 @@ fn maybe_send_player_stats(tx: &event::Tx, actor_index: u32, character_type: u32
                 }
             },
         )
+    } else {
+        None
+    };
+
+    // overmastery_offset is inline on the entity (player_data_offset+0x58B8, confirmed
+    // against villith/relink-logs's independently-derived Ghidra offset), same access
+    // pattern as weapon_offset.
+    let overmastery_offset = OVERMASTERY_OFFSET.load(Ordering::Relaxed);
+    let overmastery_info = if overmastery_offset != 0 {
+        std::ptr::NonNull::new(unsafe { entity_ptr.byte_add(overmastery_offset as usize) } as *mut Overmasteries)
+            .map(|info| {
+                let info = unsafe { info.as_ref() };
+                protocol::OvermasteryInfo {
+                    overmasteries: info
+                        .stats
+                        .iter()
+                        .filter(|overmastery| overmastery.id != 0 && overmastery.id != EMPTY_ID)
+                        .map(|overmastery| protocol::Overmastery {
+                            id: overmastery.id,
+                            flags: overmastery.flags,
+                            value: overmastery.value,
+                        })
+                        .collect(),
+                }
+            })
     } else {
         None
     };
@@ -155,7 +210,7 @@ fn maybe_send_player_stats(tx: &event::Tx, actor_index: u32, character_type: u32
         },
         character_type,
         weapon_info,
-        overmastery_info: None,
+        overmastery_info,
     });
 
     let _ = tx.send(payload);

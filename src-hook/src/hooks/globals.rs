@@ -38,6 +38,14 @@ const SIGIL_OFFSET_GAME_2: u32 = 0x1AE90;
 /// recompile changed the surrounding bytes even though the underlying field survived.
 const WEAPON_OFFSET_GAME_2: u32 = 0x15080;
 
+/// Like weapon_offset, the equipped-overmastery block is still inline on the entity
+/// in game 2.0 (player_data_offset+0x58B8) - the old byte-pattern search for it is
+/// dead for the same reason weapon_offset's was. Cross-verified against
+/// villith/relink-logs, which independently reached the same offset via Ghidra
+/// decompilation; its 4x0x10-byte entry layout (id/flags/unk/f32 value) also
+/// matches our existing `Overmastery` struct exactly, so only the offset was wrong.
+const OVERMASTERY_OFFSET_GAME_2: u32 = 0x58B8;
+
 pub fn setup_globals(process: &Process) -> Result<()> {
     let player_data_offset = PLAYER_DATA_OFFSET_GAME_2;
 
@@ -56,25 +64,16 @@ pub fn setup_globals(process: &Process) -> Result<()> {
 
     WEAPON_OFFSET.store(WEAPON_OFFSET_GAME_2, std::sync::atomic::Ordering::Relaxed);
 
-    // overmastery_offset and sba_offset are still unresolved for game 2.0 (same dead
-    // byte-pattern issue as weapon_offset was) - kept non-fatal so a failure here
+    let overmastery_offset = player_data_offset + OVERMASTERY_OFFSET_GAME_2;
+
+    #[cfg(feature = "console")]
+    println!("overmastery_offset: {:x}", overmastery_offset);
+
+    OVERMASTERY_OFFSET.store(overmastery_offset, std::sync::atomic::Ordering::Relaxed);
+
+    // sba_offset is still unresolved for game 2.0 (same dead byte-pattern issue
+    // weapon_offset/overmastery_offset had) - kept non-fatal so a failure here
     // doesn't prevent the offsets already stored above from taking effect.
-    match process.search_slice::<u32>("49 8D 8C 24 ' ? ? ? ? 48 8D 93 ? ? ? ? E8 ? ? ? ?") {
-        Ok(overmastery_offset) => {
-            #[cfg(feature = "console")]
-            println!("overmastery_offset: {:x}", overmastery_offset);
-
-            OVERMASTERY_OFFSET.store(
-                player_data_offset + overmastery_offset,
-                std::sync::atomic::Ordering::Relaxed,
-            );
-        }
-        Err(_) => {
-            #[cfg(feature = "console")]
-            println!("overmastery_offset: not found (expected until re-verified for game 2.0)");
-        }
-    }
-
     match process.search_slice::<u32>("7E ? C5 FA 59 81 ? ? ? ? 48 81 C1 ' ? ? ? ? C5 F8 54 0D ? ? ? ?") {
         Ok(sba_offset) => {
             #[cfg(feature = "console")]

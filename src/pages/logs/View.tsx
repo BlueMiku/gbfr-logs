@@ -666,27 +666,19 @@ export const ViewPage = () => {
                             Lvl {player.weaponInfo?.weaponLevel || 0} / ATK {player.weaponInfo?.weaponAttack || 0} / HP{" "}
                             {player.weaponInfo?.weaponHp || 0}
                           </Text>
+                          {(player.weaponInfo?.innateTraits ?? []).map((trait, traitIndex) => (
+                            <Text key={traitIndex} size="xs" fs="italic" fw={300}>
+                              - {translateTraitId(trait.id || EMPTY_ID)} (Lvl. {trait.level})
+                            </Text>
+                          ))}
                           <Text size="xs" fw={700}>
                             {translateItemId(player.weaponInfo?.wrightstoneId || EMPTY_ID)}
                           </Text>
-                          <Placeholder empty={!player.weaponInfo?.trait1Id || player.weaponInfo?.trait1Level == 0}>
-                            <Text size="xs" fs="italic" fw={300}>
-                              - {translateTraitId(player.weaponInfo?.trait1Id || EMPTY_ID)} (Lvl.{" "}
-                              {player.weaponInfo?.trait1Level})
+                          {(player.weaponInfo?.wrightstoneTraits ?? []).map((trait, traitIndex) => (
+                            <Text key={traitIndex} size="xs" fs="italic" fw={300}>
+                              - {translateTraitId(trait.id || EMPTY_ID)} (Lvl. {trait.level})
                             </Text>
-                          </Placeholder>
-                          <Placeholder empty={!player.weaponInfo?.trait2Id || player.weaponInfo?.trait2Level == 0}>
-                            <Text size="xs" fs="italic" fw={300}>
-                              - {translateTraitId(player.weaponInfo?.trait2Id || EMPTY_ID)} (Lvl.{" "}
-                              {player.weaponInfo?.trait2Level})
-                            </Text>
-                          </Placeholder>
-                          <Placeholder empty={!player.weaponInfo?.trait3Id || player.weaponInfo?.trait3Level == 0}>
-                            <Text size="xs" fs="italic" fw={300}>
-                              - {translateTraitId(player.weaponInfo?.trait3Id || EMPTY_ID)} (Lvl.{" "}
-                              {player.weaponInfo?.trait3Level})
-                            </Text>
-                          </Placeholder>
+                          ))}
                         </Table.Td>
                       );
                     })}

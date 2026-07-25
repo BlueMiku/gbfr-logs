@@ -8,7 +8,12 @@ use log::{info, warn};
 
 use crate::{event, process::Process};
 
-use self::{damage::OnProcessDamageHook, player::OnLoadPlayerHook, quest::OnBattleEndHook};
+use self::{
+    damage::OnProcessDamageHook,
+    player::OnLoadPlayerHook,
+    quest::OnBattleEndHook,
+    sba::{OnAttemptSBAHook, OnCheckSBACollisionHook, OnContinueSBAChainHook},
+};
 
 mod area;
 mod damage;
@@ -60,16 +65,38 @@ pub fn setup_hooks(tx: event::Tx) -> Result<()> {
     // Player stats (level/HP/attack/power) work now that player_data_offset is
     // fixed; weapon/sigil/overmastery info still won't populate until their own
     // offsets are re-derived (see project_game_2_compatibility_fix memory).
-    match OnLoadPlayerHook::new(tx).setup(&process) {
+    match OnLoadPlayerHook::new(tx.clone()).setup(&process) {
         Ok(()) => info!("Player load hook enabled (stats only until sigil/weapon offsets are found)"),
         Err(error) => warn!("Player load hook unavailable: {error}"),
+    }
+
+    // SBA tracking, re-verified for game 2.0.2: the attempt/collision/continue-chain
+    // hooks' signatures turned out to have survived the 2.0 recompile unchanged (see
+    // sba.rs). OnHandleSBAUpdateHook is deliberately NOT installed here - its
+    // decompiler-derived 11-arg signature crashed the game on the very first hit landed
+    // (2026-07-26 live test), so either the byte-pattern match or the arg layout is wrong
+    // for this binary and it needs re-verification before it's safe to enable again. Gauge
+    // tracking (both local and remote party members) instead comes entirely from the slot
+    // poll piggybacked on the damage hook - see poll_slots_and_emit in sba.rs and its call
+    // site in damage.rs.
+    match OnAttemptSBAHook::new(tx.clone()).setup(&process) {
+        Ok(()) => info!("SBA attempt hook enabled"),
+        Err(error) => warn!("SBA attempt hook unavailable: {error}"),
+    }
+    match OnCheckSBACollisionHook::new(tx.clone()).setup(&process) {
+        Ok(()) => info!("SBA collision hook enabled"),
+        Err(error) => warn!("SBA collision hook unavailable: {error}"),
+    }
+    match OnContinueSBAChainHook::new(tx).setup(&process) {
+        Ok(()) => info!("SBA continue-chain hook enabled"),
+        Err(error) => warn!("SBA continue-chain hook unavailable: {error}"),
     }
 
     // The 2.0 update changed the layouts and signatures used by the remaining
     // auxiliary hooks. Keep them disabled until each one has been independently
     // verified; installing a stale hook is much worse than temporarily omitting
     // encounter metadata.
-    warn!("Running in game 2.0 compatibility mode: area/quest/SBA/DoT/death hooks are disabled");
+    warn!("Running in game 2.0 compatibility mode: area/quest/DoT/death hooks are disabled");
 
     Ok(())
 }

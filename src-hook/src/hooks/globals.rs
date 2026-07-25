@@ -1,5 +1,5 @@
 use std::ptr;
-use std::sync::atomic::{AtomicPtr, AtomicU32};
+use std::sync::atomic::{AtomicPtr, AtomicU32, AtomicUsize};
 
 use anyhow::Result;
 
@@ -12,6 +12,11 @@ pub static WEAPON_OFFSET: AtomicU32 = AtomicU32::new(0);
 pub static OVERMASTERY_OFFSET: AtomicU32 = AtomicU32::new(0);
 pub static SIGIL_OFFSET: AtomicU32 = AtomicU32::new(0);
 pub static SBA_OFFSET: AtomicU32 = AtomicU32::new(0);
+
+/// The game module's base load address, captured once at hook setup. Lets any hook
+/// resolve module-relative RVAs (e.g. the online SBA slot-poll's party-handle table
+/// in sba.rs) as `MODULE_BASE + rva`, without threading `Process` through everywhere.
+pub static MODULE_BASE: AtomicUsize = AtomicUsize::new(0);
 
 /// Game 2.0 restructured the property lookup this used to resolve via a static byte
 /// pattern (it now goes through a runtime hashtable dispatch instead of a fixed
@@ -47,6 +52,8 @@ const WEAPON_OFFSET_GAME_2: u32 = 0x15080;
 const OVERMASTERY_OFFSET_GAME_2: u32 = 0x58B8;
 
 pub fn setup_globals(process: &Process) -> Result<()> {
+    MODULE_BASE.store(process.base_address, std::sync::atomic::Ordering::Relaxed);
+
     let player_data_offset = PLAYER_DATA_OFFSET_GAME_2;
 
     #[cfg(feature = "console")]

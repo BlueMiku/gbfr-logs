@@ -310,6 +310,15 @@ impl OnProcessDamageHook {
             source_specified_instance_ptr as *const usize,
         );
 
+        // SBA gauge tracking (local and remote party members) piggybacks here rather than
+        // on a dedicated SBA hook - see poll_slots_and_emit's doc comment in sba.rs for why.
+        // A read-only diagnostic (log_slot_poll_diag) confirmed the ported RVAs resolve
+        // stable, sane values across a full quest (2026-07-26); the crash that followed was
+        // resolve_slot_component returning the raw entity pointer instead of the specified
+        // instance (entity+0x70) - actor_type_id/actor_idx expect the latter's vtable. Fixed
+        // in resolve_slot_component now returning `specified`.
+        super::sba::poll_slots_and_emit(&self.tx);
+
         // Parent layouts are character-specific and changed in the 2.0 update. Keep the
         // source attributed to the concrete actor until those optional offsets are verified.
         let (source_parent_type_id, source_parent_idx) = (source_type_id, source_idx);

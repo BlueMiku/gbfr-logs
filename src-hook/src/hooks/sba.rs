@@ -6,7 +6,11 @@ use retour::static_detour;
 
 use crate::{event, process::Process};
 
-use super::{actor_idx, actor_type_id, get_source_parent, globals::{MODULE_BASE, SBA_OFFSET}};
+use super::{
+    actor_idx, actor_type_id, get_source_parent,
+    globals::{MODULE_BASE, SBA_OFFSET},
+    mem::{read_f32_guarded, read_ptr_guarded, read_u32_guarded},
+};
 
 // v2.0.2, decompiler-verified (cross-checked against villith/relink-logs, which
 // independently reached the same function via Ghidra): the gauge-update function takes
@@ -74,56 +78,6 @@ const SBA_SLOT_HANDLES_RVA: usize = 0x70367f0;
 const SBA_SLOT_HANDLE_STRIDE: usize = 0x18;
 const ENTITY_TABLE_RVA: usize = 0x70214e8;
 const SBA_COMPONENT_TYPE_RVA: usize = 0x7ab3f50;
-
-/// Cheap "is this readable" probe via `IsBadReadPtr` rather than `VirtualQuery` (which
-/// takes the process's address-space lock; under allocation churn that lock makes a
-/// naive per-read guard measurably slower - a lesson carried over from villith/relink-logs,
-/// which hit this exact slowdown). Deprecated-but-ubiquitous kernel32 export, not exposed
-/// by the `windows` crate. Lets the manual std::map tree-walk below never fault the game
-/// on a stale or mid-mutation pointer.
-fn readable(addr: usize, len: usize) -> bool {
-    #[link(name = "kernel32")]
-    extern "system" {
-        fn IsBadReadPtr(lp: *const std::ffi::c_void, ucb: usize) -> i32;
-    }
-    if addr == 0 || addr.checked_add(len).is_none() {
-        return false;
-    }
-    unsafe { IsBadReadPtr(addr as *const _, len) == 0 }
-}
-
-fn read_u32_guarded(base: usize, offset: usize) -> u32 {
-    if base == 0 {
-        return 0;
-    }
-    let addr = base.wrapping_add(offset);
-    if !readable(addr, 4) {
-        return 0;
-    }
-    unsafe { (addr as *const u32).read_unaligned() }
-}
-
-fn read_ptr_guarded(base: usize, offset: usize) -> Option<usize> {
-    if base == 0 {
-        return None;
-    }
-    let addr = base.wrapping_add(offset);
-    if !readable(addr, std::mem::size_of::<usize>()) {
-        return None;
-    }
-    Some(unsafe { (addr as *const usize).read_unaligned() })
-}
-
-fn read_f32_guarded(base: usize, offset: usize) -> Option<f32> {
-    if base == 0 {
-        return None;
-    }
-    let addr = base.wrapping_add(offset);
-    if !readable(addr, 4) {
-        return None;
-    }
-    Some(unsafe { (addr as *const f32).read_unaligned() })
-}
 
 /// MSVC `std::map<u32, ptr>` find, replicating the game's own component-by-type lookup.
 /// Node layout: left @ +0x00, right @ +0x10, is_nil @ +0x19 (packed in the u32 at +0x18),

@@ -20,6 +20,7 @@ mod damage;
 mod death;
 mod ffi;
 mod globals;
+mod mem;
 mod player;
 mod quest;
 mod sba;
@@ -136,60 +137,83 @@ pub fn actor_idx(actor_ptr: *const usize) -> u32 {
     id
 }
 
-// Returns the parent entity of the source entity if necessary.
+/// Pl1900 (Id, human form) actor type hash - the type Id's dragon form is always
+/// reported as (see the special-cased arm below).
+const ID_HUMAN_TYPE: u32 = 0x8056ABCD;
+
+/// Returns the parent entity of the source entity if necessary.
+///
+/// Offsets cross-checked against villith/relink-logs, which independently re-derived
+/// several of these for game 2.0.2: Ferry's ghost, Umlauf, and Seofon's Avatar all shifted
+/// (Ferry's ghost losing its old 0xE48 dropped ALL of Ferry's ghost damage - these had
+/// never been re-verified since the 2.0 update, unlike the hooks in mod.rs's setup_hooks
+/// that explicitly gate on it). Id's dragon form needs an entirely different offset plus a
+/// forced type - see its arm below.
 #[inline(always)]
 pub fn get_source_parent(source_type_id: u32, source: *const usize) -> Option<(u32, u32)> {
-    match source_type_id {
-        // Pl0700Ghost -> Pl0700
-        0x2AF678E8 => {
-            let parent_instance = parent_specified_instance_at(source, 0xE48)?;
+    // Pl2000: Id's Dragon Form -> Pl1900. Handled ahead of the generic table: the dragon
+    // actor carries its own player key that doesn't resolve normally through the type-id
+    // vfunc (a recruited/duplicate-slot Id quirk), so the type is forced back onto the
+    // human form here rather than read off the resolved parent. Still uses this project's
+    // own actor_idx (not a raw memory-read index) to stay consistent with every other actor.
+    if source_type_id == 0xF5755C0E {
+        let parent_instance = parent_specified_instance_at(source, 0x1CA98)?;
+        return Some((ID_HUMAN_TYPE, actor_idx(parent_instance)));
+    }
 
-            Some((actor_type_id(parent_instance), actor_idx(parent_instance)))
-        }
-        // Pl0700GhostSatellite -> Pl0700
-        0x8364C8BC => {
-            let parent_instance = parent_specified_instance_at(source, 0x508)?;
+    let parent_offset = match source_type_id {
+        // Pl0700Ghost -> Pl0700 (Ferry). v2.0.2 moved the owner-entity link
+        // 0xE48 -> 0xE58; the old offset silently dropped all of Ferry's ghost damage.
+        0x2AF678E8 => 0xE58,
+        // Pl0700GhostSatellite -> Pl0700 (Umlauf). Same -0x20 shift as the ghost above.
+        0x8364C8BC => 0x4E8,
+        // Wp2290: Seofon's Avatar.
+        0x5B1AB457 => 0x4E0,
+        // Pl0600PlantRose (unchanged in 2.0.2).
+        0x69C0CA71 => 0x7E0,
+        // Wp1890: Cagliostro's Ouroboros Dragon Sled -> Pl1800. The owner handle is empty
+        // in some sled states, so gate on the handle index before trusting the pointer -
+        // reading through it unconditionally would deref garbage in those states.
+        0xC9F45042 => gated_parent_offset(source, 0x550, 0x558)?,
+        _ => return None,
+    };
 
-            Some((actor_type_id(parent_instance), actor_idx(parent_instance)))
-        }
-        // Wp1890: Cagliostro's Ouroboros Dragon Sled -> Pl1800
-        0xC9F45042 => {
-            let parent_instance = parent_specified_instance_at(source, 0x578)?;
-            Some((actor_type_id(parent_instance), actor_idx(parent_instance)))
-        }
-        // Pl2000: Id's Dragon Form -> Pl1900
-        0xF5755C0E => {
-            let parent_instance = parent_specified_instance_at(source, 0xD488)?;
-            Some((actor_type_id(parent_instance), actor_idx(parent_instance)))
-        }
-        // Wp2290: Seofon's Avatar
-        0x5B1AB457 => {
-            let parent_instance = parent_specified_instance_at(source, 0x500)?;
-            Some((actor_type_id(parent_instance), actor_idx(parent_instance)))
-        }
-        // Pl0600PlantRose
-        0x69C0CA71 => {
-            let parent_instance = parent_specified_instance_at(source, 0x7E0)?;
-            Some((actor_type_id(parent_instance), actor_idx(parent_instance)))
-        }
-        _ => None,
+    let parent_instance = parent_specified_instance_at(source, parent_offset)?;
+    // actor_type_id makes a vtable call; probe the slot first so a stale offset (or a
+    // source mid-teardown) fails closed instead of crashing the game thread.
+    if !mem::vtable_slot_readable(parent_instance, 0x58) {
+        return None;
+    }
+    Some((actor_type_id(parent_instance), actor_idx(parent_instance)))
+}
+
+/// True iff the handle index at `source+idx_offset` is set, gating whether
+/// `source+ptr_offset` is safe to trust as a real pointer. Some entities (e.g.
+/// Cagliostro's sled) leave the owner handle empty in certain states; reading through it
+/// unconditionally would deref garbage.
+#[inline(always)]
+fn gated_parent_offset(source: *const usize, idx_offset: usize, ptr_offset: usize) -> Option<usize> {
+    match mem::read_u32_guarded(source as usize, idx_offset) {
+        0 => None,
+        _ => Some(ptr_offset),
     }
 }
 
 // Returns the specified instance of the parent entity.
 // ptr+offset: Entity
 // *(ptr+offset) + 0x70: m_pSpecifiedInstance (Pl0700, Pl1200, etc.)
+//
+// Guarded reads: these parent-link offsets are version-fragile, and a stale one (or a
+// pet/form instance smaller than expected) previously meant a raw deref of unmapped
+// memory on the game thread - the same crash class the SBA slot poll hit earlier.
 #[inline(always)]
 fn parent_specified_instance_at(actor_ptr: *const usize, offset: usize) -> Option<*const usize> {
-    unsafe {
-        let info = (actor_ptr.byte_add(offset) as *const *const *const usize).read_unaligned();
-
-        if info.is_null() {
-            return None;
-        }
-
-        Some(info.byte_add(0x70).read())
+    let entity = mem::read_ptr_guarded(actor_ptr as usize, offset)?;
+    if entity == 0 {
+        return None;
     }
+    let parent = mem::read_ptr_guarded(entity, 0x70)?;
+    (parent != 0).then_some(parent as *const usize)
 }
 
 #[cfg(test)]

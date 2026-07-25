@@ -319,9 +319,12 @@ impl OnProcessDamageHook {
         // in resolve_slot_component now returning `specified`.
         super::sba::poll_slots_and_emit(&self.tx);
 
-        // Parent layouts are character-specific and changed in the 2.0 update. Keep the
-        // source attributed to the concrete actor until those optional offsets are verified.
-        let (source_parent_type_id, source_parent_idx) = (source_type_id, source_idx);
+        // Parent layouts (ghost/pet/sled/dragon-form -> owning player) re-verified for game
+        // 2.0.2 - see get_source_parent's doc comment in mod.rs. This mirrors the DoT event
+        // hook below, which already called get_source_parent correctly.
+        let (source_parent_type_id, source_parent_idx) =
+            get_source_parent(source_type_id, source_specified_instance_ptr as *const usize)
+                .unwrap_or((source_type_id, source_idx));
 
         let target_type_id: u32 = actor_type_id(target_specified_instance_ptr as *const usize);
         let target_idx = actor_idx(target_specified_instance_ptr as *const usize);

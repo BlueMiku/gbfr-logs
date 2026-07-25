@@ -4,7 +4,7 @@ use pelite::{
     pe64::{Pe, PeView},
 };
 use thiserror::Error;
-use windows::Win32::Foundation::HMODULE;
+use windows::Win32::Foundation::{CloseHandle, HMODULE};
 use windows::Win32::System::Diagnostics::ToolHelp::{
     CreateToolhelp32Snapshot, Module32FirstW, Process32FirstW, Process32NextW, MODULEENTRY32W,
     PROCESSENTRY32W, TH32CS_SNAPMODULE, TH32CS_SNAPMODULE32, TH32CS_SNAPPROCESS,
@@ -58,7 +58,9 @@ impl Process {
                                 ..MODULEENTRY32W::default()
                             };
 
-                            if Module32FirstW(module_snapshot, &mut module_entry).is_ok() {
+                            let module_found_first = Module32FirstW(module_snapshot, &mut module_entry).is_ok();
+
+                            if module_found_first {
                                 let module_name = String::from_utf16_lossy(&process.szExeFile)
                                     .trim_end_matches('\u{0}')
                                     .to_string();
@@ -72,7 +74,11 @@ impl Process {
                                         module_handle,
                                     });
                                 }
-                            } else {
+                            }
+
+                            let _ = CloseHandle(module_snapshot);
+
+                            if !module_found_first {
                                 break;
                             }
                         }
@@ -81,6 +87,8 @@ impl Process {
                     }
                 }
             }
+
+            let _ = CloseHandle(snapshot_handle);
         }
 
         found_process.ok_or(ProcessError::ProcessNotFound)

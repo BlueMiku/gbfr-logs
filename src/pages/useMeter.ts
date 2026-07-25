@@ -55,10 +55,6 @@ export default function useMeter() {
   useEffect(() => {
     const encounterUpdateListener = listen("encounter-update", (event: EncounterUpdateEvent) => {
       setEncounterState(event.payload);
-
-      if (event.payload.status === "InProgress" && encounterState.status === "Waiting") {
-        encounterState.startTime == Date.now();
-      }
     });
 
     const encounterSavedListener = listen("encounter-saved", () => {
@@ -110,7 +106,7 @@ export default function useMeter() {
       onPinned.then((f) => f());
       onClickthrough.then((f) => f());
     };
-  }, [partyData]);
+  }, []);
 
   useEffect(() => {
     if (previousStatus === "InProgress" && encounterState.status === "Stopped") {

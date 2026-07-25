@@ -3,6 +3,7 @@ import html2canvas from "html2canvas";
 import * as jsurl from "jsurl";
 import toast from "react-hot-toast";
 import summonBonusValues from "./assets/summon-bonus-values.json";
+import summonNameSources from "./assets/summon-name-sources.json";
 import {
   CharacterType,
   ComputedPlayerState,
@@ -16,7 +17,7 @@ import {
   SortType,
 } from "./types";
 
-import { t } from "i18next";
+import i18next, { t } from "i18next";
 import { useEffect, useRef } from "react";
 
 export const EMPTY_ID = 2289754288;
@@ -47,6 +48,56 @@ export const epochToLocalTime = (epoch: number): string => {
   }).format(utc);
 };
 
+/** A loaded resource bundle: active language first, `en` filling in (matches i18next
+ * fallback), `{}` when neither is loaded yet. */
+const getLangBundle = (namespace: string): Record<string, { text?: string }> =>
+  (i18next.getResourceBundle(i18next.language, namespace) ??
+    i18next.getResourceBundle("en", namespace) ??
+    {}) as Record<string, { text?: string }>;
+
+/** Every summon and primal-burst hit reports this one action id, so the id alone can
+ * never name the row - the summon's (concrete or shared) class hash is the only
+ * discriminator. */
+export const SUMMON_ATTACK_ACTION_ID = 80000;
+
+/** Tier suffix on summon names ("Silverslime II"). Stripped so every tier of a summon
+ * reads as the same name. Ported from villith/relink-logs, whose generator produces the
+ * bundled summon-name-sources.json this pairs with. */
+const TIER_SUFFIX = /(?:\s+I{1,3}|[Ⅰ-Ⅲ])$/;
+const normalizeSpaces = (text: string): string => text.replace(/\s+/g, " ").trim();
+const stripTierSuffix = (text: string): string => normalizeSpaces(normalizeSpaces(text).replace(TIER_SUFFIX, ""));
+
+/** The body-class hash of a summon hit, or null when the source is a real character
+ * rather than an unresolved `So####` body. */
+const summonBodyHash = (childCharacterType: CharacterType): string | null => {
+  if (typeof childCharacterType !== "object" || !Object.hasOwn(childCharacterType, "Unknown")) return null;
+  return childCharacterType.Unknown.toString(16).padStart(8, "0");
+};
+
+type SummonNameSource = { ns: string; hash: string; key: string };
+
+/** Bridges a summon's class hash (the shared body class, or the concrete per-unit class
+ * the hook resolves for ambiguous/generic bodies) to the tiered lang entry that actually
+ * names it - summons.json only stores tiered text ("Evyl Blackwyrm III"), never a bare
+ * class name. Ported from villith/relink-logs' generated skill-name-sources.json
+ * (summon-classes block only - the rest of that file names abilities, which this project
+ * doesn't use). */
+const summonClassSource = (classHash: string): SummonNameSource | null =>
+  (summonNameSources as Record<string, SummonNameSource>)[classHash] ?? null;
+
+/** The mapped display name for a summon's class hash, tier suffix stripped, or null when
+ * this project has no mapping for it (a still-ambiguous body with no concrete-class
+ * resolution, or a stale offset after a game patch). */
+const summonDisplayName = (classHash: string): string | null => {
+  const source = summonClassSource(classHash);
+  if (source === null) return null;
+
+  const text = getLangBundle(source.ns)[source.hash]?.text;
+  if (!text) return null;
+
+  return stripTierSuffix(text);
+};
+
 export const getSkillName = (characterType: CharacterType, skill: SkillState) => {
   switch (true) {
     case skill.actionType === "LinkAttack":
@@ -64,6 +115,12 @@ export const getSkillName = (characterType: CharacterType, skill: SkillState) =>
     case typeof skill.actionType == "object" && Object.hasOwn(skill.actionType, "Normal"): {
       const actionType = skill.actionType as { Normal: number };
       const skillID = actionType["Normal"];
+
+      if (skillID === SUMMON_ATTACK_ACTION_ID) {
+        const bodyHash = summonBodyHash(skill.childCharacterType);
+        const mapped = bodyHash === null ? null : summonDisplayName(bodyHash);
+        if (mapped !== null) return mapped;
+      }
 
       return t(
         [

@@ -18,7 +18,7 @@ use crate::{
     process::Process,
 };
 
-use super::{actor_idx, actor_type_id, get_source_parent, EMPTY_ID};
+use super::{actor_idx, actor_type_id, get_source_parent, published_actor_type, EMPTY_ID};
 
 /// Piggybacks on the damage hook to opportunistically send player stats, since the
 /// dedicated "on load player" hook's signature is stale for game 2.0 (see
@@ -355,13 +355,19 @@ impl OnProcessDamageHook {
             get_source_parent(source_type_id, source_specified_instance_ptr as *const usize)
                 .unwrap_or((source_type_id, source_idx));
 
+        // Concrete summon class (e.g. Silverslime vs Goldslime, which share one body
+        // class) for display naming - independent of attribution above, which still
+        // needs the generic body hash to match SUMMON_BODY_HASHES.
+        let published_source_type_id =
+            published_actor_type(source_type_id, source_specified_instance_ptr as *const usize);
+
         let target_type_id: u32 = actor_type_id(target_specified_instance_ptr as *const usize);
         let target_idx = actor_idx(target_specified_instance_ptr as *const usize);
 
         let event = Message::DamageEvent(DamageEvent {
             source: Actor {
                 index: source_idx,
-                actor_type: source_type_id,
+                actor_type: published_source_type_id,
                 parent_index: source_parent_idx,
                 parent_actor_type: source_parent_type_id,
             },
@@ -449,11 +455,12 @@ impl OnProcessDotHook {
 
         let (source_parent_type_id, source_parent_idx) =
             get_source_parent(source_type_id, source).unwrap_or((source_type_id, source_idx));
+        let published_source_type_id = published_actor_type(source_type_id, source);
 
         let event = Message::DamageEvent(DamageEvent {
             source: Actor {
                 index: source_idx,
-                actor_type: source_type_id,
+                actor_type: published_source_type_id,
                 parent_index: source_parent_idx,
                 parent_actor_type: source_parent_type_id,
             },

@@ -19,6 +19,7 @@ mod area;
 mod damage;
 mod death;
 mod ffi;
+mod gamehash;
 mod globals;
 mod mem;
 mod player;
@@ -141,24 +142,181 @@ pub fn actor_idx(actor_ptr: *const usize) -> u32 {
 /// reported as (see the special-cased arm below).
 const ID_HUMAN_TYPE: u32 = 0x8056ABCD;
 
-/// Returns the parent entity of the source entity if necessary.
+/// Summon body classes that store their summoner as a validated entity handle
+/// `{+0xFE0 idx, +0xFE8 CEntityInfo*}`, cross-checked against villith/relink-logs (which
+/// independently reached these via Ghidra decompilation). Only sixteen of the game's
+/// seventy-four summons own a body class of their own; the rest share one of the two
+/// generic bodies here, so this can group a summon's damage under its owner but can't
+/// yet tell which summon was cast when several share a body (see the concrete-class
+/// follow-up - naming is a separate, bigger piece of work than attribution).
+const SUMMON_BODY_HASHES: &[u32] = &[
+    0xD2E5407A, // So0000  Lucilius
+    0x6D068BDE, // So0200  Rolan
+    0x69893920, // So0d00  Goblin Soldier
+    0x1D3EDC63, // So1100  Goblin Warrior
+    0xAE913DE3, // So1100Base (generic summon body)
+    0xDFEC5706, // So1d00  Quakadile
+    0x34894579, // So2001  Silverslime var.
+    0x1DB19581, // So4500  Lilith
+    0x9F394F85, // So4502  Lilith var.
+    0x65294C5C, // So4c00  Managarmr Nihilla
+    0x18617D59, // So4e00  Albacore
+    0x925ADE1B, // So4f00  Hope-Filled Skydwellers
+    0x6093301C, // So5600  Mellose Clan
+    0xA22E16CF, // So5700  Crew Alliance Rafale
+    0x0F617FF0, // So5f01  Cat var.
+    0xF065D8B8, // So6400  Wheel of Fate
+    0x5395CE93, // So9200  Beelzebub
+    0xB0792857, // BehaviorSummonObjectBase (generic summon body)
+];
+
+const SUMMON_OWNER_IDX_OFFSET: usize = 0xFE0;
+const SUMMON_OWNER_PTR_OFFSET: usize = 0xFE8;
+
+/// Static RVAs of the summon-base body classes that store their summoner at +0xFE8,
+/// sorted for `binary_search`. Compared against `*(summon) - MODULE_BASE` - a plain read
+/// and compare, never a vfunc call on a swept pointer. Cross-checked against
+/// villith/relink-logs. Goes stale on every game patch by design; a miss fails closed and
+/// warns once rather than guessing.
+const SUMMON_BASE_VTABLE_RVAS: &[usize] = &[
+    0x59C61D0, // BehaviorSummonObjectBase (generic/data-driven body)
+    0x5C58DD0, // So0000  Lucilius
+    0x5C59FF0, // So4e00  Albacore
+    0x5C5CA60, // So6400  Wheel of Fate
+    0x5C5DC10, // So0200  Rolan
+    0x5C5EDA0, // So2001  Silverslime var.
+    0x5C61020, // So4502  Lilith var.
+    0x5E75600, // So4500  Lilith
+    0x5E78240, // So4c00  Managarmr Nihilla
+    0x5E793D0, // So1d00  Quakadile
+    0x5E7A4C0, // So9200  Beelzebub
+    0x5E7B650, // So0d00  Goblin Soldier
+    0x5E7C7E0, // So4f00  Hope-Filled Skydwellers
+    0x5E7D990, // So5600  Mellose Clan
+    0x5E7EB40, // So5700  Crew Alliance Rafale
+    0x5E7FCF0, // So5f01  Cat var.
+    0x617F998, // So1100  Goblin Warrior
+    0x617FD38, // So1100Base (generic body)
+];
+
+static SUMMON_VTABLE_RVA_WARNED: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);
+
+/// One-shot latch so a patch that moves these vtables logs once per session rather than
+/// once per hit.
+fn warn_stale_summon_rva_once() {
+    if SUMMON_VTABLE_RVA_WARNED.swap(true, std::sync::atomic::Ordering::Relaxed) {
+        return;
+    }
+    warn!("summon-base vtable RVAs did not match - offsets may be stale after a game patch");
+}
+
+/// True iff `summon`'s vtable RVA is a known summon-base body class. Guarded read, fails
+/// closed, no vfunc call on a swept pointer.
+fn is_summon_base_vtable(summon: *const usize) -> bool {
+    let base = globals::MODULE_BASE.load(std::sync::atomic::Ordering::Relaxed);
+    if base == 0 {
+        return false;
+    }
+    let Some(vtable) = mem::read_ptr_guarded(summon as usize, 0) else {
+        return false;
+    };
+    let Some(rva) = vtable.checked_sub(base) else {
+        return false;
+    };
+    SUMMON_BASE_VTABLE_RVAS.binary_search(&rva).is_ok()
+}
+
+/// `SummonUnitData.id_`, then `SummonObjectData.id_` as the cross-check. Both are named
+/// by the game's own reflection tables and both carry the same value on every body
+/// observed live; reading the second only when the first fails costs nothing on the
+/// happy path.
+const SUMMON_UNIT_ID_OFFSET: usize = 0x11C0;
+const SUMMON_OBJECT_ID_OFFSET: usize = 0x1020;
+
+/// The high half of a summon body id, tagging it as a summon object. Anything else means
+/// the offset is stale and the low half is not a summon number.
+const SUMMON_ID_CATEGORY: u32 = 0x010D;
+
+static SUMMON_ID_WARNED: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);
+
+/// The concrete summon behind a body, as its `So####` class hash.
 ///
-/// Offsets cross-checked against villith/relink-logs, which independently re-derived
-/// several of these for game 2.0.2: Ferry's ghost, Umlauf, and Seofon's Avatar all shifted
-/// (Ferry's ghost losing its old 0xE48 dropped ALL of Ferry's ghost damage - these had
-/// never been re-verified since the 2.0 update, unlike the hooks in mod.rs's setup_hooks
-/// that explicitly gate on it). Id's dragon form needs an entirely different offset plus a
-/// forced type - see its arm below.
-#[inline(always)]
-pub fn get_source_parent(source_type_id: u32, source: *const usize) -> Option<(u32, u32)> {
-    // Pl2000: Id's Dragon Form -> Pl1900. Handled ahead of the generic table: the dragon
-    // actor carries its own player key that doesn't resolve normally through the type-id
-    // vfunc (a recruited/duplicate-slot Id quirk), so the type is forced back onto the
-    // human form here rather than read off the resolved parent. Still uses this project's
-    // own actor_idx (not a raw memory-read index) to stay consistent with every other actor.
-    if source_type_id == 0xF5755C0E {
-        let parent_instance = parent_specified_instance_at(source, 0x1CA98)?;
-        return Some((ID_HUMAN_TYPE, actor_idx(parent_instance)));
+/// A body id reads `0x010D_<summon><unit>`: the low byte selects the unit within the
+/// summon, the byte above it the summon. E.g. Silverslime's body reports `0x010D2001` and
+/// Goldslime's `0x010D2101`, while BOTH report the same shared class hash `0x34894579` -
+/// the class alone can never separate them, this can. Every one of the game's summon
+/// classes is `So####00`, so clearing the unit byte turns any unit's id into its summon's
+/// class id.
+///
+/// Returns `None` when the id does not look like a summon object, so a stale offset after
+/// a game patch leaves rows generic rather than misnamed.
+fn concrete_summon_class(source: *const usize) -> Option<u32> {
+    let id = match mem::read_u32_guarded(source as usize, SUMMON_UNIT_ID_OFFSET) {
+        id if id >> 16 == SUMMON_ID_CATEGORY => id,
+        _ => mem::read_u32_guarded(source as usize, SUMMON_OBJECT_ID_OFFSET),
+    };
+    if id >> 16 != SUMMON_ID_CATEGORY {
+        if !SUMMON_ID_WARNED.swap(true, std::sync::atomic::Ordering::Relaxed) {
+            warn!("summon body id offsets did not match - offsets may be stale after a game patch");
+        }
+        return None;
+    }
+
+    Some(gamehash::game_xxhash32(&summon_class_id((id & 0xFF00) as u16)))
+}
+
+/// Renders a summon number as the `So####` id string the engine hashes. Lowercase hex,
+/// because that is how the game spells them (`So0d00`).
+fn summon_class_id(summon: u16) -> [u8; 6] {
+    const HEX: &[u8; 16] = b"0123456789abcdef";
+    let mut id = *b"So0000";
+    for (i, shift) in [12, 8, 4, 0].into_iter().enumerate() {
+        id[2 + i] = HEX[((summon >> shift) & 0xF) as usize];
+    }
+    id
+}
+
+/// The actor type to publish for a damage source: the concrete summon's class hash when
+/// the source is a summon body we can resolve, else the type the game reported.
+///
+/// Deliberately NOT folded into get_source_parent's attribution above - that still has to
+/// match SUMMON_BODY_HASHES to find the summoner, and a concrete hash is not in that
+/// table.
+pub fn published_actor_type(source_type_id: u32, source: *const usize) -> u32 {
+    if !SUMMON_BODY_HASHES.contains(&source_type_id) {
+        return source_type_id;
+    }
+    concrete_summon_class(source).unwrap_or(source_type_id)
+}
+
+/// Two-hop attribution: source -> parent summon (re-typed by vtable RVA, no vfunc call on
+/// a swept pointer) -> summoner. Fails closed at every step.
+fn two_hop_summoner(source: *const usize, hop1_idx_off: usize, hop1_ptr_off: usize) -> Option<*const usize> {
+    let hop1 = gated_parent_offset(source, hop1_idx_off, hop1_ptr_off)?;
+    let summon = parent_specified_instance_at(source, hop1)?;
+
+    if !is_summon_base_vtable(summon) {
+        warn_stale_summon_rva_once();
+        return None;
+    }
+
+    let hop2 = gated_parent_offset(summon, SUMMON_OWNER_IDX_OFFSET, SUMMON_OWNER_PTR_OFFSET)?;
+    parent_specified_instance_at(summon, hop2)
+}
+
+/// Resolves a source to its parent's *specified instance* pointer, before the final
+/// type-id/actor_idx lookup. Two-hop arms (owner handle -> parent summon -> summoner) are
+/// handled ahead of the single-hop offset table because they yield a resolved pointer
+/// directly rather than an offset to resolve.
+fn resolve_source_parent_ptr(source_type_id: u32, source: *const usize) -> Option<*const usize> {
+    match source_type_id {
+        // SoAhrimanBaseLaser.
+        0x8FE0DF11 => return two_hop_summoner(source, 0x4F0, 0x4F8),
+        // We8090 / We8091 / We8170 (em8000 "Seofon" sword entities).
+        0xAE1F95D9 | 0xAE1E9FFC | 0x2E0DE3A8 => {
+            return two_hop_summoner(source, SUMMON_OWNER_IDX_OFFSET, SUMMON_OWNER_PTR_OFFSET)
+        }
+        _ => {}
     }
 
     let parent_offset = match source_type_id {
@@ -175,10 +333,39 @@ pub fn get_source_parent(source_type_id: u32, source: *const usize) -> Option<(u
         // in some sled states, so gate on the handle index before trusting the pointer -
         // reading through it unconditionally would deref garbage in those states.
         0xC9F45042 => gated_parent_offset(source, 0x550, 0x558)?,
+        // Summon bodies -> summoner, via the validated entity handle.
+        hash if SUMMON_BODY_HASHES.contains(&hash) => {
+            gated_parent_offset(source, SUMMON_OWNER_IDX_OFFSET, SUMMON_OWNER_PTR_OFFSET)?
+        }
         _ => return None,
     };
 
-    let parent_instance = parent_specified_instance_at(source, parent_offset)?;
+    parent_specified_instance_at(source, parent_offset)
+}
+
+/// Returns the parent entity of the source entity if necessary.
+///
+/// Offsets cross-checked against villith/relink-logs, which independently re-derived
+/// several of these for game 2.0.2: Ferry's ghost, Umlauf, and Seofon's Avatar all shifted
+/// (Ferry's ghost losing its old 0xE48 dropped ALL of Ferry's ghost damage - these had
+/// never been re-verified since the 2.0 update, unlike the hooks in mod.rs's setup_hooks
+/// that explicitly gate on it). Id's dragon form needs an entirely different offset plus a
+/// forced type - see its arm below. Summon-body sources (Lucilius, Managarmr, etc.) now
+/// fold into the summoning player's card instead of showing as their own unattributed
+/// actor - naming which specific summon it was is a separate follow-up.
+#[inline(always)]
+pub fn get_source_parent(source_type_id: u32, source: *const usize) -> Option<(u32, u32)> {
+    // Pl2000: Id's Dragon Form -> Pl1900. Handled ahead of the generic table: the dragon
+    // actor carries its own player key that doesn't resolve normally through the type-id
+    // vfunc (a recruited/duplicate-slot Id quirk), so the type is forced back onto the
+    // human form here rather than read off the resolved parent. Still uses this project's
+    // own actor_idx (not a raw memory-read index) to stay consistent with every other actor.
+    if source_type_id == 0xF5755C0E {
+        let parent_instance = parent_specified_instance_at(source, 0x1CA98)?;
+        return Some((ID_HUMAN_TYPE, actor_idx(parent_instance)));
+    }
+
+    let parent_instance = resolve_source_parent_ptr(source_type_id, source)?;
     // actor_type_id makes a vtable call; probe the slot first so a stale offset (or a
     // source mid-teardown) fails closed instead of crashing the game thread.
     if !mem::vtable_slot_readable(parent_instance, 0x58) {

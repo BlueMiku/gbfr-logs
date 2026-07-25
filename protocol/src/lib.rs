@@ -94,6 +94,17 @@ pub struct Sigil {
     pub notification_enum: u32,
 }
 
+/// One trait id/level pair - either a wrightstone-granted trait or an active
+/// innate weapon skill (see `WeaponInfo`). Naming/offsets cross-checked against
+/// villith/relink-logs, which independently arrived at the same structure.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct WeaponTraitPair {
+    /// Trait id (`SKILL_*` hash, the `traits` lang namespace).
+    pub id: u32,
+    /// Trait level; 0 when not (yet) known.
+    pub level: u32,
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct WeaponInfo {
     /// Weapon ID Hash
@@ -104,18 +115,12 @@ pub struct WeaponInfo {
     pub plus_marks: u32,
     /// Weapon's awakening level
     pub awakening_level: u32,
-    /// First trait ID
-    pub trait_1_id: u32,
-    /// First trait level
-    pub trait_1_level: u32,
-    /// Second trait ID
-    pub trait_2_id: u32,
-    /// Second trait level
-    pub trait_2_level: u32,
-    /// Third trait ID
-    pub trait_3_id: u32,
-    /// Third trait level
-    pub trait_3_level: u32,
+    /// The wrightstone's up-to-3 trait id/level pairs (e.g. "Glass Cannon", "DMG Cap").
+    pub wrightstone_traits: Vec<WeaponTraitPair>,
+    /// The weapon's active innate skills (e.g. "Catastrophe Nova") - distinct
+    /// from wrightstone traits above; shown in the character's Skills list
+    /// rather than the weapon's own trait section.
+    pub innate_traits: Vec<WeaponTraitPair>,
     /// Wrightstone used on the weapon
     pub wrightstone_id: u32,
     /// Current weapon level

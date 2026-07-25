@@ -160,17 +160,21 @@ export type Sigil = {
   notificationEnum: number;
 };
 
+export type WeaponTraitPair = {
+  id: number;
+  level: number;
+};
+
 export type WeaponInfo = {
   weaponId: number;
   starLevel: number;
   plusMarks: number;
   awakeningLevel: number;
-  trait1Id: number;
-  trait1Level: number;
-  trait2Id: number;
-  trait2Level: number;
-  trait3Id: number;
-  trait3Level: number;
+  /// The wrightstone's up-to-3 trait id/level pairs (e.g. "Glass Cannon", "DMG Cap").
+  wrightstoneTraits: WeaponTraitPair[];
+  /// The weapon's active innate skills (e.g. "Catastrophe Nova") - distinct from
+  /// wrightstone traits above.
+  innateTraits: WeaponTraitPair[];
   wrightstoneId: number;
   weaponLevel: number;
   weaponHp: number;

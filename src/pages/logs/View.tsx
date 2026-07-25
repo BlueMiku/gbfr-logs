@@ -44,6 +44,7 @@ import {
   exportScreenshotToClipboard,
   exportSimpleEncounterToClipboard,
   formatInPartyOrder,
+  formatSummonBonusValue,
   humanizeNumbers,
   millisecondsToElapsedFormat,
   openDamageCalculator,
@@ -53,6 +54,8 @@ import {
   translateOvermasteryId,
   translateQuestId,
   translateSigilId,
+  translateSummonBonusId,
+  translateSummonId,
   translateTraitId,
   translatedPlayerName,
 } from "@/utils";
@@ -638,6 +641,39 @@ export const ViewPage = () => {
                                 <Text size="xs" fs="italic" fw={300}>
                                   {formatOvermastery(overmastery)}
                                 </Text>
+                              </Placeholder>
+                            );
+                          })}
+                        </Table.Td>
+                      );
+                    })}
+                  </Table.Tr>
+                  <Table.Tr>
+                    {playerData.map((player) => {
+                      const summons = player.summonInfo?.summons || [];
+
+                      return (
+                        <Table.Td key={player.actorIndex}>
+                          <Text size="xs" fw={700}>
+                            {t("ui.player-summons")}
+                          </Text>
+                          {Array.from(Array(4).keys()).map((summonIndex) => {
+                            const summon = summons[summonIndex];
+                            const bonusValue = summon ? formatSummonBonusValue(summon.bonusId, summon.bonusLevel) : null;
+
+                            return (
+                              <Placeholder key={summonIndex} empty={!summon}>
+                                <Text size="xs" fs="italic" fw={300}>
+                                  {summon && translateSummonId(summon.summonId)}
+                                  {summon && summon.mainTraitId !== EMPTY_ID
+                                    ? ` - ${translateTraitId(summon.mainTraitId)} (Lvl. ${summon.mainTraitLevel})`
+                                    : ""}
+                                </Text>
+                                {bonusValue && (
+                                  <Text size="xs" fs="italic" fw={300}>
+                                    {translateSummonBonusId(summon.bonusId)} {bonusValue}
+                                  </Text>
+                                )}
                               </Placeholder>
                             );
                           })}

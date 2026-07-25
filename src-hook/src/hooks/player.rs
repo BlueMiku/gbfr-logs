@@ -8,8 +8,8 @@ use crate::{
     event,
     hooks::{
         actor_idx, actor_type_id,
-        ffi::{Overmasteries, PlayerStats, SigilList, VBuffer, WeaponInfo},
-        globals::{OVERMASTERY_OFFSET, PLAYER_DATA_OFFSET, SIGIL_OFFSET, WEAPON_OFFSET},
+        ffi::{EquippedSummons, Overmasteries, PlayerStats, SigilList, VBuffer, WeaponInfo},
+        globals::{OVERMASTERY_OFFSET, PLAYER_DATA_OFFSET, SIGIL_OFFSET, SUMMON_OFFSET, WEAPON_OFFSET},
         EMPTY_ID,
     },
     process::Process,
@@ -63,6 +63,7 @@ impl OnLoadPlayerHook {
         let player_offset = PLAYER_DATA_OFFSET.load(std::sync::atomic::Ordering::Relaxed);
         let weapon_offset = WEAPON_OFFSET.load(std::sync::atomic::Ordering::Relaxed);
         let overmastery_offset = OVERMASTERY_OFFSET.load(std::sync::atomic::Ordering::Relaxed);
+        let summon_offset = SUMMON_OFFSET.load(std::sync::atomic::Ordering::Relaxed);
         let sigil_offset = SIGIL_OFFSET.load(std::sync::atomic::Ordering::Relaxed);
 
         // player_data_offset is our one confirmed-working offset for game 2.0; without
@@ -159,6 +160,29 @@ impl OnLoadPlayerHook {
             None
         };
 
+        let summon_info = if summon_offset != 0 {
+            std::ptr::NonNull::new(unsafe { a1.byte_add(summon_offset as usize) } as *mut EquippedSummons)
+                .map(|info| {
+                    let info = unsafe { info.as_ref() };
+                    protocol::SummonInfo {
+                        summons: info
+                            .summons
+                            .iter()
+                            .filter(|summon| summon.summon_id != 0 && summon.summon_id != EMPTY_ID)
+                            .map(|summon| protocol::EquippedSummon {
+                                summon_id: summon.summon_id,
+                                main_trait_id: summon.main_trait_id,
+                                main_trait_level: summon.main_trait_level,
+                                bonus_id: summon.bonus_id,
+                                bonus_level: summon.bonus_level,
+                            })
+                            .collect(),
+                    }
+                })
+        } else {
+            None
+        };
+
         let sigil_list = if sigil_offset != 0 {
             std::ptr::NonNull::new(
                 unsafe { a1.byte_add(sigil_offset as usize).read() } as *mut SigilList,
@@ -223,6 +247,7 @@ impl OnLoadPlayerHook {
             character_type,
             weapon_info,
             overmastery_info,
+            summon_info,
         });
 
         #[cfg(feature = "console")]

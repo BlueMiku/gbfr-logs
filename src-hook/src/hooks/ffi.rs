@@ -178,6 +178,27 @@ pub struct Overmasteries {
     pub stats: [Overmastery; 4],
 }
 
+/// One equipped summon (v2.0.2 expansion: 4 account-level summons whose bonuses apply
+/// party-wide). Offsets cross-checked against villith/relink-logs, which independently
+/// reached the same layout via Ghidra decompilation.
+#[derive(Debug, Clone, Copy)]
+#[repr(C)]
+pub struct EquippedSummon {
+    pub summon_id: u32,
+    unk_04: u32,
+    pub main_trait_id: u32,
+    pub bonus_id: u32,
+    pub main_trait_level: u32,
+    pub bonus_level: u32,
+    unk_18: u32,
+}
+
+#[derive(Debug)]
+#[repr(C)]
+pub struct EquippedSummons {
+    pub summons: [EquippedSummon; 4],
+}
+
 pub struct VBuffer(pub *const usize);
 
 impl VBuffer {

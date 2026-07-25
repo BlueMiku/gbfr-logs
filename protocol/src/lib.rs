@@ -147,6 +147,25 @@ pub struct OvermasteryInfo {
     pub overmasteries: Vec<Overmastery>,
 }
 
+/// One equipped summon (v2.0.2 expansion: 4 account-level summons whose bonuses apply
+/// party-wide). Ids are game hashes: `summon_id` keys `summon.tbl`, `main_trait_id` is an
+/// ordinary trait id (the `traits:` lang namespace names it), `bonus_id` keys
+/// `summon_base_param.tbl`. `bonus_level` is 0-indexed against that table's ten
+/// LevelNValue columns.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct EquippedSummon {
+    pub summon_id: u32,
+    pub main_trait_id: u32,
+    pub main_trait_level: u32,
+    pub bonus_id: u32,
+    pub bonus_level: u32,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct SummonInfo {
+    pub summons: Vec<EquippedSummon>,
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct PlayerStats {
     pub level: u32,
@@ -170,6 +189,8 @@ pub struct PlayerLoadEvent {
     pub weapon_info: Option<WeaponInfo>,
     /// None when the game 2.0 overmastery-offset lookup hasn't been re-derived yet.
     pub overmastery_info: Option<OvermasteryInfo>,
+    /// None when the game 2.0 summon-offset lookup hasn't been re-derived yet.
+    pub summon_info: Option<SummonInfo>,
     pub player_stats: PlayerStats,
 }
 

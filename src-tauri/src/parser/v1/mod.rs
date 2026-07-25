@@ -147,6 +147,42 @@ impl From<protocol::OvermasteryInfo> for OvermasteryInfo {
     }
 }
 
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct EquippedSummon {
+    pub summon_id: u32,
+    pub main_trait_id: u32,
+    pub main_trait_level: u32,
+    pub bonus_id: u32,
+    pub bonus_level: u32,
+}
+
+impl From<protocol::EquippedSummon> for EquippedSummon {
+    fn from(summon: protocol::EquippedSummon) -> Self {
+        Self {
+            summon_id: summon.summon_id,
+            main_trait_id: summon.main_trait_id,
+            main_trait_level: summon.main_trait_level,
+            bonus_id: summon.bonus_id,
+            bonus_level: summon.bonus_level,
+        }
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct SummonInfo {
+    pub summons: Vec<EquippedSummon>,
+}
+
+impl From<protocol::SummonInfo> for SummonInfo {
+    fn from(info: protocol::SummonInfo) -> Self {
+        Self {
+            summons: info.summons.into_iter().map(EquippedSummon::from).collect(),
+        }
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct PlayerStats {
@@ -215,6 +251,8 @@ pub struct PlayerData {
     weapon_info: Option<WeaponInfo>,
     /// Overmastery info for this player
     overmastery_info: Option<OvermasteryInfo>,
+    /// Equipped-summon info for this player
+    summon_info: Option<SummonInfo>,
     /// Player stats for this player
     player_stats: Option<PlayerStats>,
 }
@@ -790,6 +828,7 @@ impl Parser {
             sigils,
             weapon_info: event.weapon_info.map(Into::into),
             overmastery_info: event.overmastery_info.map(Into::into),
+            summon_info: event.summon_info.map(Into::into),
             player_stats: Some(event.player_stats.into()),
         };
 

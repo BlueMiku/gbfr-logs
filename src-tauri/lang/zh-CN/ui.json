@@ -28,6 +28,7 @@
     "weapon": "武器",
     "player-stats": "角色数据",
     "player-overmasteries": "上限突破",
+    "player-summons": "召唤",
     "logs": {
       "saved-count_zero": "还没有保存的日志",
       "saved-count_one": "已保存 {{count}} 条日志",

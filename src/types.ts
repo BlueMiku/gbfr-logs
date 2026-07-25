@@ -191,6 +191,18 @@ export type OvermasteryInfo = {
   overmasteries: Overmastery[];
 };
 
+export type EquippedSummon = {
+  summonId: number;
+  mainTraitId: number;
+  mainTraitLevel: number;
+  bonusId: number;
+  bonusLevel: number;
+};
+
+export type SummonInfo = {
+  summons: EquippedSummon[];
+};
+
 export type PlayerStats = {
   level: number;
   totalHp: number;
@@ -209,6 +221,7 @@ export type PlayerData = {
   isOnline: boolean;
   weaponInfo: WeaponInfo | null;
   overmasteryInfo: OvermasteryInfo | null;
+  summonInfo: SummonInfo | null;
   playerStats: PlayerStats | null;
 };
 

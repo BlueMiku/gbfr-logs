@@ -2,6 +2,7 @@ import { open } from "@tauri-apps/api/shell";
 import html2canvas from "html2canvas";
 import * as jsurl from "jsurl";
 import toast from "react-hot-toast";
+import summonBonusValues from "./assets/summon-bonus-values.json";
 import {
   CharacterType,
   ComputedPlayerState,
@@ -457,6 +458,39 @@ export const translateOvermasteryId = (id: number | null): string => {
   const hash = id.toString(16).padStart(8, "0");
 
   return t([`overmasteries:${hash}.text`, "ui.unknown"], { id: hash });
+};
+
+/// Translates the summon ID (summon table key) to a human-readable string.
+export const translateSummonId = (id: number | null): string => {
+  if (id === null) return "";
+  if (id === EMPTY_ID) return "";
+
+  const hash = id.toString(16).padStart(8, "0");
+
+  return t([`summons:${hash}.text`, "ui.unknown"], { id: hash });
+};
+
+/// Translates the summon equip-bonus ID (summon_base_param table key) to a human-readable string.
+export const translateSummonBonusId = (id: number | null): string => {
+  if (id === null) return "";
+  if (id === EMPTY_ID) return "";
+
+  const hash = id.toString(16).padStart(8, "0");
+
+  return t([`summon-bonuses:${hash}.text`, "ui.unknown"], { id: hash });
+};
+
+/// The real magnitude of a summon equip bonus at a given level (e.g. "+1800" or "+20%"),
+/// from the game's summon_base_param table. Null when the bonus id/level isn't in the
+/// extracted table.
+export const formatSummonBonusValue = (bonusId: number, bonusLevel: number): string | null => {
+  const entry = (summonBonusValues as Record<string, { values: number[]; percent: boolean }>)[
+    toHashString(bonusId)
+  ];
+  const value = entry?.values[bonusLevel];
+  if (value === undefined) return null;
+
+  return `+${value}${entry.percent ? "%" : ""}`;
 };
 
 /// Converts a number to a hexadecimal string.

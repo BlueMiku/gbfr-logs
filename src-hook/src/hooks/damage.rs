@@ -12,8 +12,8 @@ use retour::static_detour;
 use crate::{
     event,
     hooks::{
-        ffi::{DamageInstance, Overmasteries, PlayerStats, SigilList, VBuffer, WeaponInfo},
-        globals::{OVERMASTERY_OFFSET, PLAYER_DATA_OFFSET, SIGIL_OFFSET, WEAPON_OFFSET},
+        ffi::{DamageInstance, EquippedSummons, Overmasteries, PlayerStats, SigilList, VBuffer, WeaponInfo},
+        globals::{OVERMASTERY_OFFSET, PLAYER_DATA_OFFSET, SIGIL_OFFSET, SUMMON_OFFSET, WEAPON_OFFSET},
     },
     process::Process,
 };
@@ -192,6 +192,34 @@ fn maybe_send_player_stats(tx: &event::Tx, actor_index: u32, character_type: u32
         None
     };
 
+    // summon_offset is inline on the entity (player_data_offset+0x5DD8, confirmed against
+    // villith/relink-logs's independently-derived Ghidra offset), same access pattern as
+    // overmastery_offset.
+    let summon_offset = SUMMON_OFFSET.load(Ordering::Relaxed);
+    let summon_info = if summon_offset != 0 {
+        std::ptr::NonNull::new(unsafe { entity_ptr.byte_add(summon_offset as usize) } as *mut EquippedSummons).map(
+            |info| {
+                let info = unsafe { info.as_ref() };
+                protocol::SummonInfo {
+                    summons: info
+                        .summons
+                        .iter()
+                        .filter(|summon| summon.summon_id != 0 && summon.summon_id != EMPTY_ID)
+                        .map(|summon| protocol::EquippedSummon {
+                            summon_id: summon.summon_id,
+                            main_trait_id: summon.main_trait_id,
+                            main_trait_level: summon.main_trait_level,
+                            bonus_id: summon.bonus_id,
+                            bonus_level: summon.bonus_level,
+                        })
+                        .collect(),
+                }
+            },
+        )
+    } else {
+        None
+    };
+
     let payload = Message::PlayerLoadEvent(protocol::PlayerLoadEvent {
         sigils,
         character_name,
@@ -211,6 +239,7 @@ fn maybe_send_player_stats(tx: &event::Tx, actor_index: u32, character_type: u32
         character_type,
         weapon_info,
         overmastery_info,
+        summon_info,
     });
 
     let _ = tx.send(payload);

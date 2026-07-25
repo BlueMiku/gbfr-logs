@@ -10,6 +10,7 @@ pub static QUEST_STATE_PTR: AtomicPtr<QuestState> = AtomicPtr::new(ptr::null_mut
 pub static PLAYER_DATA_OFFSET: AtomicU32 = AtomicU32::new(0);
 pub static WEAPON_OFFSET: AtomicU32 = AtomicU32::new(0);
 pub static OVERMASTERY_OFFSET: AtomicU32 = AtomicU32::new(0);
+pub static SUMMON_OFFSET: AtomicU32 = AtomicU32::new(0);
 pub static SIGIL_OFFSET: AtomicU32 = AtomicU32::new(0);
 pub static SBA_OFFSET: AtomicU32 = AtomicU32::new(0);
 
@@ -51,6 +52,12 @@ const WEAPON_OFFSET_GAME_2: u32 = 0x15080;
 /// matches our existing `Overmastery` struct exactly, so only the offset was wrong.
 const OVERMASTERY_OFFSET_GAME_2: u32 = 0x58B8;
 
+/// The 4 equipped-summon entries (account-level, party-wide bonuses) are also inline on
+/// the entity in game 2.0 (player_data_offset+0x5DD8). Cross-verified against
+/// villith/relink-logs, which independently reached the same offset via Ghidra
+/// decompilation.
+const SUMMON_OFFSET_GAME_2: u32 = 0x5DD8;
+
 pub fn setup_globals(process: &Process) -> Result<()> {
     MODULE_BASE.store(process.base_address, std::sync::atomic::Ordering::Relaxed);
 
@@ -77,6 +84,13 @@ pub fn setup_globals(process: &Process) -> Result<()> {
     println!("overmastery_offset: {:x}", overmastery_offset);
 
     OVERMASTERY_OFFSET.store(overmastery_offset, std::sync::atomic::Ordering::Relaxed);
+
+    let summon_offset = player_data_offset + SUMMON_OFFSET_GAME_2;
+
+    #[cfg(feature = "console")]
+    println!("summon_offset: {:x}", summon_offset);
+
+    SUMMON_OFFSET.store(summon_offset, std::sync::atomic::Ordering::Relaxed);
 
     // sba_offset is still unresolved for game 2.0 (same dead byte-pattern issue
     // weapon_offset/overmastery_offset had) - kept non-fatal so a failure here

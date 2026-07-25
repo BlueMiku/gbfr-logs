@@ -28,6 +28,7 @@
     "weapon": "武器",
     "player-stats": "角色面板",
     "player-overmasteries": "界限突破",
+    "player-summons": "召喚",
     "logs": {
       "saved-count_zero": "還沒有保存的紀錄",
       "saved-count_one": "已保存 {{count}} 條紀錄",

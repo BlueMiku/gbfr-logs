@@ -8,9 +8,12 @@ use crate::{
     event,
     hooks::{
         actor_idx, actor_type_id,
+        damage::{parse_weapon_info, BLOB_WEAPON_STATE_OFFSET},
         ffi::{EquippedSummons, Overmasteries, PlayerStats, SigilList, VBuffer, WeaponInfo},
-        globals::{OVERMASTERY_OFFSET, PLAYER_DATA_OFFSET, SIGIL_OFFSET, SUMMON_OFFSET, WEAPON_OFFSET},
-        EMPTY_ID,
+        globals::{
+            OVERMASTERY_OFFSET, PLAYER_DATA_OFFSET, SIGIL_OFFSET, SUMMON_OFFSET, WEAPON_BLOB_OFFSET, WEAPON_OFFSET,
+        },
+        mem, EMPTY_ID,
     },
     process::Process,
 };
@@ -87,53 +90,15 @@ impl OnLoadPlayerHook {
         // (see globals.rs) - each of these degrades independently to None/empty
         // rather than blocking the player stats we do have.
         let weapon_info = if weapon_offset != 0 {
-            std::ptr::NonNull::new(unsafe { a1.byte_add(weapon_offset as usize) } as *mut WeaponInfo)
-                .map(|info| {
-                    let info = unsafe { info.as_ref() };
-
-                    let valid_id = |id: u32| id != 0 && id != EMPTY_ID;
-
-                    let wrightstone_traits = [
-                        (info.wrightstone_trait_1_id, info.wrightstone_trait_1_level),
-                        (info.wrightstone_trait_2_id, info.wrightstone_trait_2_level),
-                        (info.wrightstone_trait_3_id, info.wrightstone_trait_3_level),
-                    ]
-                    .into_iter()
-                    .filter(|(id, _)| valid_id(*id))
-                    .map(|(id, level)| protocol::WeaponTraitPair { id, level })
-                    .collect();
-
-                    let innate_traits = info
-                        .innate_skill_ids
-                        .iter()
-                        .copied()
-                        .take_while(|id| valid_id(*id))
-                        .map(|id| {
-                            let level = info
-                                .innate_level_pairs
-                                .iter()
-                                .find(|pair| pair.id == id)
-                                .map(|pair| pair.level)
-                                .filter(|level| *level <= 99)
-                                .unwrap_or(0);
-
-                            protocol::WeaponTraitPair { id, level }
-                        })
-                        .collect();
-
-                    protocol::WeaponInfo {
-                        weapon_id: info.weapon_id,
-                        star_level: info.star_level,
-                        plus_marks: info.plus_marks,
-                        awakening_level: info.awakening_level,
-                        wrightstone_traits,
-                        innate_traits,
-                        wrightstone_id: info.wrightstone_id,
-                        weapon_level: info.weapon_level,
-                        weapon_hp: info.weapon_hp,
-                        weapon_attack: info.weapon_attack,
-                    }
-                })
+            parse_weapon_info(unsafe { a1.byte_add(weapon_offset as usize) } as *const WeaponInfo).or_else(|| {
+                let weapon_blob_offset = WEAPON_BLOB_OFFSET.load(std::sync::atomic::Ordering::Relaxed);
+                if weapon_blob_offset == 0 {
+                    return None;
+                }
+                let blob = mem::read_ptr_guarded(a1 as usize, weapon_blob_offset as usize)
+                    .filter(|blob| *blob > 0x10000)?;
+                parse_weapon_info((blob + BLOB_WEAPON_STATE_OFFSET) as *const WeaponInfo)
+            })
         } else {
             None
         };

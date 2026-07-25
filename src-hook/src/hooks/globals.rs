@@ -11,6 +11,7 @@ pub static PLAYER_DATA_OFFSET: AtomicU32 = AtomicU32::new(0);
 pub static WEAPON_OFFSET: AtomicU32 = AtomicU32::new(0);
 pub static OVERMASTERY_OFFSET: AtomicU32 = AtomicU32::new(0);
 pub static SUMMON_OFFSET: AtomicU32 = AtomicU32::new(0);
+pub static WEAPON_BLOB_OFFSET: AtomicU32 = AtomicU32::new(0);
 pub static SIGIL_OFFSET: AtomicU32 = AtomicU32::new(0);
 pub static SBA_OFFSET: AtomicU32 = AtomicU32::new(0);
 
@@ -58,6 +59,15 @@ const OVERMASTERY_OFFSET_GAME_2: u32 = 0x58B8;
 /// decompilation.
 const SUMMON_OFFSET_GAME_2: u32 = 0x5DD8;
 
+/// Fallback source for weapon state: the primary inline block (weapon_offset) isn't
+/// always populated - villith/relink-logs found it's filled by the game's own
+/// `FUN_140a2d8d0`, which for some record states (in practice, this looks like remote
+/// party members in certain online sync windows) leaves it empty. When that happens, the
+/// same struct layout is mirrored at a separately-allocated "network blob", reached via a
+/// pointer at player_data_offset+0x5E80. Cross-checked against villith/relink-logs, which
+/// independently reached the same offset.
+const WEAPON_BLOB_OFFSET_GAME_2: u32 = 0x5E80;
+
 pub fn setup_globals(process: &Process) -> Result<()> {
     MODULE_BASE.store(process.base_address, std::sync::atomic::Ordering::Relaxed);
 
@@ -91,6 +101,13 @@ pub fn setup_globals(process: &Process) -> Result<()> {
     println!("summon_offset: {:x}", summon_offset);
 
     SUMMON_OFFSET.store(summon_offset, std::sync::atomic::Ordering::Relaxed);
+
+    let weapon_blob_offset = player_data_offset + WEAPON_BLOB_OFFSET_GAME_2;
+
+    #[cfg(feature = "console")]
+    println!("weapon_blob_offset: {:x}", weapon_blob_offset);
+
+    WEAPON_BLOB_OFFSET.store(weapon_blob_offset, std::sync::atomic::Ordering::Relaxed);
 
     // sba_offset is still unresolved for game 2.0 (same dead byte-pattern issue
     // weapon_offset/overmastery_offset had) - kept non-fatal so a failure here

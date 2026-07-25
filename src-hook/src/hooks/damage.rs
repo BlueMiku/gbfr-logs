@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use std::ffi::{CStr, CString};
 use std::ptr::NonNull;
-use std::sync::atomic::Ordering;
+use std::sync::atomic::{AtomicU32, Ordering};
 use std::sync::{Mutex, OnceLock};
 use std::time::{Duration, Instant};
 
@@ -13,7 +13,10 @@ use crate::{
     event,
     hooks::{
         ffi::{DamageInstance, EquippedSummons, Overmasteries, PlayerStats, SigilList, VBuffer, WeaponInfo},
-        globals::{OVERMASTERY_OFFSET, PLAYER_DATA_OFFSET, SIGIL_OFFSET, SUMMON_OFFSET, WEAPON_OFFSET},
+        globals::{
+            OVERMASTERY_OFFSET, PLAYER_DATA_OFFSET, SIGIL_OFFSET, SUMMON_OFFSET, WEAPON_BLOB_OFFSET, WEAPON_OFFSET,
+        },
+        mem,
     },
     process::Process,
 };
@@ -27,6 +30,128 @@ use super::{actor_idx, actor_type_id, get_source_parent, published_actor_type, E
 /// character-switch memory operations). This sidesteps needing that event at all:
 /// every damage hit already gives us a live pointer to the attacker's entity.
 const PLAYER_STATS_RESEND_INTERVAL: Duration = Duration::from_secs(5);
+
+/// Parses a `WeaponInfo`-shaped struct at `ptr` into the wire type. Returns `None` if the
+/// pointer is unreadable or the struct looks unpopulated (`weapon_id == 0`) - the signal
+/// callers use to fall back to the network blob (see WEAPON_BLOB_OFFSET's doc comment in
+/// globals.rs).
+pub(super) fn parse_weapon_info(ptr: *const WeaponInfo) -> Option<protocol::WeaponInfo> {
+    let info = std::ptr::NonNull::new(ptr as *mut WeaponInfo)?;
+    let info = unsafe { info.as_ref() };
+    if info.weapon_id == 0 {
+        return None;
+    }
+
+    let valid_id = |id: u32| id != 0 && id != EMPTY_ID;
+
+    let wrightstone_traits = [
+        (info.wrightstone_trait_1_id, info.wrightstone_trait_1_level),
+        (info.wrightstone_trait_2_id, info.wrightstone_trait_2_level),
+        (info.wrightstone_trait_3_id, info.wrightstone_trait_3_level),
+    ]
+    .into_iter()
+    .filter(|(id, _)| valid_id(*id))
+    .map(|(id, level)| protocol::WeaponTraitPair { id, level })
+    .collect();
+
+    // Active innate skill ids are sentinel-terminated; each id's level is looked up from
+    // innate_level_pairs *by id*, not by index (an unmatched id degrades to level 0). See
+    // feedback_re_methodology memory.
+    let innate_traits = info
+        .innate_skill_ids
+        .iter()
+        .copied()
+        .take_while(|id| valid_id(*id))
+        .map(|id| {
+            let level = info
+                .innate_level_pairs
+                .iter()
+                .find(|pair| pair.id == id)
+                .map(|pair| pair.level)
+                .filter(|level| *level <= 99)
+                .unwrap_or(0);
+
+            protocol::WeaponTraitPair { id, level }
+        })
+        .collect();
+
+    Some(protocol::WeaponInfo {
+        weapon_id: info.weapon_id,
+        star_level: info.star_level,
+        plus_marks: info.plus_marks,
+        awakening_level: info.awakening_level,
+        wrightstone_traits,
+        innate_traits,
+        wrightstone_id: info.wrightstone_id,
+        weapon_level: info.weapon_level,
+        weapon_hp: info.weapon_hp,
+        weapon_attack: info.weapon_attack,
+    })
+}
+
+/// Struct offset within the network blob (see WEAPON_BLOB_OFFSET's doc comment in
+/// globals.rs) - mirrors the same relative position weapon_offset already points to
+/// directly on the entity.
+pub(super) const BLOB_WEAPON_STATE_OFFSET: usize = 0x50;
+
+/// RVA of the game's global weapon-instance table singleton (cross-checked against
+/// villith/relink-logs, which independently reached it via Ghidra decompilation - their
+/// own code only reads the innate-skill portion of this table, not wrightstone, so this
+/// diagnostic is verifying new ground, not confirming a known-working port). 32 rows ×
+/// 0x680 from +0x370; each row is 8 columns × 0xD0. A column's leading u32 is the
+/// "instance key" that WeaponInfo.unk_00 should match.
+const WEAPON_TABLE_RVA: usize = 0x7c24af8;
+const WS_TABLE_BASE: usize = 0x370;
+const WS_TABLE_ROWS: usize = 32;
+const WS_TABLE_ROW_STRIDE: usize = 0x680;
+const WS_TABLE_COLS: usize = 8;
+const WS_TABLE_COL_STRIDE: usize = 0xD0;
+
+/// Read-only diagnostic for the "does the weapon-instance table carry wrightstone data"
+/// hypothesis: for a player whose WeaponInfo.unk_00 acts as a table key, scans the global
+/// table for the matching column and dumps its raw contents via log::info!, alongside
+/// whatever wrightstone_id we already resolved from the primary/blob source.
+///
+/// Critically, this fires for EVERY player, not just ones with a missing wrightstone -
+/// the local player's already-known-correct wrightstone_id is the ground truth this
+/// verifies the table's byte layout against, before that layout is ever trusted for a
+/// remote player where we have no independent way to check it. Never touches the real
+/// display path. Rate-limited so a long session doesn't flood the log.
+fn log_weapon_table_diag(actor_index: u32, table_key: u32, known_wrightstone_id: u32) {
+    static CALLS: AtomicU32 = AtomicU32::new(0);
+    let call = CALLS.fetch_add(1, Ordering::Relaxed);
+    if call >= 60 || table_key == 0 {
+        return;
+    }
+
+    let module = crate::hooks::globals::MODULE_BASE.load(Ordering::Relaxed);
+    if module == 0 {
+        return;
+    }
+    let Some(table) = mem::read_ptr_guarded(module, WEAPON_TABLE_RVA).filter(|t| *t != 0) else {
+        log::info!("WSTABLEDIAG call={call} actor={actor_index} table_key={table_key:#x} table pointer not resolved");
+        return;
+    };
+
+    for row in 0..WS_TABLE_ROWS {
+        for col in 0..WS_TABLE_COLS {
+            let entry = table + WS_TABLE_BASE + row * WS_TABLE_ROW_STRIDE + col * WS_TABLE_COL_STRIDE;
+            if mem::read_u32_guarded(entry, 0) != table_key {
+                continue;
+            }
+            let ints: Vec<u32> = (0..24).map(|i| mem::read_u32_guarded(entry, i * 4)).collect();
+            log::info!(
+                "WSTABLEDIAG call={call} actor={actor_index} table_key={table_key:#x} \
+                 known_wrightstone={known_wrightstone_id:#x} row={row} col={col} entry={entry:#x} ints={ints:08x?}"
+            );
+            return;
+        }
+    }
+    log::info!(
+        "WSTABLEDIAG call={call} actor={actor_index} table_key={table_key:#x} \
+         known_wrightstone={known_wrightstone_id:#x} no matching column found"
+    );
+}
 
 fn maybe_send_player_stats(tx: &event::Tx, actor_index: u32, character_type: u32, entity_ptr: *const usize) {
     let player_offset = PLAYER_DATA_OFFSET.load(Ordering::Relaxed);
@@ -112,57 +237,30 @@ fn maybe_send_player_stats(tx: &event::Tx, actor_index: u32, character_type: u32
     // player_data_offset, unlike sigil_offset's extra indirection.
     let weapon_offset = WEAPON_OFFSET.load(Ordering::Relaxed);
     let weapon_info = if weapon_offset != 0 {
-        std::ptr::NonNull::new(unsafe { entity_ptr.byte_add(weapon_offset as usize) } as *mut WeaponInfo).map(
-            |info| {
-                let info = unsafe { info.as_ref() };
+        let primary_ptr = unsafe { entity_ptr.byte_add(weapon_offset as usize) } as *const WeaponInfo;
 
-                let valid_id = |id: u32| id != 0 && id != EMPTY_ID;
-
-                let wrightstone_traits = [
-                    (info.wrightstone_trait_1_id, info.wrightstone_trait_1_level),
-                    (info.wrightstone_trait_2_id, info.wrightstone_trait_2_level),
-                    (info.wrightstone_trait_3_id, info.wrightstone_trait_3_level),
-                ]
-                .into_iter()
-                .filter(|(id, _)| valid_id(*id))
-                .map(|(id, level)| protocol::WeaponTraitPair { id, level })
-                .collect();
-
-                // Active innate skill ids are sentinel-terminated; each id's level is
-                // looked up from innate_level_pairs *by id*, not by index (an
-                // unmatched id degrades to level 0). See feedback_re_methodology memory.
-                let innate_traits = info
-                    .innate_skill_ids
-                    .iter()
-                    .copied()
-                    .take_while(|id| valid_id(*id))
-                    .map(|id| {
-                        let level = info
-                            .innate_level_pairs
-                            .iter()
-                            .find(|pair| pair.id == id)
-                            .map(|pair| pair.level)
-                            .filter(|level| *level <= 99)
-                            .unwrap_or(0);
-
-                        protocol::WeaponTraitPair { id, level }
-                    })
-                    .collect();
-
-                protocol::WeaponInfo {
-                    weapon_id: info.weapon_id,
-                    star_level: info.star_level,
-                    plus_marks: info.plus_marks,
-                    awakening_level: info.awakening_level,
-                    wrightstone_traits,
-                    innate_traits,
-                    wrightstone_id: info.wrightstone_id,
-                    weapon_level: info.weapon_level,
-                    weapon_hp: info.weapon_hp,
-                    weapon_attack: info.weapon_attack,
-                }
-            },
-        )
+        // A third fallback (the game's global weapon-instance table - see
+        // log_weapon_table_diag, disabled below) was investigated 2026-07-26 for the
+        // cases where neither the primary block nor the network blob carry a
+        // remote player's wrightstone. Its column layout is confirmed to match
+        // WeaponInfo byte-for-byte, so reading it needs zero new parsing code -
+        // but every remote-player sample had a zero instance key (WeaponInfo.unk_00),
+        // and that key is what the table lookup requires. The blob that carries a
+        // remote player's weapon data just doesn't carry a usable one. Blocked pending
+        // a different key source for remote players specifically.
+        parse_weapon_info(primary_ptr).or_else(|| {
+            // The primary inline block isn't always populated (in practice, this looks
+            // like remote party members in certain online sync windows) - fall back to
+            // the network blob, a separately-allocated mirror of the same struct layout.
+            // See WEAPON_BLOB_OFFSET's doc comment in globals.rs.
+            let weapon_blob_offset = WEAPON_BLOB_OFFSET.load(Ordering::Relaxed);
+            if weapon_blob_offset == 0 {
+                return None;
+            }
+            let blob = mem::read_ptr_guarded(entity_ptr as usize, weapon_blob_offset as usize)
+                .filter(|blob| *blob > 0x10000)?;
+            parse_weapon_info((blob + BLOB_WEAPON_STATE_OFFSET) as *const WeaponInfo)
+        })
     } else {
         None
     };

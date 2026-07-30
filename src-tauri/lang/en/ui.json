@@ -344,6 +344,13 @@
       "3000": "Fire",
       "4000": "Flowery Seven",
       "4001": "Flowery Seven (Full Charge)",
+      "4200": "Flowery Seven Overload I",
+      "4201": "Flowery Seven Overload II",
+      "4202": "Flowery Seven Overload III",
+      "4203": "Flowery Seven Overload IV",
+      "4204": "Flowery Seven Overload V",
+      "4205": "Flowery Seven Overload VI",
+      "4206": "Flowery Seven Overload VII",
       "7200": "Gravity Well (Mystic Vortex 0)",
       "7201": "Gravity Well (Mystic Vortex 1)",
       "7202": "Gravity Well (Mystic Vortex 2)",
@@ -357,6 +364,7 @@
         "stargaze": "Stargaze",
         "aerial-attack": "Aerial Attack",
         "flowery-seven": "Flowery Seven",
+        "flowery-seven-overload": "Flowery Seven Overload",
         "gravity-well": "Gravity Well",
         "lightning": "Lightning"
       }

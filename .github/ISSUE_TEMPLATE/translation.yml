@@ -1,0 +1,63 @@
+name: Translation / game data label fix
+description: Report a missing or wrong skill, sigil, trait, item label, or translation
+title: "[Translation]: "
+labels: ["translation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to report a missing/wrong skill, sigil, trait, or item label, an incorrect translation, or a missing language. Please fill out as much detail as you can - screenshots help a lot.
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      description: Which language is this about?
+      options:
+        - English (en)
+        - Simplified Chinese (zh-CN)
+        - Traditional Chinese (zh-TW)
+        - Korean (ko-KR)
+        - Japanese (jp)
+        - French (fr-FR)
+        - Brazilian Portuguese (bp)
+        - German (ge)
+        - Spanish (es-ES)
+        - Italian (it-IT)
+        - Other / new language
+    validations:
+      required: true
+  - type: dropdown
+    id: change-type
+    attributes:
+      label: Type of change
+      options:
+        - Missing or wrong skill / sigil / trait / item label (game data)
+        - Incorrect translation / wording
+        - Missing translation (untranslated text)
+        - New language request
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: location
+    attributes:
+      label: Where is this?
+      description: Character/skill name, action ID if you know it, or the menu/screen where you saw this.
+      placeholder: e.g. Io's skill 4200 shows as "Skill 4200" in the breakdown
+    validations:
+      required: true
+  - type: input
+    id: current-text
+    attributes:
+      label: Current text
+      description: What does it currently show (if anything)?
+  - type: input
+    id: suggested-text
+    attributes:
+      label: Suggested text
+      description: What should it show instead?
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional notes
+      description: Anything else that helps - screenshots, in-game context, etc.

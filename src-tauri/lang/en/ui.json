@@ -13,6 +13,7 @@
     "horizontal-overlay-columns-note": "HorizontalOverlay only shows the first two columns below (as the primary/secondary stat on each card), so adding more won't do anything - reorder or remove columns instead.",
     "meter-settings": "Meter Settings",
     "settings": "Settings",
+    "submit-missing-label": "Submit a missing/wrong label (skill, sigil, trait, item, translation...)",
     "back-btn": "Back",
     "delete-btn": "Delete",
     "cancel-btn": "Cancel",

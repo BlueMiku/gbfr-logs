@@ -47,6 +47,7 @@ i18n
       "enemies",
       "summons",
       "summon-bonuses",
+      "abilities",
     ],
     defaultNS: "ui",
     fallbackLng: {
